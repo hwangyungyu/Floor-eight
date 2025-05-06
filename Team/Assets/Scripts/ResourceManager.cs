@@ -15,11 +15,12 @@ public class ResourceManager : MonoBehaviour
 
     public event Action OnResourceChanged;
 
-    private void Awake()
+    private void Awake() //싱글톤 선언
     {
         Instance = this;
     }
 
+    // 자원들이 우선 0아래의 값을 가지지 않도록만 해놓은 프로퍼티입니다.
     public int Food
     {
         get { return food; }
@@ -90,19 +91,8 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    public void TestPopu()
+    public void TestPopu() // 디버그1 버튼 작동시 동작하는 테스트용 시민 숫자 증가 코드입니다.
     {
         Population += 1;
-    }
-
-    public void Initialize(int food, int utilityItem, int medicine, int defense, int mental, int madness, int population)
-    {
-        Food = food;
-        UtilityItem = utilityItem;
-        Medicine = medicine;
-        Defense = defense;
-        Mental = mental;
-        Madness = madness;
-        Population = population;
     }
 }

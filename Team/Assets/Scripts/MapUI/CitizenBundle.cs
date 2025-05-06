@@ -15,11 +15,9 @@ public class CitizenBundle : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         citizenCount = ResourceManager.Instance.Population;
         UpdateQuantityText();
-    }
 
-    private void OnEnable()
-    {
-        if (DropZoneManager.Instance != null)
+
+        if (DropZoneManager.Instance != null) //임의적으로 우선 이벤트 구독 절차를 Start로 옮겼습니다.
         {
             DropZoneManager.Instance.OnTestReset += TestReset;
         }
@@ -32,9 +30,13 @@ public class CitizenBundle : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             DropZoneManager.Instance.OnTestReset -= TestReset;
         }
     }
-    public void TestReset() //별도의 날짜 전환을 총괄하는 클래스를 만들어 이벤트를 구독하게 하는 방식으로 바꿔야 할듯
+    public void TestReset()
     {
+        Debug.Log("TestReset() called");
+
         citizenCount = ResourceManager.Instance.Population;
+        Debug.Log($"Updated citizenCount: {citizenCount}");
+
         UpdateQuantityText();
     }
 

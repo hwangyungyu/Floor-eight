@@ -23,6 +23,7 @@ public class DropZoneManager : MonoBehaviour
     {
         Debug.Log("DropZoneManager: TestReset triggered");
         OnTestReset?.Invoke(); // 이벤트 발생
+        UpdateTotal();
     }
 
 

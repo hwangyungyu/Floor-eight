@@ -26,8 +26,12 @@ public class ResourceManager : MonoBehaviour
         get { return food; }
         set
         {
+            int temp = food;
             food = Mathf.Max(0, value);
-            OnResourceChanged?.Invoke();
+            if(temp != food)
+            {
+                OnResourceChanged?.Invoke();
+            }
         }
     }
 
@@ -36,8 +40,12 @@ public class ResourceManager : MonoBehaviour
         get { return utilityItem; }
         set
         {
+            int temp = utilityItem;
             utilityItem = Mathf.Max(0, value);
-            OnResourceChanged?.Invoke();
+            if (temp != utilityItem)
+            {
+                OnResourceChanged?.Invoke();
+            }
         }
     }
 
@@ -46,8 +54,12 @@ public class ResourceManager : MonoBehaviour
         get { return medicine; }
         set
         {
+            int temp = medicine;
             medicine = Mathf.Max(0, value);
-            OnResourceChanged?.Invoke();
+            if (temp != medicine)
+            {
+                OnResourceChanged?.Invoke();
+            }
         }
     }
 
@@ -56,8 +68,12 @@ public class ResourceManager : MonoBehaviour
         get { return defense; }
         set
         {
+            int temp = defense;
             defense = Mathf.Max(0, value);
-            OnResourceChanged?.Invoke();
+            if (temp != defense)
+            {
+                OnResourceChanged?.Invoke();
+            }
         }
     }
 
@@ -66,8 +82,12 @@ public class ResourceManager : MonoBehaviour
         get { return mental; }
         set
         {
+            int temp = mental;
             mental = Mathf.Max(0, value);
-            OnResourceChanged?.Invoke();
+            if (temp != mental)
+            {
+                OnResourceChanged?.Invoke();
+            }
         }
     }
 
@@ -76,8 +96,12 @@ public class ResourceManager : MonoBehaviour
         get { return madness; }
         set
         {
+            int temp = madness;
             madness = Mathf.Max(0, value);
-            OnResourceChanged?.Invoke();
+            if (temp != madness)
+            {
+                OnResourceChanged?.Invoke();
+            }
         }
     }
 
@@ -86,8 +110,12 @@ public class ResourceManager : MonoBehaviour
         get { return population; }
         set
         {
+            int temp = population;
             population = Mathf.Max(0, value);
-            OnResourceChanged?.Invoke();
+            if (temp != population)
+            {
+                OnResourceChanged?.Invoke();
+            }
         }
     }
 

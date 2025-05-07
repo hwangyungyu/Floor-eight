@@ -2,9 +2,8 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "EventCard", menuName = "Scriptable Objects/EventCard")]
-[System.Serializable]  //Å×½ºÆ®¿ë
+[System.Serializable]  //í…ŒìŠ¤íŠ¸ìš©
 public class EventCard : ScriptableObject
 {
     public string testName;
-    //±×¸®°í ¾Æ¹«µµ ¾ø¾ú´Ù
 }

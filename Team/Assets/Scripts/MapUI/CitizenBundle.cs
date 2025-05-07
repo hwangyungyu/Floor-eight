@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CitizenBundle : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class CitizenBundle : MonoBehaviour, IBeginDragHandler, IDragHandler
 {
     public GameObject citizenPrefab;
     public Transform canvasTransform;
@@ -25,10 +25,8 @@ public class CitizenBundle : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void TestReset()  //이벤트를 구독해서 작동하는 테스트용 리셋 함수 입니다. 다음 일차로 넘어가면서 시민이 배치되어 있는 걸 초기화 하는걸 임의적으로 구현한 코드입니다.
     {
-        Debug.Log("TestReset() called");
 
         citizenCount = ResourceManager.Instance.Population;
-        Debug.Log($"Updated citizenCount: {citizenCount}");
 
         UpdateQuantityText();
     }
@@ -75,13 +73,7 @@ public class CitizenBundle : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnDrag(PointerEventData eventData) 
     {
-        //아무 작동도 하지 않지만 이 코드가 없으면 IDragHandler, IEndDragHandler가 정상 작동하지 않고, 그 둘이 없으면 OnBeginDrag가 정상
-        //호출 되지 않습니다.
-    }
-
-    public void OnEndDrag(PointerEventData eventData) //드래그 종료
-    {
-        //아무 작동도 하지 않지만 이 코드가 없으면 IDragHandler, IEndDragHandler가 정상 작동하지 않고, 그 둘이 없으면 OnBeginDrag가 정상
-        //호출 되지 않습니다.
+        //아무 작동도 하지 않지만 이 코드가 없으면 IDragHandler가 정상 작동하지 않고
+        //IDragHandler가 없으면 OnBeginDrag가 정상호출 되지 않습니다.
     }
 }

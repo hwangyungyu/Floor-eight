@@ -10,7 +10,7 @@ public class ResourceUI : MonoBehaviour
     [SerializeField] private Text amountDef;
     [SerializeField] private Text amountMen;
     [SerializeField] private Text amountMad;
-    [SerializeField] private Text amountPopulation;
+    [SerializeField] private Text amountPopulation;  //각 자원의 수량을 보여주는 텍스트들 입니다. 일부는 지정되지 않았습니다.
 
     private ResourceManager resourceManager;
 
@@ -19,7 +19,7 @@ public class ResourceUI : MonoBehaviour
         resourceManager = ResourceManager.Instance;
         if (resourceManager != null)
         {
-            resourceManager.OnResourceChanged += RefreshAmount;
+            resourceManager.OnResourceChanged += RefreshAmount; //자원 숫자가 변경될때 실행되는 이벤트를 구독
         }
         else
         {
@@ -33,7 +33,7 @@ public class ResourceUI : MonoBehaviour
         resourceManager.OnResourceChanged -= RefreshAmount;
     }
 
-    public void RefreshAmount()
+    public void RefreshAmount() //자원 증감시 자동으로 호출되서 UI의 현재 자원 숫자를 업데이트
     {
         if (amountFood != null)
             amountFood.text = $"{resourceManager.Food}";

@@ -3,60 +3,60 @@ using UnityEngine;
 
 public class EventCardManager : MonoBehaviour
 {
-    private static List<EventCardDeck> eventCardDeckList = new List<EventCardDeck>(); //ÀÌ ¸®½ºÆ®¿¡¼­ 0¹ø ÀÎµ¦½º´Â »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù. 1ÀÏÂ÷´Â 1¹ø ÀÎµ¦½º·Î »ı°¢ÇØÁÖ¼¼¿ä.
+    private static List<EventCardDeck> eventCardDeckList = new List<EventCardDeck>(); //ì´ ë¦¬ìŠ¤íŠ¸ì—ì„œ 0ë²ˆ ì¸ë±ìŠ¤ëŠ” ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. 1ì¼ì°¨ëŠ” 1ë²ˆ ì¸ë±ìŠ¤ë¡œ ìƒê°í•´ì£¼ì„¸ìš”.
 
-    private EventCard currentEventCard; // ÇöÀç È­¸é¿¡ Ç¥½Ã ÁßÀÎ ÀÌº¥Æ® Ä«µå
+    private EventCard currentEventCard; // í˜„ì¬ í™”ë©´ì— í‘œì‹œ ì¤‘ì¸ ì´ë²¤íŠ¸ ì¹´ë“œ
     public EventCard CurrentEventCard => currentEventCard;
 
-    private int currentCardDay = 1;  //DrawEventCard()¿¡¼­ ÇöÀç Ä«µå°¡ ¾î´À °÷¿¡¼­ ³ª¿Ô´ÂÁö¸¦ ÀúÀåÇÏ´Â º¯¼öµé
-    private int currentCardIndex = -1;  //ÀÓ½Ã·Î 1ÀÏÂ÷ -1¹øÀ» ÇöÀç Ä«µå·Î ÁöÁ¤Çß½À´Ï´Ù. DrawEventCard¸¦ »ç¿ë½Ã 1ÀÏÂ÷ 0¹øÀ» °¡Á®¿É´Ï´Ù.
+    private int currentCardDay = 1;  //DrawEventCard()ì—ì„œ í˜„ì¬ ì¹´ë“œê°€ ì–´ëŠ ê³³ì—ì„œ ë‚˜ì™”ëŠ”ì§€ë¥¼ ì €ì¥í•˜ëŠ” ë³€ìˆ˜ë“¤
+    private int currentCardIndex = -1;  //ì„ì‹œë¡œ 1ì¼ì°¨ -1ë²ˆì„ í˜„ì¬ ì¹´ë“œë¡œ ì§€ì •í–ˆìŠµë‹ˆë‹¤. DrawEventCardë¥¼ ì‚¬ìš©ì‹œ 1ì¼ì°¨ 0ë²ˆì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
 
-    // EventCardDeck¿¡¼­ ´ÙÀ½ Ä«µå¸¦ °¡Á®¿È
+    // EventCardDeckì—ì„œ ë‹¤ìŒ ì¹´ë“œë¥¼ ê°€ì ¸ì˜´
     public void DrawEventCard()
     {
-        // ÇöÀç ³¯Â¥°¡ À¯È¿ÇÏÁö ¾Ê´Ù¸é Á¾·á
+        // í˜„ì¬ ë‚ ì§œê°€ ìœ íš¨í•˜ì§€ ì•Šë‹¤ë©´ ì¢…ë£Œ
         if (!IsValidDay(currentCardDay)) return;
 
         EventCardDeck currentDeck = eventCardDeckList[currentCardDay];
 
-        // ÇöÀç ³¯Â¥ÀÇ Ä«µå µ¦ÀÌ ºñ¾îÀÖÀ¸¸é °æ°í Ãâ·Â ÈÄ Á¾·á
+        // í˜„ì¬ ë‚ ì§œì˜ ì¹´ë“œ ë±ì´ ë¹„ì–´ìˆìœ¼ë©´ ê²½ê³  ì¶œë ¥ í›„ ì¢…ë£Œ
         if (currentDeck.EventCardCount == 0)
         {
-            Debug.LogWarning("ÇöÀç ³¯Â¥ÀÇ Ä«µå µ¦ÀÌ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogWarning("í˜„ì¬ ë‚ ì§œì˜ ì¹´ë“œ ë±ì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // ÇöÀç Ä«µå°¡ ¸¶Áö¸· Ä«µå¶ó¸é ´ÙÀ½³¯ Ã¹¹øÂ° Ä«µå ºÒ·¯¿À±â(ÀÌ ÄÚµå°¡ ´ÙÀ½³¯·Î ³Ñ¾î°¡°Ô ÇØµµ µÇ´ÂÁö?)
+        // í˜„ì¬ ì¹´ë“œê°€ ë§ˆì§€ë§‰ ì¹´ë“œë¼ë©´ ë‹¤ìŒë‚  ì²«ë²ˆì§¸ ì¹´ë“œ ë¶ˆëŸ¬ì˜¤ê¸°(ì´ ì½”ë“œê°€ ë‹¤ìŒë‚ ë¡œ ë„˜ì–´ê°€ê²Œ í•´ë„ ë˜ëŠ”ì§€?) ì´ê±° ìˆ˜ì •í•´ì•¼ í• ê±° ê°™ìŠµë‹ˆë‹¤.
         if (currentCardIndex >= currentDeck.EventCardCount - 1)
         {
             currentCardDay++;
             currentCardIndex = -1;
 
-            // ´ÙÀ½ ³¯ÀÌ À¯È¿ÇÑÁö È®ÀÎ
+            // ë‹¤ìŒ ë‚ ì´ ìœ íš¨í•œì§€ í™•ì¸
             if (!IsValidDay(currentCardDay))
             {
-                Debug.LogWarning("´õ ÀÌ»ó °¡Á®¿Ã ÀÌº¥Æ® Ä«µå°¡ ¾ø½À´Ï´Ù.");
+                Debug.LogWarning("ë” ì´ìƒ ê°€ì ¸ì˜¬ ì´ë²¤íŠ¸ ì¹´ë“œê°€ ì—†ìŠµë‹ˆë‹¤.");
                 return;
             }
 
-            // ´ÙÀ½ ³¯ÀÇ µ¦À» ´Ù½Ã ¼³Á¤
+            // ë‹¤ìŒ ë‚ ì˜ ë±ì„ ë‹¤ì‹œ ì„¤ì •
             if (currentCardDay < eventCardDeckList.Count)
             {
                 currentDeck = eventCardDeckList[currentCardDay];
             }
             else
             {
-                Debug.LogWarning("¸ğµç ÀÌº¥Æ® Ä«µå¸¦ ¼ÒÁøÇß½À´Ï´Ù.");
+                Debug.LogWarning("ëª¨ë“  ì´ë²¤íŠ¸ ì¹´ë“œë¥¼ ì†Œì§„í–ˆìŠµë‹ˆë‹¤.");
                 return;
             }
         }
 
-        // Indexº¯¼ö ¾÷µ¥ÀÌÆ® ÈÄ Ä«µå µ¤¾î¾²±â
+        // Indexë³€ìˆ˜ ì—…ë°ì´íŠ¸ í›„ ì¹´ë“œ ë®ì–´ì“°ê¸°
         currentCardIndex++;
         currentEventCard = currentDeck.GetEventCard(currentCardIndex);
     }
 
-    // Æ¯Á¤³¯Â¥ÀÇ µ¦¿¡ Ä«µå »ğÀÔ
+    // íŠ¹ì •ë‚ ì§œì˜ ë±ì— ì¹´ë“œ ì‚½ì…
     public void InsertEventCardToDeck(int day, EventCard eventCard, int index)
     {
         if (IsValidDay(day))
@@ -65,7 +65,7 @@ public class EventCardManager : MonoBehaviour
         }
     }
 
-    // Æ¯Á¤ ³¯Â¥(day)ÀÇ Ä«µå µ¦¿¡ ÀÌº¥Æ® Ä«µå¸¦ Ãß°¡ÇÑ ÈÄ ¼¯À½
+    // íŠ¹ì • ë‚ ì§œ(day)ì˜ ì¹´ë“œ ë±ì— ì´ë²¤íŠ¸ ì¹´ë“œë¥¼ ì¶”ê°€í•œ í›„ ì„ìŒ
     public void AddEventCardWithShuffle(int day, EventCard eventCard)
     {
         if (IsValidDay(day))
@@ -75,7 +75,7 @@ public class EventCardManager : MonoBehaviour
         }
     }
 
-    // Æ¯Á¤ ³¯Â¥(day)ÀÇ Ä«µå µ¦¿¡¼­ ÁöÁ¤µÈ À§Ä¡(index)ÀÇ ÀÌº¥Æ® Ä«µå¸¦ Á¦°Å
+    // íŠ¹ì • ë‚ ì§œ(day)ì˜ ì¹´ë“œ ë±ì—ì„œ ì§€ì •ëœ ìœ„ì¹˜(index)ì˜ ì´ë²¤íŠ¸ ì¹´ë“œë¥¼ ì œê±°
     public void RemoveEventCard(int day, int index)
     {
         if (IsValidDay(day))
@@ -84,7 +84,7 @@ public class EventCardManager : MonoBehaviour
         }
     }
 
-    // À¯È¿ÇÑ ³¯Â¥(day)ÀÎÁö È®ÀÎÇÏ´Â ÇÔ¼ö
+    // ìœ íš¨í•œ ë‚ ì§œ(day)ì¸ì§€ í™•ì¸í•˜ëŠ” í•¨ìˆ˜
     private bool IsValidDay(int day)
     {
         return day >= 0 && day < eventCardDeckList.Count;
@@ -95,19 +95,19 @@ public class EventCardDeck
 {
     private List<EventCard> eventCardList = new List<EventCard>();
 
-    public int EventCardCount => eventCardList.Count;  //Ä«µå ¼ö·®À» ÆÄ¾ÇÇÏ±â À§ÇØ Ãß°¡
+    public int EventCardCount => eventCardList.Count;  //ì¹´ë“œ ìˆ˜ëŸ‰ì„ íŒŒì•…í•˜ê¸° ìœ„í•´ ì¶”ê°€
 
     public EventCard GetEventCard(int index)
     {
         if (index < 0 || index > eventCardList.Count)
         {
-            Debug.LogWarning("Àß¸øµÈ ÀÎµ¦½º °ªÀÔ´Ï´Ù.");
+            Debug.LogWarning("ì˜ëª»ëœ ì¸ë±ìŠ¤ ê°’ì…ë‹ˆë‹¤.");
             return null;
         }
         return eventCardList[index];
     }
 
-    //µ¦ ¼¯±â
+    //ë± ì„ê¸°
     public void ShuffleDeck()
     {
         for (int i = eventCardList.Count - 1; i > 0; i--)       
@@ -117,33 +117,33 @@ public class EventCardDeck
         }
     }
 
-    //°¡Àå ¸¶Áö¸·¿¡ eventCard¸¦ Ãß°¡
+    //ê°€ì¥ ë§ˆì§€ë§‰ì— eventCardë¥¼ ì¶”ê°€
     public void AddEventCard(EventCard eventCard)
     {
         eventCardList.Add(eventCard);
     }
 
-    //ÀÎµ¦½º¿¡ eventCard »ğÀÔ
+    //ì¸ë±ìŠ¤ì— eventCard ì‚½ì…
     public void InsertEventCard(EventCard eventCard, int index)
     {
         if (index < 0 || index > eventCardList.Count)
         {
-            Debug.LogWarning("Àß¸øµÈ ÀÎµ¦½º °ªÀÔ´Ï´Ù.");
+            Debug.LogWarning("ì˜ëª»ëœ ì¸ë±ìŠ¤ ê°’ì…ë‹ˆë‹¤.");
             return;
         }
         eventCardList.Insert(index, eventCard);
     }
 
-    // ÁöÁ¤µÈ ÀÎµ¦½ºÀÇ ÀÌº¥Æ® Ä«µå¸¦ Á¦°ÅÇÏ°í ¹İÈ¯
+    // ì§€ì •ëœ ì¸ë±ìŠ¤ì˜ ì´ë²¤íŠ¸ ì¹´ë“œë¥¼ ì œê±°í•˜ê³  ë°˜í™˜
     public EventCard RemoveEventCard(int index = -1)
     {
         if (eventCardList.Count == 0)
         {
-            Debug.LogWarning("µ¦ÀÌ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogWarning("ë±ì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return null;
         }
 
-        // ±âº»ÀûÀ¸·Î ¸¶Áö¸· Ä«µå¸¦ Á¦°Å
+        // ê¸°ë³¸ì ìœ¼ë¡œ ë§ˆì§€ë§‰ ì¹´ë“œë¥¼ ì œê±°
         if (index < 0 || index >= eventCardList.Count)
         {
             index = eventCardList.Count - 1;

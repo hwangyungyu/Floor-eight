@@ -2,15 +2,15 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DropZone : MonoBehaviour, IDropHandler
+public class DropZone : MonoBehaviour, IDropHandler  //드롭존, 각 지역을 담당합니다.
 {
-    public string zoneID;
+    public string zoneID;          //지역 ID, 각 지역은 이에 대해서 다른 값을 가져야합니다.
     public int maxCapacity = 5;
     private int currentCount = 0;
 
     public Text countText;
 
-    public RectTransform parentTransform; 
+    public RectTransform parentTransform;           //시민을 드래그 받았을때 이 Transform에 배치시킵니다.
 
     private void Start()
     {
@@ -31,7 +31,6 @@ public class DropZone : MonoBehaviour, IDropHandler
         // 드롭 성공 시
         currentCount++;
         UpdateCountText();
-        DropZoneManager.Instance.UpdateTotal();
 
         var drag = dropped.GetComponent<CitizenDrag>();
         drag.AssignedDropZone = this; // 되돌릴 때 필요
@@ -48,8 +47,9 @@ public class DropZone : MonoBehaviour, IDropHandler
         return currentCount;
     }
 
-    void UpdateCountText() // 지역 배치 시민 수량을 업데이트
+    void UpdateCountText() // 지역 배치 시민 수량을 업데이트, 동시에 전체 시민 배치 업데이트
     {
         countText.text = $"{currentCount} / {maxCapacity}";
+        DropZoneManager.Instance.UpdateTotal();
     }
 }

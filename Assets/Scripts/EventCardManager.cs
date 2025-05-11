@@ -8,8 +8,8 @@ public class EventCardManager : MonoBehaviour
     private EventCard currentEventCard; // 현재 화면에 표시 중인 이벤트 카드
     public EventCard CurrentEventCard => currentEventCard;
 
-    private int currentCardDay = 1;  //DrawEventCard()에서 현재 카드가 어느 곳에서 나왔는지를 저장하는 변수들
-    private int currentCardIndex = -1;  //임시로 1일차 -1번을 현재 카드로 지정했습니다. DrawEventCard를 사용시 1일차 0번을 가져옵니다.
+    public int currentCardDay = 1;  //DrawEventCard()에서 현재 카드가 어느 곳에서 나왔는지를 저장하는 변수들
+    public int currentCardIndex = -1;  //임시로 1일차 -1번을 현재 카드로 지정했습니다. DrawEventCard를 사용시 1일차 0번을 가져옵니다.
 
     // EventCardDeck에서 다음 카드를 가져옴
     public void DrawEventCard()
@@ -110,7 +110,7 @@ public class EventCardDeck
     //덱 섞기
     public void ShuffleDeck()
     {
-        for (int i = eventCardList.Count - 1; i > 0; i--)       
+        for (int i = eventCardList.Count - 1; i > 0; i--)
         {
             int randomIndex = Random.Range(0, i + 1);
             (eventCardList[i], eventCardList[randomIndex]) = (eventCardList[randomIndex], eventCardList[i]);

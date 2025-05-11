@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceManager : MonoBehaviour
 {
@@ -119,8 +120,14 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
+    // 실험용 
+    public Button myButton;
+
     public void TestPopu() // 디버그1 버튼 작동시 동작하는 테스트용 시민 숫자 증가 코드입니다.
     {
         Population += 1;
+
+        // 귀찮아서 바로 반영하도록 test해놓음
+        myButton.onClick.Invoke();
     }
 }

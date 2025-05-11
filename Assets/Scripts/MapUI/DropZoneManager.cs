@@ -15,8 +15,6 @@ public class DropZoneManager : MonoBehaviour
     private Dictionary<string, DropZone> dropZones = new Dictionary<string, DropZone>(); //드롭존 관리용 딕셔너리
     public Text totalText; //지도UI 기준 상단부에 위치한 전체 배치 수를 보여주는 텍스트
 
-
-   
     public event Action OnTestReset;  // 테스트 이벤트 정의
 
     public void TestReset() // 디버그2 버튼 작동시 실행되는 테스트용 시민 배치 초기화 코드입니다. 여기서 이벤트를 시작합니다.

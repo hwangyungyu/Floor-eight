@@ -1,14 +1,17 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
-public class DropZone : MonoBehaviour, IDropHandler  //드롭존, 각 지역을 담당합니다.
+public class DropZone : MonoBehaviour, IDropHandler  //드롭존, 각 지역에서 드래그를 담당합니다.
 {
     public string zoneID;          //지역 ID, 각 지역은 이에 대해서 다른 값을 가져야합니다.
     public int maxCapacity = 5;
     private int currentCount = 0;
 
     public Text countText;
+
+    [SerializeField] private List<EventCard> eventCards; //테스트 용으로 임시적으로 이 클래스가 지역 이벤트 카드를 가지도록 했습니다.
 
     public RectTransform parentTransform;           //시민을 드래그 받았을때 이 Transform에 배치시킵니다.
 
@@ -51,5 +54,29 @@ public class DropZone : MonoBehaviour, IDropHandler  //드롭존, 각 지역을 
     {
         countText.text = $"{currentCount} / {maxCapacity}";
         DropZoneManager.Instance.UpdateTotal();
+    }
+
+
+
+    public List<EventCard> GetRandomEventCards(int amount) //테스트용 이벤트 카드 리스트 반환 함수
+    {
+        if (eventCards == null || eventCards.Count == 0)
+        {
+            Debug.Log("이벤트 카드 없음!");
+            return null;
+        }
+
+        if (eventCards.Count <= amount)
+            return new List<EventCard>(eventCards);
+
+        List<EventCard> shuffled = new List<EventCard>(eventCards);
+        // 리스트를 무작위로 섞음
+        for (int i = 0; i < shuffled.Count; i++)
+        {
+            int randomIndex = Random.Range(i, shuffled.Count);
+            (shuffled[i], shuffled[randomIndex]) = (shuffled[randomIndex], shuffled[i]);
+        }
+
+        return shuffled.GetRange(0, amount);
     }
 }

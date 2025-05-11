@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New EventCard", menuName = "Event System/EventCard")]
+[CreateAssetMenu(fileName = "New EventCard", menuName = "EventCard/New EventCard")]
 public class EventCard : ScriptableObject
 {
     [Header("이벤트 ID")]

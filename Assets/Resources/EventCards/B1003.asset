@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: B1003
+  m_EditorClassIdentifier: 
+  EventID: B1003
+  EventText: "\uAC10\uC790 \uBC2D\uC5D0\uC11C \uC218\uD655\uD55C \uAC10\uC790 \uC911
+    \uD558\uB098\uAC00\u2026 \uB9D0\uD558\uAE30 \uC2DC\uC791\uD588\uB2E4.  \r\n\"\uB098\uB97C
+    \uBA39\uC73C\uBA74 \uC800\uC8FC\uBC1B\uC744 \uAC83\uC774\uB2E4.\"  \r\n\uAC10\uC790\uC5D0
+    \uB208\uC774 \uB2EC\uB824 \uC788\uC5C8\uACE0, \uD600\uB3C4 \uC788\uC5C8\uB2E4.
+    \uBB38\uC81C\uB294, \uB9D0\uC774 \uB418\uAC8C \uC720\uCC3D\uD558\uB2E4\uB294
+    \uAC83\uC774\uB2E4."
+  ChoiceText1: "\uADF8\uB0E5 \uC0B6\uC544\uC11C \uBA39\uB294\uB2E4."
+  ChoiceText2: "\uC2E0\uC73C\uB85C \uBAA8\uC2E0\uB2E4."
+  ChoiceText3: "\uB545\uC5D0 \uB2E4\uC2DC \uBB3B\uB294\uB2E4."
+  ChoiceEffect1:
+  - ItemIncrease Food 1
+  - ItemDecrease Mental 2
+  ChoiceEffect2:
+  - AddEventCardToDeck B1004 1
+  - ItemIncrease Mental 2
+  ChoiceEffect3:
+  - ItemIncrease Defense 2
+  - ItemDecrease Mental 1

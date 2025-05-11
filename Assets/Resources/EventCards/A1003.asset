@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: A1003
+  m_EditorClassIdentifier: 
+  EventID: A1003
+  EventText: "\uC0C8\uBCBD\uC774 \uBC1D\uAE30\uB3C4 \uC804, \uBCF4\uCD08\uB97C \uC11C\uB358
+    \uC774\uAC00 \uB6F0\uC5B4\uC654\uB2E4.  \r\n\u201C\uD55C \uBA85\uC774\u2026 \uB3CC\uC544\uC624\uC9C0
+    \uC54A\uC558\uC2B5\uB2C8\uB2E4.\u201D  \r\n\uC804\uB0A0, \uC2DD\uB7C9 \uC870\uB2EC\uC744
+    \uC704\uD574 \uC0B0\uAE30\uC2AD\uC73C\uB85C \uB098\uAC14\uB358 \uC790\uAC00 \uC544\uC9C1
+    \uB3CC\uC544\uC624\uC9C0 \uC54A\uC558\uB2E4\uB294 \uAC83\uC774\uB2E4.  \r\n\uD558\uB298\uC740
+    \uC7BF\uBE5B\uC73C\uB85C \uAC00\uB824 \uC788\uC5C8\uACE0, \uC0B0\uB4F1\uC131\uC774\uC5D0\uB294
+    \uC605\uC740 \uC548\uAC1C\uAC00 \uD758\uB800\uB2E4.  \r\n\uBCF4\uB0B4\uC57C \uD560\uAE4C?
+    \uC544\uB2C8\uBA74 \uAE30\uB2E4\uB824\uC57C \uD560\uAE4C? \uC120\uD0DD\uC758
+    \uBB34\uAC8C\uAC00 \uB0A0\uCE74\uB86D\uAC8C \uC5B4\uAE68\uB97C \uC9D3\uB20C\uB800\uB2E4."
+  ChoiceText1: "\uC989\uC2DC \uC218\uC0C9\uB300\uB97C \uC870\uC9C1\uD558\uC5EC \uC0B0\uC18D\uC73C\uB85C
+    \uD5A5\uD55C\uB2E4."
+  ChoiceText2: "\uC758\uC57D\uD488\uC744 \uB4E4\uACE0 \uB3CC\uC9C4!"
+  ChoiceText3: "\uD76C\uC0DD\uC740 \uC5B4\uCA54 \uC218 \uC5C6\uB2E4."
+  ChoiceEffect1:
+  - ItemDecrease Food 1
+  - ItemIncrease Mental 1
+  ChoiceEffect2:
+  - ItemDecrease Medicine 1
+  ChoiceEffect3:
+  - ItemDecrease Population 1

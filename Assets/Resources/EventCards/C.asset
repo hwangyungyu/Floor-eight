@@ -10,6 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
-  m_Name: 1 2
+  m_Name: C
   m_EditorClassIdentifier: 
-  testName: "\uC5D0\uC774\uC2A4"
+  EventID: C
+  EventText: "\uC790\uC6D0\uC744 \uC5BB\uC790!"
+  ChoiceText1: "\uC74C\uC2DD!"
+  ChoiceText2: "\uC815\uC2E0\uB825!"
+  ChoiceText3: "\uBC29\uC5B4!"
+  ChoiceEffect1:
+  - ItemIncrease Food 2
+  ChoiceEffect2:
+  - ItemIncrease Mental 2
+  ChoiceEffect3:
+  - ItemIncrease Defense 2

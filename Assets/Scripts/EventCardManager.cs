@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventCardManager : MonoBehaviour
+public class EventCardManager
 {
     private static List<EventCardDeck> eventCardDeckList = new List<EventCardDeck>(); //이 리스트에서 0번 인덱스는 사용하지 않습니다. 1일차는 1번 인덱스로 생각해주세요.
 
@@ -11,49 +11,52 @@ public class EventCardManager : MonoBehaviour
     public int currentCardDay = 1;  //DrawEventCard()에서 현재 카드가 어느 곳에서 나왔는지를 저장하는 변수들
     public int currentCardIndex = -1;  //임시로 1일차 -1번을 현재 카드로 지정했습니다. DrawEventCard를 사용시 1일차 0번을 가져옵니다.
 
+    public void InitializeDeck(int day) //지정된 일차까지 덱 생성
+    {
+        while(eventCardDeckList.Count <= day)
+        {
+            eventCardDeckList.Add(new EventCardDeck());
+        }
+
+
+    }
+
     // EventCardDeck에서 다음 카드를 가져옴
-    public void DrawEventCard()
+    public bool DrawEventCard()
     {
         // 현재 날짜가 유효하지 않다면 종료
-        if (!IsValidDay(currentCardDay)) return;
+        if (!IsValidDay(currentCardDay)) return false;
 
         EventCardDeck currentDeck = eventCardDeckList[currentCardDay];
 
-        // 현재 날짜의 카드 덱이 비어있으면 경고 출력 후 종료
+        // 현재 날짜의 카드 덱이 비어있으면 종료
         if (currentDeck.EventCardCount == 0)
         {
             Debug.LogWarning("현재 날짜의 카드 덱이 비어 있습니다.");
-            return;
+            return false;
         }
 
-        // 현재 카드가 마지막 카드라면 다음날 첫번째 카드 불러오기(이 코드가 다음날로 넘어가게 해도 되는지?) 이거 수정해야 할거 같습니다.
+        // 현재 카드가 마지막 카드인 경우
         if (currentCardIndex >= currentDeck.EventCardCount - 1)
         {
             currentCardDay++;
             currentCardIndex = -1;
 
-            // 다음 날이 유효한지 확인
+            // 다음 날 유효성 검사
             if (!IsValidDay(currentCardDay))
             {
                 Debug.LogWarning("더 이상 가져올 이벤트 카드가 없습니다.");
-                return;
+                return false;
             }
 
-            // 다음 날의 덱을 다시 설정
-            if (currentCardDay < eventCardDeckList.Count)
-            {
-                currentDeck = eventCardDeckList[currentCardDay];
-            }
-            else
-            {
-                Debug.LogWarning("모든 이벤트 카드를 소진했습니다.");
-                return;
-            }
+            Debug.Log("이벤트 카드 소진");
+            return false;
         }
 
-        // Index변수 업데이트 후 카드 덮어쓰기
+        // 정상 진행
         currentCardIndex++;
         currentEventCard = currentDeck.GetEventCard(currentCardIndex);
+        return true;
     }
 
     // 특정날짜의 덱에 카드 삽입

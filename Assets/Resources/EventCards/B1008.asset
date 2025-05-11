@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: B1008
+  m_EditorClassIdentifier: 
+  EventID: B1008
+  EventText: "\uADF8\uB4E4\uC774 \uC654\uB2E4.  \r\n\uACE0\uC591\uC774 \uC81C\uAD6D\uC758
+    \uC804\uBCF5\uC744 \uC704\uD574 \uB2E8\uACB0\uD55C \uAC1C \uC5F0\uD569\uAD70. 
+    \r\n\uB9AC\uB354\uB294 \uBC14\uB451\uC774\uB77C \uBD88\uB9AC\uB294 \uC138\uC0C1\uC5D0\uC11C
+    \uAC00\uC7A5 \uC131\uC2E4\uD55C \uACE8\uB4E0 \uB9AC\uD2B8\uB9AC\uBC84.  \r\n\u201C\uC6B0\uB9B0
+    \uB9C8\uC744\uC744 \uC0B0\uCC45\uC2DC\uD0A4\uACA0\uB2E4!\u201D"
+  ChoiceText1: "\uBAA9\uC904\uC744 \uC900\uBE44\uD55C\uB2E4."
+  ChoiceText2: "\uACE0\uC591\uC774\uC640 \uAC1C\uC758 \uC804\uC7C1\uC744 \uC911\uC7AC\uD55C\uB2E4."
+  ChoiceText3: "\uB458 \uB2E4 \uCAD3\uC544\uB0B4\uACE0 \uD1A0\uB07C\uB97C \uC601\uC785\uD55C\uB2E4."
+  ChoiceEffect1:
+  - ItemIncrease Defense 2
+  - ItemDecrease UtilityItem 1
+  ChoiceEffect2:
+  - ItemIncrease Defense 2
+  ChoiceEffect3:
+  - ItemIncrease Mental 1

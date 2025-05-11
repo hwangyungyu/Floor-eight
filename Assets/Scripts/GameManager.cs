@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour //
+public class GameManager : MonoBehaviour //임시적으로 작성한걸 합쳤습니다.
 {
     public static GameManager Instance;
 
@@ -12,8 +12,9 @@ public class GameManager : MonoBehaviour //
     //eventCardManager쪽에 있는 값하고 어떤식으로 관리해야할지 모르겠어서 우선 그쪽의 값을 참조하도록 만들었습니다.
 
     // 이 두개는 테스트를 위해서 임시적으로 연결했습니다.
-    private ChoiceExecuter executer;
-    private EventCardManager eventCardManager;
+    public ChoiceExecuter executer;
+    public EventCardManager eventCardManager;
+    public CardUI cardUI;
 
     // 시간 보내고 초기화해주는 버튼
     public Button myButton;
@@ -33,7 +34,9 @@ public class GameManager : MonoBehaviour //
     {
         day = 1;
         eventCardManager = new EventCardManager();
+        eventCardManager.InitializeDeck(20); //테스트용 덱 생성
         executer = new ChoiceExecuter(eventCardManager);
+        DropZoneManager.Instance.OnPopulationPlacementComplete += StartEventCardSequence; //테스트용
     }
 
     private void AreaConfirmed(int area) { 
@@ -59,8 +62,24 @@ public class GameManager : MonoBehaviour //
 
         day++;
     }
+    public void ShowNextCard() //테스트 용이라 코드 구조가 끔찍하지만 졸려서 수정을 못하겠습니다.
+    {
+        bool success = eventCardManager.DrawEventCard();  // 다음 카드 뽑기
+        EventCard card = eventCardManager.CurrentEventCard;
 
-    private void ChoiceSelected(int choiceNum)
+
+        cardUI.ReadyUI();
+
+        if (success == false)
+        {
+            Debug.Log("더 이상 표시할 카드가 없습니다.");
+            NextDay();
+            return;
+        }
+
+        cardUI.SetCard(card);  // 카드 데이터를 UI에 전달
+    }
+    public void ChoiceSelected(int choiceNum) //선택지 실행
     {
         List<string> effects = null;
 
@@ -86,7 +105,7 @@ public class GameManager : MonoBehaviour //
         }
     }
 
-    private void ExecuteEffect(string effect)
+    private void ExecuteEffect(string effect) //선택지효과처리
     {
         string[] parts = effect.Split(' ');
         if (parts.Length == 0)
@@ -118,5 +137,10 @@ public class GameManager : MonoBehaviour //
                 Debug.LogWarning("알 수 없는 효과: " + effect);
                 break;
         }
+    }
+
+    private void StartEventCardSequence()
+    {
+        ShowNextCard();
     }
 }

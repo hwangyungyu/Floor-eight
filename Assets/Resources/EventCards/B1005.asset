@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: B1005
+  m_EditorClassIdentifier: 
+  EventID: B1005
+  EventText: "\uBC24\uD558\uB298\uC774 \uBC18\uC73C\uB85C \uAC08\uB77C\uC84C\uB2E4. 
+    \r\n\uACE0\uC591\uC774\uAC00\u2026 \uB5A8\uC5B4\uC84C\uB2E4.  \r\n\uD558\uC9C0\uB9CC
+    \uADF8\uAC83\uC740 \uB2E8\uC21C\uD55C \uACE0\uC591\uC774\uAC00 \uC544\uB2C8\uC5C8\uB2E4.
+    3\uAC1C\uC758 \uB208, 4\uCC28\uC6D0\uC758 \uAF2C\uB9AC, \uADF8\uB9AC\uACE0 \uBC18\uC9DD\uC774\uB294
+    \uC740\uD558 \uBB34\uB2AC \uD138.  \r\n\uADF8\uAC83\uC740 \uB9D0\uD55C\uB2E4.
+    \u201C\uC774\uC81C\uBD80\uD130 \uC774 \uD589\uC131\uC740 \uB098\uC758 \uD654\uC7A5\uC2E4\uC774\uB2E4.\u201D 
+    \r\n\uB9C8\uC744 \uC0AC\uB78C\uB4E4\uC740 \uACF5\uD3EC\uC640 \uACBD\uC774\uC758
+    \uC0AC\uC774\uC5D0\uC11C \uC5BC\uC5B4\uBD99\uB294\uB2E4."
+  ChoiceText1: "\uC21F\uAC00\uB77D\uC744 \uBC14\uCE58\uBA70 \uBCF5\uC885\uD55C\uB2E4."
+  ChoiceText2: "\uC54C\uB8E8\uBBF8\uB284 \uD638\uC77C\uC744 \uC50C\uC6B4 \uD5EC\uBA67\uC744
+    \uC4F4\uB2E4."
+  ChoiceText3: "\"\uB0D0\uC639\"\uD558\uACE0 \uB9DE\uC9D6\uB294\uB2E4."
+  ChoiceEffect1:
+  - ItemIncrease Medicine 2
+  - AddNextEventCard B1006
+  ChoiceEffect2:
+  - ItemIncrease Defense 2
+  - ItemDecrease Mental 1
+  ChoiceEffect3:
+  - ItemIncrease Mental 3

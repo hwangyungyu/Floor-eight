@@ -11,6 +11,19 @@ public class EventCardManager
     public int currentCardDay = 1;  //현재 날짜 관리 변수 *중요함*
     public int currentCardIndex = -1;  //임시로 1일차 -1번을 현재 카드로 지정했습니다. DrawEventCard를 사용시 1일차 0번을 가져옵니다.
 
+
+    public void ChangeDay(int num) //입력된 수만큼 날짜를 변경합니다. 급하게 만들어서 예외처리가 없습니다! 오류에 주의해주세요!
+    {
+        currentCardDay += num;
+        currentCardIndex = -1;
+    }
+    public void SetDay(int num) //입력된 수로 날짜를 변경합니다.
+    {
+        currentCardDay = num;
+        currentCardIndex = -1;
+    }
+
+
     public void InitializeDeck(int day) //지정된 일차까지 덱 생성
     {
         while(eventCardDeckList.Count <= day)
@@ -24,6 +37,7 @@ public class EventCardManager
     // EventCardDeck에서 다음 카드를 가져옴
     public bool DrawEventCard()
     {
+        Debug.Log(currentCardDay);
         // 현재 날짜가 유효하지 않다면 종료
         if (!IsValidDay(currentCardDay)) return false;
 
@@ -39,17 +53,7 @@ public class EventCardManager
         // 현재 카드가 마지막 카드인 경우
         if (currentCardIndex >= currentDeck.EventCardCount - 1)
         {
-            currentCardDay++;
-            currentCardIndex = -1;
-
-            // 다음 날 유효성 검사
-            if (!IsValidDay(currentCardDay))
-            {
-                Debug.LogWarning("더 이상 가져올 이벤트 카드가 없습니다.");
-                return false;
-            }
-
-            Debug.Log("이벤트 카드 소진");
+            Debug.Log("당일 이벤트 카드 소진");
             return false;
         }
 

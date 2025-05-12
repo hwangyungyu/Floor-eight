@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour //임시적으로 작성한걸 합쳤�
         executer = new ChoiceExecuter(eventCardManager);
         DropZoneManager.Instance.OnPopulationPlacementComplete += StartEventCardSequence; //테스트용
 
-        eventCardManager.currentCardDay = 1;
+        eventCardManager.SetDay(1);
     }
 
     private void AreaConfirmed(int area) { 
@@ -59,9 +59,9 @@ public class GameManager : MonoBehaviour //임시적으로 작성한걸 합쳤�
 
     public void NextDay() {
         // 귀찮아서 바로 반영하도록 test해놓음
-        myButton.onClick.Invoke();
+        DropZoneManager.Instance.TestReset();
 
-        eventCardManager.currentCardDay++; //eventCardManager의 것을 수정하게 바꿨습니다.
+        eventCardManager.ChangeDay(1); //eventCardManager의 것을 수정하게 바꿨습니다.
     }
     public void ShowNextCard() //테스트 용이라 코드 구조가 끔찍하지만 졸려서 수정을 못하겠습니다.
     {

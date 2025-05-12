@@ -2,6 +2,7 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class DropZone : MonoBehaviour, IDropHandler  //드롭존, 각 지역에서 드래그를 담당합니다.
 {
@@ -29,7 +30,14 @@ public class DropZone : MonoBehaviour, IDropHandler  //드롭존, 각 지역에�
         if (dropped == null || dropped.GetComponent<CitizenDrag>() == null || currentCount >= maxCapacity)
             return;
 
+        CitizenDrag citizen = dropped.GetComponent<CitizenDrag>();
+
+        if (citizen.AssignedDropZone != null) return;
+
         dropped.transform.SetParent(parentTransform);
+
+        CanvasGroup cg = dropped.GetComponent<CanvasGroup>();
+        cg.alpha = 1;
 
         // 드롭 성공 시
         currentCount++;

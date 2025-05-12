@@ -133,6 +133,7 @@ public class ResourceManager : MonoBehaviour
         Defense += 1;
 
         // 귀찮아서 바로 반영하도록 test해놓음
-        myButton.onClick.Invoke();
+        //myButton.onClick.Invoke();
+        DropZoneManager.Instance.TestReset();
     }
 }

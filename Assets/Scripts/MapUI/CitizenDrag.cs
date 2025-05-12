@@ -70,12 +70,14 @@ public class CitizenDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData) //드래그 시작시, 기본 설정
     {
+        if (AssignedDropZone != null) return;
         transform.SetParent(canvas.transform);
         canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData) //드래그하기
     {
+        if (AssignedDropZone != null) return;
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 

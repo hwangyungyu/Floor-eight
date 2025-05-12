@@ -11,7 +11,7 @@ public class MapMover : MonoBehaviour // 지도 버튼을 눌렀을때 지도 �
     // UI를 활용하는 방안이 더 좋아보임
     private Vector2 hiddenPos = new Vector2(-500f, 0); // 화면 왼쪽 밖
 
-    private Vector2 shownPos = new Vector2(500f, 0);       // 화면 안쪽
+    private Vector2 shownPos = new Vector2(490f, 0);       // 화면 안쪽
 
     private Coroutine currentRoutine;
 

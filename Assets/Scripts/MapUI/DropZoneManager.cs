@@ -77,8 +77,8 @@ public class DropZoneManager : MonoBehaviour
             {
                 if (selectedCard != null)
                 {
-                    GameManager.Instance.eventCardManager.AddEventCardWithShuffle(GameManager.day, selectedCard);
-                    Debug.Log($"지역 {dropZone.Key}에서 {selectedCard.name} 카드가 {GameManager.day}일차에 추가됨");
+                    GameManager.Instance.eventCardManager.AddEventCardWithShuffle(GameManager.Day, selectedCard);
+                    Debug.Log($"지역 {dropZone.Key}에서 {selectedCard.name} 카드가 {GameManager.Day}일차에 추가됨");
                 }
             }
         }

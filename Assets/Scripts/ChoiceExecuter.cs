@@ -101,7 +101,7 @@ public class ChoiceExecuter
         EventCard card = Resources.Load<EventCard>($"EventCards/{eventID}");
         if (card != null)
         {
-            int targetDay = GameManager.day + delayDays;  //우선 현재 날짜를 기준으로 삼기 위해 GameManager에서 가져왔습니다.
+            int targetDay = GameManager.Day + delayDays;  //우선 현재 날짜를 기준으로 삼기 위해 GameManager에서 가져왔습니다.
             eventCardManager.AddEventCardWithShuffle(targetDay, card);
             Debug.Log($"{eventID} → {targetDay}일차 덱에 추가됨");
         }
@@ -116,7 +116,7 @@ public class ChoiceExecuter
         EventCard card = Resources.Load<EventCard>($"EventCards/{eventID}");
         if (card != null)
         {
-            int day = eventCardManager.currentCardDay; //현재 이벤트 카드가 기준인 것 같아서 eventCardManager에서 날짜 정보를 가져옵니다.
+            int day = GameManager.Day; //현재 이벤트 카드가 기준인 것 같아서 eventCardManager에서 날짜 정보를 가져옵니다.
             int insertIndex = eventCardManager.currentCardIndex + 1;
             eventCardManager.InsertEventCardToDeck(day, card, insertIndex);
             Debug.Log($"{eventID} → {day}일차 {insertIndex}번 위치에 바로 다음 카드로 추가됨");

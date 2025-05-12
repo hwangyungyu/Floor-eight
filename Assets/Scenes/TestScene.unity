@@ -4925,7 +4925,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9f2d9cdb8e205024fb34cbc37dffd2a2, type: 2}
   - {fileID: 11400000, guid: 6abbc77687f64a146b4280d868998ab1, type: 2}
   - {fileID: 11400000, guid: 5ae1c103d8aed29418bdc0a04d8ae5e2, type: 2}
-  - {fileID: 11400000, guid: 00a274ac0787c3948a9ddf552b7610af, type: 2}
   - {fileID: 11400000, guid: 7bc18749624f4b2448b8eee256148dc6, type: 2}
   parentTransform: {fileID: 1435993605}
 --- !u!1 &1916658247

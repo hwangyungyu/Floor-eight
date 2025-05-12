@@ -8,7 +8,7 @@ public class EventCardManager
     private EventCard currentEventCard; // 현재 화면에 표시 중인 이벤트 카드
     public EventCard CurrentEventCard => currentEventCard;
 
-    public int currentCardDay = 1;  //DrawEventCard()에서 현재 카드가 어느 곳에서 나왔는지를 저장하는 변수들
+    public int currentCardDay = 1;  //현재 날짜 관리 변수 *중요함*
     public int currentCardIndex = -1;  //임시로 1일차 -1번을 현재 카드로 지정했습니다. DrawEventCard를 사용시 1일차 0번을 가져옵니다.
 
     public void InitializeDeck(int day) //지정된 일차까지 덱 생성

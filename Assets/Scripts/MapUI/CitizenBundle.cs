@@ -51,9 +51,8 @@ public class CitizenBundle : MonoBehaviour, IBeginDragHandler, IDragHandler
 
         var cg = draggingCitizen.GetComponent<CanvasGroup>();
         cg.blocksRaycasts = false;
-        cg.alpha = 0.7f;
 
-        draggingCitizen.GetComponent<CitizenDrag>().bundle = this;
+        //draggingCitizen.GetComponent<CitizenDrag>().bundle = this;
 
         draggingCitizen.GetComponent<CitizenDrag>().AssignButtonEvent();
 

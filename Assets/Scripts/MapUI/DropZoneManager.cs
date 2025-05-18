@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,8 @@ public class DropZoneManager : MonoBehaviour
     public Button confirmButton;
 
     public GameObject testPanel;
-
+    public GameObject citizenPrefab;
+    public Transform canvasTransform;
     private Dictionary<string, DropZone> dropZones = new Dictionary<string, DropZone>(); //드롭존 관리용 딕셔너리
     public Text totalText; //지도UI 기준 상단부에 위치한 전체 배치 수를 보여주는 텍스트
 
@@ -33,10 +35,88 @@ public class DropZoneManager : MonoBehaviour
     {
         Debug.Log("DropZoneManager: TestReset triggered");
         OnTestReset?.Invoke(); // 이벤트 발생
+        AdjustBundleZonesToMatchPopulation();
         UpdateTotal();
         testPanel.SetActive(false);
     }
+    private void AdjustBundleZonesToMatchPopulation()
+    {
+        int desiredPopulation = ResourceManager.Instance.Population;
+        int currentPopulation = 0;
 
+        DropZone bundleZone = null;
+        List<DropZone> regularZones = new List<DropZone>();
+
+        foreach (var pair in dropZones)
+        {
+            var zone = pair.Value;
+            if(zone.isBundle)
+            {
+                bundleZone = zone;
+            }
+            regularZones.Add(zone);
+            currentPopulation += zone.citizens.Count;
+        }
+
+        int diff = desiredPopulation - currentPopulation;
+
+        if (diff > 0)
+        {
+            AddCitizensToBundleZone(bundleZone, diff);
+        }
+        else if (diff < 0)
+        {
+            RemoveCitizensFromZonesRandomly(-diff);
+        }
+    }
+    private void AddCitizensToBundleZone(DropZone bundleZone, int countToAdd)
+    {
+        int remainingToAdd = countToAdd;
+        while (remainingToAdd > 0)
+        {
+            GameObject newCitizen = Instantiate(citizenPrefab, canvasTransform);
+
+            CitizenDrag draggingCitizen = newCitizen.GetComponent<CitizenDrag>();
+            draggingCitizen.GetComponent<CitizenDrag>().bundle = bundleZone;
+
+            draggingCitizen.GetComponent<CitizenDrag>().AssignButtonEvent();
+            bundleZone.RegisterCitizen(draggingCitizen);
+            remainingToAdd--;
+        }
+    }
+    private void RemoveCitizensFromZonesRandomly(int countToRemove)
+    {
+        int remainingToRemove = countToRemove;
+
+        // 시민이 존재하는 DropZone만 필터링
+        List<DropZone> zonesWithCitizens = dropZones.Values
+            .Where(zone => zone.citizens.Count > 0)
+            .ToList();
+
+        System.Random rng = new System.Random();
+
+        while (remainingToRemove > 0 && zonesWithCitizens.Count > 0)
+        {
+            // 무작위 DropZone 선택
+            int index = rng.Next(zonesWithCitizens.Count);
+            DropZone selectedZone = zonesWithCitizens[index];
+
+            // 시민 제거
+            CitizenDrag citizenToRemove = selectedZone.GetLastCitizen();
+            if (citizenToRemove != null)
+            {
+                selectedZone.UnregisterCitizen(citizenToRemove);
+                Destroy(citizenToRemove.gameObject);
+                remainingToRemove--;
+            }
+
+            // 더 이상 시민이 없으면 제거 대상에서 제외
+            if (selectedZone.citizens.Count == 0)
+            {
+                zonesWithCitizens.RemoveAt(index);
+            }
+        }
+    }
 
     public void RegisterDropZone(string id, DropZone zone) // 각 드롭존(지역)을 이 클래스에서 한번에 관리하기 위해 딕셔너리에 추가합니다.
     {
@@ -51,7 +131,8 @@ public class DropZoneManager : MonoBehaviour
 
         foreach (var zone in dropZones.Values) //드롭존(지역)에 배치된 수를 전부 불러와서 현재 배치된 시민 수를 파악합니다.
         {
-            total += zone.GetCurrentCount();
+            if (zone.isBundle) continue;
+            total += zone.citizens.Count;
         }
 
         totalText.text = $"전체 배치: {total} / {max}";
@@ -67,7 +148,8 @@ public class DropZoneManager : MonoBehaviour
         foreach (var dropZone in dropZones)
         {
             DropZone zone = dropZone.Value;
-            int count = zone.GetCurrentCount();
+            if (zone.isBundle) continue;
+            int count = zone.citizens.Count;
             if (count == 0)
                 continue;
             List<EventCard> selectedCards = zone.GetRandomEventCards(count);
@@ -87,5 +169,9 @@ public class DropZoneManager : MonoBehaviour
         OnPopulationPlacementComplete?.Invoke();
 
         testPanel.SetActive(true);
+    }
+    public List<DropZone> GetAllDropZones()
+    {
+        return new List<DropZone>(dropZones.Values); // dropZones는 DropZone 등록 딕셔너리
     }
 }

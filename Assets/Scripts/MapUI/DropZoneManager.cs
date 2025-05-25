@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,15 +38,17 @@ public class DropZoneManager : MonoBehaviour
         UpdateTotal();
         testPanel.SetActive(false);
     }
+
+    
     private void AdjustBundleZonesToMatchPopulation()
-    {
-        int desiredPopulation = ResourceManager.Instance.Population;
+    {//이 함수를 호출하면 현재 등록된 드롭존의 시민들과 시민 자원 수를 비교해서 수를 서로 맞춥니다.
+        int desiredPopulation = ResourceManager.Instance.Population; //맞춰야할 시민 수, 시민 자원 수
         int currentPopulation = 0;
 
         DropZone bundleZone = null;
         List<DropZone> regularZones = new List<DropZone>();
 
-        foreach (var pair in dropZones)
+        foreach (var pair in dropZones) //모든 드롭존에서 현재 시민개체 수를 가져옵니다
         {
             var zone = pair.Value;
             if(zone.isBundle)
@@ -58,18 +59,18 @@ public class DropZoneManager : MonoBehaviour
             currentPopulation += zone.citizens.Count;
         }
 
-        int diff = desiredPopulation - currentPopulation;
+        int diff = desiredPopulation - currentPopulation; //현재차이량을 구합니다
 
         if (diff > 0)
         {
-            AddCitizensToBundleZone(bundleZone, diff);
+            AddCitizensToBundleZone(bundleZone, diff); //번들존에 새로 필요한 시민 수 만큼을 추가
         }
         else if (diff < 0)
         {
-            RemoveCitizensFromZonesRandomly(-diff);
+            RemoveCitizensFromZonesRandomly(-diff); //모든 존에서 랜덤으로 차이만큼 제거
         }
     }
-    private void AddCitizensToBundleZone(DropZone bundleZone, int countToAdd)
+    private void AddCitizensToBundleZone(DropZone bundleZone, int countToAdd) //번들존에 입력받은 수만큼 시민을 추가합니다.
     {
         int remainingToAdd = countToAdd;
         while (remainingToAdd > 0)
@@ -84,7 +85,7 @@ public class DropZoneManager : MonoBehaviour
             remainingToAdd--;
         }
     }
-    private void RemoveCitizensFromZonesRandomly(int countToRemove)
+    private void RemoveCitizensFromZonesRandomly(int countToRemove) //랜덤으로 시민을 제거
     {
         int remainingToRemove = countToRemove;
 
@@ -93,15 +94,13 @@ public class DropZoneManager : MonoBehaviour
             .Where(zone => zone.citizens.Count > 0)
             .ToList();
 
-        System.Random rng = new System.Random();
-
         while (remainingToRemove > 0 && zonesWithCitizens.Count > 0)
         {
             // 무작위 DropZone 선택
-            int index = rng.Next(zonesWithCitizens.Count);
+            int index = UnityEngine.Random.Range(0, zonesWithCitizens.Count);
             DropZone selectedZone = zonesWithCitizens[index];
 
-            // 시민 제거
+            // 마지막 시민 제거
             CitizenDrag citizenToRemove = selectedZone.GetLastCitizen();
             if (citizenToRemove != null)
             {
@@ -110,7 +109,7 @@ public class DropZoneManager : MonoBehaviour
                 remainingToRemove--;
             }
 
-            // 더 이상 시민이 없으면 제거 대상에서 제외
+            // 더 이상 시민이 없으면 리스트에서 제거
             if (selectedZone.citizens.Count == 0)
             {
                 zonesWithCitizens.RemoveAt(index);
@@ -141,13 +140,17 @@ public class DropZoneManager : MonoBehaviour
         {
             confirmButton.interactable = true;
         }
+        else
+        {
+            confirmButton.interactable = false;
+        }
     }
 
     public void EndPopulationPlace() //테스트용으로 작성한 시민 배치 완료 함수, 버튼에 연결됩니다.
     {
         foreach (var dropZone in dropZones)
         {
-            DropZone zone = dropZone.Value;
+            DropZone zone = dropZone.Value; 
             if (zone.isBundle) continue;
             int count = zone.citizens.Count;
             if (count == 0)
@@ -169,9 +172,5 @@ public class DropZoneManager : MonoBehaviour
         OnPopulationPlacementComplete?.Invoke();
 
         testPanel.SetActive(true);
-    }
-    public List<DropZone> GetAllDropZones()
-    {
-        return new List<DropZone>(dropZones.Values); // dropZones는 DropZone 등록 딕셔너리
     }
 }

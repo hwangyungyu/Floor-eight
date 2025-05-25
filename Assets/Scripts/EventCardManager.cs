@@ -30,8 +30,6 @@ public class EventCardManager
         {
             eventCardDeckList.Add(new EventCardDeck());
         }
-
-
     }
 
     // EventCardDeck에서 다음 카드를 가져옴

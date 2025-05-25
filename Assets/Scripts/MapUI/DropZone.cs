@@ -19,12 +19,12 @@ public class DropZone : MonoBehaviour, IDropHandler
     private void Start()
     {
         UpdateCountText();
-        DropZoneManager.Instance.RegisterDropZone(zoneID, this);
+        DropZoneManager.Instance.RegisterDropZone(zoneID, this); //시작할때 드롭존 매니저에 자신을 등록해놓습니다.
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData) //여기서 현재 드래그 중인 시민의 드롭을 실행합니다.
     {
-        var dropped = eventData.pointerDrag;
+        var dropped = eventData.pointerDrag; //드롭된 개체 판단
         if (dropped == null) return;
 
         var citizen = dropped.GetComponent<CitizenDrag>();
@@ -34,7 +34,7 @@ public class DropZone : MonoBehaviour, IDropHandler
         citizen.HandleGroupDrop(this);
     }
 
-    public bool RegisterCitizen(CitizenDrag citizen)
+    public bool RegisterCitizen(CitizenDrag citizen) //시민개체를 받아와서 이 드롭존에 가입시킵니다.
     {
         if (citizens.Count >= maxCapacity) return false;
         if (citizens.Contains(citizen)) return false;
@@ -46,7 +46,7 @@ public class DropZone : MonoBehaviour, IDropHandler
         return true;
     }
 
-    public void UnregisterCitizen(CitizenDrag citizen)
+    public void UnregisterCitizen(CitizenDrag citizen) //시민개체를 받아와서 이 드롭존에서 가입해제
     {
         if (citizens.Remove(citizen))
         {
@@ -54,23 +54,26 @@ public class DropZone : MonoBehaviour, IDropHandler
         }
     }
 
-    public int GetRemainingCapacity()
+    public int GetRemainingCapacity() //남은 가능 수용량을 반환함
     {
         return maxCapacity - citizens.Count;
     }
 
-    private void UpdateCountText()
+    private void UpdateCountText() //드롭존에 있는 수량 텍스트 업데이트
     {
         countText.text = $"{citizens.Count} / {maxCapacity}";
         DropZoneManager.Instance.UpdateTotal();
     }
 
-    public CitizenDrag GetLastCitizen()
+    public CitizenDrag GetLastCitizen() //마지막 시민을 반환
     {
         if (citizens.Count == 0) return null;
         return citizens[citizens.Count - 1];
     }
 
+    /// <summary>
+    /// 이하는 임시 이벤트 카드 관련 코드입니다.
+    /// </summary>
     public List<EventCard> GetRandomEventCards(int amount) //테스트용 이벤트 카드 리스트 반환 함수
     {
         if (eventCards == null || eventCards.Count == 0)

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CitizenBundle : MonoBehaviour, IBeginDragHandler, IDragHandler
+public class CitizenBundle : MonoBehaviour, IBeginDragHandler, IDragHandler //안씁니다. 아마 코드 자체를 삭제하지 않을까 합니다
 {
     public GameObject citizenPrefab;
     public Transform canvasTransform;

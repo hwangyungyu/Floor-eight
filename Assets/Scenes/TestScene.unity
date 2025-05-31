@@ -229,7 +229,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1366203846}
   - {fileID: 1790103148}
   m_Father: {fileID: 834489989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -251,13 +250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBundle: 1
-  zoneID: base
-  maxCapacity: 999
+  linkedArea: {fileID: 0}
   citizens: []
-  countText: {fileID: 1366203847}
   parentTransform: {fileID: 1790103148}
-  eventCards:
-  - {fileID: 11400000, guid: 9729c8c1e9eb0014e81bdf0647790dc3, type: 2}
 --- !u!114 &126806807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1686,6 +1681,7 @@ GameObject:
   - component: {fileID: 642020598}
   - component: {fileID: 642020597}
   - component: {fileID: 642020596}
+  - component: {fileID: 642020599}
   m_Layer: 5
   m_Name: "\uAD6C\uC5ED (1)"
   m_TagString: Untagged
@@ -1727,13 +1723,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBundle: 0
-  zoneID: test2
-  maxCapacity: 5
+  linkedArea: {fileID: 642020599}
   citizens: []
-  countText: {fileID: 1868707427}
   parentTransform: {fileID: 832083856}
-  eventCards:
-  - {fileID: 11400000, guid: 8042d858ffc00d546b5efd25e1224077, type: 2}
 --- !u!114 &642020597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1772,6 +1764,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642020594}
   m_CullTransparentMesh: 1
+--- !u!114 &642020599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642020594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e289e49b83e2549bec5ff7eca2135f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  template: {fileID: 11400000, guid: 3f5b6ff4ca929584298ff7cf40fd0c4a, type: 2}
+  areaID: 
+  isEnabled: 0
+  availableEvents: []
+  currentBonus: 
+  currentPenalty: 
+  maxCitizenCapacity: 0
+  currentCitizenAmount: 0
+  countText: {fileID: 1868707427}
 --- !u!1 &651159695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,8 +1998,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1871939194}
-        m_TargetAssemblyTypeName: DropZoneManager, Assembly-CSharp
+      - m_Target: {fileID: 1145497605}
+        m_TargetAssemblyTypeName: AreaManager, Assembly-CSharp
         m_MethodName: EndPopulationPlace
         m_Mode: 1
         m_Arguments:
@@ -2679,6 +2692,53 @@ RectTransform:
   m_AnchoredPosition: {x: -500, y: -15.416016}
   m_SizeDelta: {x: 100, y: -2118.832}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!1 &1145497603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1145497604}
+  - component: {fileID: 1145497605}
+  m_Layer: 0
+  m_Name: AreaManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1145497604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145497603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1211895771}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1145497605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145497603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92c3c6ff0f953d345af5bea5c504f74b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  confirmButton: {fileID: 663817046}
+  testPanel: {fileID: 186932311}
+  totalText: {fileID: 1430117928}
 --- !u!1 &1164854790
 GameObject:
   m_ObjectHideFlags: 0
@@ -2834,7 +2894,9 @@ Transform:
   m_LocalPosition: {x: -483.508, y: 758.18085, z: -13.083469}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1256017275}
+  - {fileID: 1145497604}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1232144868
@@ -2849,6 +2911,7 @@ GameObject:
   - component: {fileID: 1232144872}
   - component: {fileID: 1232144871}
   - component: {fileID: 1232144870}
+  - component: {fileID: 1232144873}
   m_Layer: 5
   m_Name: "\uAD6C\uC5ED (2)"
   m_TagString: Untagged
@@ -2890,14 +2953,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBundle: 0
-  zoneID: test3
-  maxCapacity: 5
+  linkedArea: {fileID: 1232144873}
   citizens: []
-  countText: {fileID: 2016764388}
   parentTransform: {fileID: 1690021211}
-  eventCards:
-  - {fileID: 11400000, guid: 9729c8c1e9eb0014e81bdf0647790dc3, type: 2}
-  - {fileID: 11400000, guid: 8070dd5d918abde439f45327bdbdd19a, type: 2}
 --- !u!114 &1232144871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2936,6 +2994,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232144868}
   m_CullTransparentMesh: 1
+--- !u!114 &1232144873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232144868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e289e49b83e2549bec5ff7eca2135f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  template: {fileID: 11400000, guid: 66b89a9972222d0428fd1e96e2fcec6e, type: 2}
+  areaID: 
+  isEnabled: 0
+  availableEvents: []
+  currentBonus: 
+  currentPenalty: 
+  maxCitizenCapacity: 0
+  currentCitizenAmount: 0
+  countText: {fileID: 2016764388}
 --- !u!1 &1256017272
 GameObject:
   m_ObjectHideFlags: 0
@@ -2946,7 +3025,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1256017275}
   - component: {fileID: 1256017274}
-  - component: {fileID: 1256017273}
   m_Layer: 0
   m_Name: ResourceManager
   m_TagString: Untagged
@@ -2954,25 +3032,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1256017273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1256017272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04e8758c333ab2349b4cfe0628e6b5ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amountFood: {fileID: 4461397383227624170}
-  amountUtil: {fileID: 1596333171}
-  amountMedi: {fileID: 732748492}
-  amountDef: {fileID: 1916658250}
-  amountMen: {fileID: 933506279}
-  amountMad: {fileID: 0}
-  amountPopulation: {fileID: 575198814}
 --- !u!114 &1256017274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2994,12 +3053,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256017272}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 741.9337, y: 1443.3529, z: -9.23845}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1225.4417, y: 685.17206, z: 3.8450193}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1211895771}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1288316980
 GameObject:
@@ -3229,85 +3288,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1363031371}
-  m_CullTransparentMesh: 1
---- !u!1 &1366203845
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1366203846}
-  - component: {fileID: 1366203848}
-  - component: {fileID: 1366203847}
-  m_Layer: 5
-  m_Name: "\uBC30\uCE58 \uC2DC\uBBFC \uC218\uB7C9"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1366203846
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366203845}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 126806805}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000002861, y: -125.00001}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1366203847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366203845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 3
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 0
---- !u!222 &1366203848
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366203845}
   m_CullTransparentMesh: 1
 --- !u!1 &1371064805
 GameObject:
@@ -4944,7 +4924,6 @@ MonoBehaviour:
   testPanel: {fileID: 186932311}
   citizenPrefab: {fileID: 2000579495039969492, guid: 7fef82888f269084c939c3471002f3db, type: 3}
   canvasTransform: {fileID: 1570957897}
-  totalText: {fileID: 1430117928}
 --- !u!1 &1886090019
 GameObject:
   m_ObjectHideFlags: 0
@@ -4957,6 +4936,7 @@ GameObject:
   - component: {fileID: 1886090022}
   - component: {fileID: 1886090021}
   - component: {fileID: 1886090023}
+  - component: {fileID: 1886090024}
   m_Layer: 5
   m_Name: "\uAD6C\uC5ED"
   m_TagString: Untagged
@@ -5036,17 +5016,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBundle: 0
-  zoneID: test1
-  maxCapacity: 5
+  linkedArea: {fileID: 1886090024}
   citizens: []
-  countText: {fileID: 549869528}
   parentTransform: {fileID: 1435993605}
-  eventCards:
-  - {fileID: 11400000, guid: f325c364f7beaf041b2c7fc6064c7bfa, type: 2}
-  - {fileID: 11400000, guid: 9f2d9cdb8e205024fb34cbc37dffd2a2, type: 2}
-  - {fileID: 11400000, guid: 6abbc77687f64a146b4280d868998ab1, type: 2}
-  - {fileID: 11400000, guid: 5ae1c103d8aed29418bdc0a04d8ae5e2, type: 2}
-  - {fileID: 11400000, guid: 7bc18749624f4b2448b8eee256148dc6, type: 2}
+--- !u!114 &1886090024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886090019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e289e49b83e2549bec5ff7eca2135f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  template: {fileID: 11400000, guid: 772496f06f96e424bb0160e2bba3e2cd, type: 2}
+  areaID: 
+  isEnabled: 0
+  availableEvents: []
+  currentBonus: 
+  currentPenalty: 
+  maxCitizenCapacity: 0
+  currentCitizenAmount: 0
+  countText: {fileID: 549869528}
 --- !u!1 &1916658247
 GameObject:
   m_ObjectHideFlags: 0
@@ -5414,8 +5407,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2123142085}
   - component: {fileID: 2123142086}
+  - component: {fileID: 2123142087}
   m_Layer: 0
-  m_Name: CardUIManager
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5453,6 +5447,25 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 4166967196876760515, guid: 2634011b496622347b0e17001b0ca490, type: 3}
   canvasGroup: {fileID: 663606295}
   cardRoot: {fileID: 663606294}
+--- !u!114 &2123142087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123142082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04e8758c333ab2349b4cfe0628e6b5ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountFood: {fileID: 4461397383227624170}
+  amountUtil: {fileID: 1596333171}
+  amountMedi: {fileID: 732748492}
+  amountDef: {fileID: 1916658250}
+  amountMen: {fileID: 933506279}
+  amountMad: {fileID: 0}
+  amountPopulation: {fileID: 575198814}
 --- !u!222 &937141323588694494
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5795,6 +5808,5 @@ SceneRoots:
   - {fileID: 1164854791}
   - {fileID: 1703838995}
   - {fileID: 2123142085}
-  - {fileID: 1256017275}
   - {fileID: 1211895771}
   - {fileID: 311292174}

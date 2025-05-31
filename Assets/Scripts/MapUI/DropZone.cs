@@ -6,20 +6,22 @@ using System.Collections.Generic;
 public class DropZone : MonoBehaviour, IDropHandler
 {
     public bool isBundle = false;
-    public string zoneID;
-    public int maxCapacity = 5;
-
+    public int MaxCapacity //이 드롭존의 시민 최대 수용량입니다. 연결된 지역에서 값을 반환합니다.
+    {
+        get
+        {
+            if (isBundle || linkedArea == null)
+                return ResourceManager.Instance.Population; //지역이 번들일시, 현재 시민 자원의 갯수를 반환합니다.
+            return linkedArea.maxCitizenCapacity;
+        }
+    }
+    public Area linkedArea; //연결된 지역입니다. 이 드롭존은 이제 지역의 시민의 배치에 대해서만 담당합니다.
     public List<CitizenDrag> citizens = new List<CitizenDrag>();
-
-    public Text countText;
     public RectTransform parentTransform;
-
-    [SerializeField] private List<EventCard> eventCards; //테스트 용으로 임시적으로 이 클래스가 지역 이벤트 카드를 가지도록 했습니다.
 
     private void Start()
     {
-        UpdateCountText();
-        DropZoneManager.Instance.RegisterDropZone(zoneID, this); //시작할때 드롭존 매니저에 자신을 등록해놓습니다.
+        DropZoneManager.Instance.RegisterDropZone(this); //시작할때 드롭존 매니저에 자신을 등록해놓습니다.
     }
 
     public void OnDrop(PointerEventData eventData) //여기서 현재 드래그 중인 시민의 드롭을 실행합니다.
@@ -36,64 +38,35 @@ public class DropZone : MonoBehaviour, IDropHandler
 
     public bool RegisterCitizen(CitizenDrag citizen) //시민개체를 받아와서 이 드롭존에 가입시킵니다.
     {
-        if (citizens.Count >= maxCapacity) return false;
+        if (citizens.Count >= MaxCapacity) return false;
         if (citizens.Contains(citizen)) return false;
 
         citizens.Add(citizen);
         citizen.assignedDropZone = this;
         citizen.transform.SetParent(parentTransform);
-        UpdateCountText();
+
+        
+        linkedArea?.OnCitizenAssigned(citizen); // 지역에 시민 수 변경 통보
         return true;
     }
 
     public void UnregisterCitizen(CitizenDrag citizen) //시민개체를 받아와서 이 드롭존에서 가입해제
     {
         if (citizens.Remove(citizen))
-        {
-            UpdateCountText();
+        {   
+            linkedArea?.OnCitizenUnassigned(citizen); // 지역에 시민 해제 통보
         }
     }
 
     public int GetRemainingCapacity() //남은 가능 수용량을 반환함
     {
-        return maxCapacity - citizens.Count;
-    }
-
-    private void UpdateCountText() //드롭존에 있는 수량 텍스트 업데이트
-    {
-        countText.text = $"{citizens.Count} / {maxCapacity}";
-        DropZoneManager.Instance.UpdateTotal();
+        return MaxCapacity - citizens.Count;
     }
 
     public CitizenDrag GetLastCitizen() //마지막 시민을 반환
     {
         if (citizens.Count == 0) return null;
         return citizens[citizens.Count - 1];
-    }
-
-    /// <summary>
-    /// 이하는 임시 이벤트 카드 관련 코드입니다.
-    /// </summary>
-    public List<EventCard> GetRandomEventCards(int amount) //테스트용 이벤트 카드 리스트 반환 함수
-    {
-        if (eventCards == null || eventCards.Count == 0)
-        {
-            Debug.Log("이벤트 카드 없음!");
-            return null;
-        }
-
-        if (eventCards.Count <= amount)
-            return new List<EventCard>(eventCards);
-
-        List<EventCard> shuffled = new List<EventCard>(eventCards);
-        // 리스트를 무작위로 섞음
-        for (int i = 0; i < shuffled.Count; i++)
-        {
-            int randomIndex = Random.Range(i, shuffled.Count);
-            (shuffled[i], shuffled[randomIndex]) = (shuffled[randomIndex], shuffled[i]);
-        }
-
-        return shuffled.GetRange(0, amount);
     }
 }
 

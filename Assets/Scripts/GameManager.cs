@@ -34,9 +34,11 @@ public class GameManager : MonoBehaviour //임시적으로 작성한걸 합쳤�
     {
         eventCardManager = new EventCardManager();
         eventCardManager.InitializeDeck(20); //테스트용 덱 생성
+        eventCardManager.LoadAllEventCards(); //이벤트 카드 전체 로드
         executer = new ChoiceExecuter(eventCardManager);
-        DropZoneManager.Instance.OnPopulationPlacementComplete += StartEventCardSequence; //테스트용
+        AreaManager.Instance.OnPopulationPlacementComplete += StartEventCardSequence; //테스트용
 
+        
         eventCardManager.SetDay(1);
     }
 

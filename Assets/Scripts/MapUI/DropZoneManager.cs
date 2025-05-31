@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DropZoneManager : MonoBehaviour
+public class DropZoneManager : MonoBehaviour //아마 시민 생성과 제거만 관리하는 클래스로 바꾸고 이름을 바꿀거 같습니다.
 {
     public static DropZoneManager Instance;
 
@@ -13,10 +13,8 @@ public class DropZoneManager : MonoBehaviour
     public GameObject testPanel;
     public GameObject citizenPrefab;
     public Transform canvasTransform;
-    private Dictionary<string, DropZone> dropZones = new Dictionary<string, DropZone>(); //드롭존 관리용 딕셔너리
-    public Text totalText; //지도UI 기준 상단부에 위치한 전체 배치 수를 보여주는 텍스트
-
-    public event Action OnPopulationPlacementComplete; //테스트용 이벤트
+    private List<DropZone> dropZones = new List<DropZone>(); //드롭존 관리용 리스트
+    
 
     private void Awake() //각 지역에서 찾기 쉽게 우선 싱글톤으로 해놓았습니다.
     {
@@ -35,7 +33,6 @@ public class DropZoneManager : MonoBehaviour
         Debug.Log("DropZoneManager: TestReset triggered");
         OnTestReset?.Invoke(); // 이벤트 발생
         AdjustBundleZonesToMatchPopulation();
-        UpdateTotal();
         testPanel.SetActive(false);
     }
 
@@ -50,7 +47,7 @@ public class DropZoneManager : MonoBehaviour
 
         foreach (var pair in dropZones) //모든 드롭존에서 현재 시민개체 수를 가져옵니다
         {
-            var zone = pair.Value;
+            var zone = pair;
             if(zone.isBundle)
             {
                 bundleZone = zone;
@@ -90,7 +87,7 @@ public class DropZoneManager : MonoBehaviour
         int remainingToRemove = countToRemove;
 
         // 시민이 존재하는 DropZone만 필터링
-        List<DropZone> zonesWithCitizens = dropZones.Values
+        List<DropZone> zonesWithCitizens = dropZones
             .Where(zone => zone.citizens.Count > 0)
             .ToList();
 
@@ -117,60 +114,8 @@ public class DropZoneManager : MonoBehaviour
         }
     }
 
-    public void RegisterDropZone(string id, DropZone zone) // 각 드롭존(지역)을 이 클래스에서 한번에 관리하기 위해 딕셔너리에 추가합니다.
+    public void RegisterDropZone(DropZone zone) // 각 드롭존(지역)을 이 클래스에서 한번에 관리하기 위해 딕셔너리에 추가합니다.
     {
-        if (!dropZones.ContainsKey(id))
-            dropZones.Add(id, zone);
-    }
-
-    public void UpdateTotal() //전체 배치 숫자 업데이트 코드 및 최대치 배치 검사
-    {
-        int total = 0;
-        int max = ResourceManager.Instance.Population;
-
-        foreach (var zone in dropZones.Values) //드롭존(지역)에 배치된 수를 전부 불러와서 현재 배치된 시민 수를 파악합니다.
-        {
-            if (zone.isBundle) continue;
-            total += zone.citizens.Count;
-        }
-
-        totalText.text = $"전체 배치: {total} / {max}";
-
-        if(total == max)
-        {
-            confirmButton.interactable = true;
-        }
-        else
-        {
-            confirmButton.interactable = false;
-        }
-    }
-
-    public void EndPopulationPlace() //테스트용으로 작성한 시민 배치 완료 함수, 버튼에 연결됩니다.
-    {
-        foreach (var dropZone in dropZones)
-        {
-            DropZone zone = dropZone.Value; 
-            if (zone.isBundle) continue;
-            int count = zone.citizens.Count;
-            if (count == 0)
-                continue;
-            List<EventCard> selectedCards = zone.GetRandomEventCards(count);
-            if (selectedCards == null || selectedCards.Count == 0)
-                continue;
-            foreach(var selectedCard in selectedCards)
-            {
-                if (selectedCard != null)
-                {
-                    GameManager.Instance.eventCardManager.AddEventCardWithShuffle(GameManager.Day, selectedCard);
-                    Debug.Log($"지역 {dropZone.Key}에서 {selectedCard.name} 카드가 {GameManager.Day}일차에 추가됨");
-                }
-            }
-        }
-        confirmButton.interactable = false;
-
-        OnPopulationPlacementComplete?.Invoke();
-
-        testPanel.SetActive(true);
+        dropZones.Add(zone);
     }
 }

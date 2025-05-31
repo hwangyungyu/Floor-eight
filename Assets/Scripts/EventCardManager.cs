@@ -1,16 +1,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventCardManager
+public class EventCardManager //우선 MonoBehavior로 작성하라는 부분이 없어서 GameManager에 연결되서 관리하는 형식입니다.
 {
     private static List<EventCardDeck> eventCardDeckList = new List<EventCardDeck>(); //이 리스트에서 0번 인덱스는 사용하지 않습니다. 1일차는 1번 인덱스로 생각해주세요.
 
     private EventCard currentEventCard; // 현재 화면에 표시 중인 이벤트 카드
     public EventCard CurrentEventCard => currentEventCard;
 
+    private Dictionary<string, EventCard> eventCardMap = new Dictionary<string, EventCard>();
+
     public int currentCardDay = 1;  //현재 날짜 관리 변수 *중요함*
     public int currentCardIndex = -1;  //임시로 1일차 -1번을 현재 카드로 지정했습니다. DrawEventCard를 사용시 1일차 0번을 가져옵니다.
 
+    public void LoadAllEventCards() //시작시 한번 호출되어 이벤트 카드 전체를 불러옵니다.
+    {
+        EventCard[] cards = Resources.LoadAll<EventCard>("EventCards");
+
+        foreach (var card in cards)
+        {
+            if (!eventCardMap.ContainsKey(card.EventID)) // EventID는 ScriptableObject의 이름
+            {
+                eventCardMap.Add(card.EventID, card);
+            }
+            else
+            {
+                Debug.LogWarning($"중복된 EventID가 있습니다: {card.EventID}");
+            }
+        }
+
+        Debug.Log($"총 {eventCardMap.Count}개의 이벤트 카드 로드됨");
+    }
+
+    public EventCard GetEventCardById(string id) //이벤트 카드 조회
+    {
+        if (eventCardMap.TryGetValue(id, out var card))
+            return card;
+
+        Debug.LogError($"이벤트 ID {id}에 해당하는 카드 없음");
+        return null;
+    }
 
     public void ChangeDay(int num) //입력된 수만큼 날짜를 변경합니다. 급하게 만들어서 예외처리가 없습니다! 오류에 주의해주세요!
     {

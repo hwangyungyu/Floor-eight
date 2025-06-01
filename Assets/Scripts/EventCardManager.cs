@@ -10,6 +10,7 @@ public class EventCardManager //우선 MonoBehavior로 작성하라는 부분이
 
     private Dictionary<string, EventCard> eventCardMap = new Dictionary<string, EventCard>();
 
+    public string currentCardArea;
     public int currentCardDay = 1;  //현재 날짜 관리 변수 *중요함*
     public int currentCardIndex = -1;  //임시로 1일차 -1번을 현재 카드로 지정했습니다. DrawEventCard를 사용시 1일차 0번을 가져옵니다.
 
@@ -86,25 +87,27 @@ public class EventCardManager //우선 MonoBehavior로 작성하라는 부분이
 
         // 정상 진행
         currentCardIndex++;
-        currentEventCard = currentDeck.GetEventCard(currentCardIndex);
+        EventCardInfo eventCardInfo = currentDeck.GetEventCard(currentCardIndex);
+        currentEventCard = eventCardInfo.Card;
+        currentCardArea = eventCardInfo.Area;
         return true;
     }
 
     // 특정날짜의 덱에 카드 삽입
-    public void InsertEventCardToDeck(int day, EventCard eventCard, int index)
+    public void InsertEventCardToDeck(int day, EventCard eventCard, int index, string area = null)
     {
         if (IsValidDay(day))
         {
-            eventCardDeckList[day].InsertEventCard(eventCard, index);
+            eventCardDeckList[day].InsertEventCard(eventCard, index, area);
         }
     }
 
     // 특정 날짜(day)의 카드 덱에 이벤트 카드를 추가한 후 섞음
-    public void AddEventCardWithShuffle(int day, EventCard eventCard)
+    public void AddEventCardWithShuffle(int day, EventCard eventCard, string area = null)
     {
         if (IsValidDay(day))
         {
-            eventCardDeckList[day].AddEventCard(eventCard);
+            eventCardDeckList[day].AddEventCard(eventCard, area);
             eventCardDeckList[day].ShuffleDeck();
         }
     }
@@ -127,11 +130,11 @@ public class EventCardManager //우선 MonoBehavior로 작성하라는 부분이
 
 public class EventCardDeck
 {
-    private List<EventCard> eventCardList = new List<EventCard>();
+    private List<EventCardInfo> eventCardList = new List<EventCardInfo>();
 
     public int EventCardCount => eventCardList.Count;  //카드 수량을 파악하기 위해 추가
 
-    public EventCard GetEventCard(int index)
+    public EventCardInfo GetEventCard(int index)
     {
         if (index < 0 || index > eventCardList.Count)
         {
@@ -152,24 +155,24 @@ public class EventCardDeck
     }
 
     //가장 마지막에 eventCard를 추가
-    public void AddEventCard(EventCard eventCard)
+    public void AddEventCard(EventCard eventCard, string area)
     {
-        eventCardList.Add(eventCard);
+        eventCardList.Add(new EventCardInfo(area, eventCard));
     }
 
     //인덱스에 eventCard 삽입
-    public void InsertEventCard(EventCard eventCard, int index)
+    public void InsertEventCard(EventCard eventCard, int index, string area)
     {
         if (index < 0 || index > eventCardList.Count)
         {
             Debug.LogWarning("잘못된 인덱스 값입니다.");
             return;
         }
-        eventCardList.Insert(index, eventCard);
+        eventCardList.Insert(index, new EventCardInfo(area, eventCard));
     }
 
     // 지정된 인덱스의 이벤트 카드를 제거하고 반환
-    public EventCard RemoveEventCard(int index = -1)
+    public EventCardInfo RemoveEventCard(int index = -1)
     {
         if (eventCardList.Count == 0)
         {
@@ -183,8 +186,19 @@ public class EventCardDeck
             index = eventCardList.Count - 1;
         }
 
-        EventCard removedCard = eventCardList[index];
+        EventCardInfo removedCard = eventCardList[index];
         eventCardList.RemoveAt(index);
         return removedCard;
+    }
+}
+public class EventCardInfo
+{
+    public string Area { get; set; }
+    public EventCard Card { get; set; }
+
+    public EventCardInfo(string area, EventCard card)
+    {
+        Area = area;
+        Card = card;
     }
 }

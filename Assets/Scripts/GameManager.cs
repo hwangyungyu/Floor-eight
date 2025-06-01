@@ -82,65 +82,6 @@ public class GameManager : MonoBehaviour //임시적으로 작성한걸 합쳤�
 
         cardUI.SetCard(card);  // 카드 데이터를 UI에 전달
     }
-    public void ChoiceSelected(int choiceNum) //선택지 실행
-    {
-        List<string> effects = null;
-
-        switch (choiceNum)
-        {
-            case 1:
-                effects = CurrentEventCard.ChoiceEffect1;
-                break;
-            case 2:
-                effects = CurrentEventCard.ChoiceEffect2;
-                break;
-            case 3:
-                effects = CurrentEventCard.ChoiceEffect3;
-                break;
-            default:
-                Debug.LogError("잘못된 선택 번호입니다.");
-                return;
-        }
-
-        foreach (string effect in effects)
-        {
-            ExecuteEffect(effect);
-        }
-    }
-
-    private void ExecuteEffect(string effect) //선택지효과처리
-    {
-        string[] parts = effect.Split(' ');
-        if (parts.Length == 0)
-            return;
-
-        switch (parts[0])
-        {
-            case "ItemIncrease":
-                if (parts.Length >= 3)
-                    executer.IncreaseResource(parts[1], int.Parse(parts[2]));
-                break;
-
-            case "ItemDecrease":
-                if (parts.Length >= 3)
-                    executer.DecreaseResource(parts[1], int.Parse(parts[2]));
-                break;
-
-            case "AddNextEventCard":
-                if (parts.Length >= 2)
-                    executer.AddNextEventCard(parts[1]);
-                break;
-
-            case "AddEventCardToDeck":
-                if (parts.Length >= 3)
-                    executer.AddEventCardToDeck(parts[1], int.Parse(parts[2]));
-                break;
-
-            default:
-                Debug.LogWarning("알 수 없는 효과: " + effect);
-                break;
-        }
-    }
 
     private void StartEventCardSequence()
     {

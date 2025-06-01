@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,23 +11,24 @@ public class ChoiceExecuter
         this.eventCardManager = eventCardManager;
     }
 
-    public bool CanDecreaseResource(string resourceName, int amount) //자원 감소가 가능한지를 평가하는 함수입니다.
+    public bool CanDecreaseResource(string resourceName, int amount) //자원 감소가 가능한지 판단하는 함수.
     {
-        switch (resourceName)
+        string name = resourceName.ToLower();
+        switch (name)
         {
-            case "Food":
+            case "food":
                 return ResourceManager.Instance.Food >= amount;
-            case "UtilityItem":
+            case "utilityitem":
                 return ResourceManager.Instance.UtilityItem >= amount;
-            case "Medicine":
+            case "medicine":
                 return ResourceManager.Instance.Medicine >= amount;
-            case "Defense":
+            case "defense":
                 return ResourceManager.Instance.Defense >= amount;
-            case "Mental":
+            case "mental":
                 return ResourceManager.Instance.Mental >= amount;
-            case "Madness":
+            case "madness":
                 return ResourceManager.Instance.Madness >= amount;
-            case "Population":
+            case "population":
                 return ResourceManager.Instance.Population >= amount;
             default:
                 Debug.LogWarning($"알 수 없는 자원 이름: {resourceName}");
@@ -34,29 +36,30 @@ public class ChoiceExecuter
         }
     }
 
-    public void IncreaseResource(string resourceName, int amount) //자원을 증가시키는 함수입니다
+    public void IncreaseResource(string resourceName, int amount) //자원을 증가 시키는 함수.
     {
-        switch (resourceName)
+        string name = resourceName.ToLower();
+        switch (name)
         {
-            case "Food":
+            case "food":
                 ResourceManager.Instance.Food += amount;
                 break;
-            case "UtilityItem":
+            case "utilityitem":
                 ResourceManager.Instance.UtilityItem += amount;
                 break;
-            case "Medicine":
+            case "medicine":
                 ResourceManager.Instance.Medicine += amount;
                 break;
-            case "Defense":
+            case "defense":
                 ResourceManager.Instance.Defense += amount;
                 break;
-            case "Mental":
+            case "mental":
                 ResourceManager.Instance.Mental += amount;
                 break;
-            case "Madness":
+            case "madness":
                 ResourceManager.Instance.Madness += amount;
                 break;
-            case "Population":
+            case "population":
                 ResourceManager.Instance.Population += amount;
                 break;
             default:
@@ -65,29 +68,30 @@ public class ChoiceExecuter
         }
     }
 
-    public void DecreaseResource(string resourceName, int amount) //자원을 감소시키는 함수입니다. 평가없이 감소만 시도합니다.
+    public void DecreaseResource(string resourceName, int amount) //자원을 감소시키는 함수.
     {
-        switch (resourceName)
+        string name = resourceName.ToLower();
+        switch (name)
         {
-            case "Food":
+            case "food":
                 ResourceManager.Instance.Food -= amount;
                 break;
-            case "UtilityItem":
+            case "utilityitem":
                 ResourceManager.Instance.UtilityItem -= amount;
                 break;
-            case "Medicine":
+            case "medicine":
                 ResourceManager.Instance.Medicine -= amount;
                 break;
-            case "Defense":
+            case "defense":
                 ResourceManager.Instance.Defense -= amount;
                 break;
-            case "Mental":
+            case "mental":
                 ResourceManager.Instance.Mental -= amount;
                 break;
-            case "Madness":
+            case "madness":
                 ResourceManager.Instance.Madness -= amount;
                 break;
-            case "Population":
+            case "population":
                 ResourceManager.Instance.Population -= amount;
                 break;
             default:
@@ -98,7 +102,7 @@ public class ChoiceExecuter
 
     public void AddEventCardToDeck(string eventID, int delayDays) //이벤트 카드를 덱에 추가하고 섞습니다.
     {
-        EventCard card = Resources.Load<EventCard>($"EventCards/{eventID}");
+        EventCard card = GameManager.Instance.eventCardManager.GetEventCardById(eventID);
         if (card != null)
         {
             int targetDay = GameManager.Day + delayDays;  //우선 현재 날짜를 기준으로 삼기 위해 GameManager에서 가져왔습니다.
@@ -113,7 +117,7 @@ public class ChoiceExecuter
 
     public void AddNextEventCard(string eventID) //바로 다음 이벤트 카드로 해당 카드를 넣습니다.
     {
-        EventCard card = Resources.Load<EventCard>($"EventCards/{eventID}");
+        EventCard card = GameManager.Instance.eventCardManager.GetEventCardById(eventID);
         if (card != null)
         {
             int day = GameManager.Day; //현재 이벤트 카드가 기준인 것 같아서 eventCardManager에서 날짜 정보를 가져옵니다.
@@ -124,6 +128,92 @@ public class ChoiceExecuter
         else
         {
             Debug.LogError($"EventCard {eventID} 로드 실패");
+        }
+    }
+
+    public void ChoiceSelected(int choiceNum) //선택지 실행
+    {
+        List<string> effects = null;
+
+        switch (choiceNum)
+        {
+            case 1:
+                effects = eventCardManager.CurrentEventCard.ChoiceEffect1;
+                break;
+            case 2:
+                effects = eventCardManager.CurrentEventCard.ChoiceEffect2;
+                break;
+            case 3:
+                effects = eventCardManager.CurrentEventCard.ChoiceEffect3;
+                break;
+            default:
+                Debug.LogError("잘못된 선택 번호입니다.");
+                return;
+        }
+
+        foreach (string effect in effects)
+        {
+            ExecuteEffect(effect);
+        }
+    }
+
+    private void ExecuteEffect(string effect) //선택지효과처리
+    {
+        string[] parts = effect.Split(' ');
+        if (parts.Length == 0)
+            return;
+
+        string areaID = GameManager.Instance.eventCardManager.currentCardArea;
+        Area area = null;
+
+        if (!string.IsNullOrEmpty(areaID))
+        {
+            AreaManager.Instance.areas.TryGetValue(areaID, out area);
+        }
+
+        switch (parts[0])
+        {
+            case "ItemIncrease":
+                if (parts.Length >= 3)
+                {
+                    string resourceName = parts[1].ToLower();
+                    int baseAmount = int.Parse(parts[2]);
+
+                    int resourceIndex = ResourceManager.Instance.GetResourceIndex(resourceName);
+                    int bonus = (area != null && resourceIndex >= 0) ? area.currentBonus[resourceIndex] : 0;
+
+                    int totalAmount = Math.Max(0, baseAmount + bonus);
+                    IncreaseResource(resourceName, totalAmount);
+                }
+                break;
+
+            case "ItemDecrease":
+                if (parts.Length >= 3)
+                {
+                    string resourceName = parts[1].ToLower();
+                    int baseAmount = int.Parse(parts[2]);
+
+                    int resourceIndex = ResourceManager.Instance.GetResourceIndex(resourceName);
+                    int penalty = (area != null && resourceIndex >= 0) ? area.currentPenalty[resourceIndex] : 0;
+
+                    int totalAmount = Math.Max(0, baseAmount + penalty);
+                    DecreaseResource(resourceName, totalAmount);
+                }
+                break;
+
+            case "AddNextEventCard":
+                if (parts.Length >= 2)
+                    AddNextEventCard(parts[1]);
+                break;
+
+            case "AddEventCardToDeck":
+                if (parts.Length >= 3)
+                    AddEventCardToDeck(parts[1], int.Parse(parts[2]));
+                break;
+
+            default:
+                Debug.LogWarning("알 수 없는 효과: " + effect);
+                break;
         }
     }
 }

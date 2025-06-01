@@ -11,10 +11,12 @@ public class Area : MonoBehaviour
     public string areaID;
     public bool isEnabled;
     public List<string> availableEvents;
-    public List<int> currentBonus;
-    public List<int> currentPenalty;
     public int maxCitizenCapacity;
     public int currentCitizenAmount = 0;
+    [Header("런타임 상태 - 자원 관련")]
+    [Header("{음식, 잡동사니, 의약품, 방어, 정신력, 광기, 인구}")]
+    public List<int> currentBonus; //음식, 잡동사니, 의약품, 방어, 정신력, 광기, 인구 순서
+    public List<int> currentPenalty;
 
 
     [Header("UI관련")]
@@ -39,8 +41,15 @@ public class Area : MonoBehaviour
         isEnabled = data.enabled;
         maxCitizenCapacity = data.maxCapacity;
         availableEvents = new List<string>(data.events);
-        currentBonus = new List<int>(data.bonus);
-        currentPenalty = new List<int>(data.penalty);
+        if (data.bonus != null)
+            currentBonus = new List<int>(data.bonus);
+        else
+            currentBonus = new List<int> { 0, 0, 0, 0, 0, 0 };
+
+        if (data.penalty != null)
+            currentPenalty = new List<int>(data.penalty);
+        else
+            currentPenalty = new List<int> { 0, 0, 0, 0, 0, 0 };
     }
     public void OnCitizenAssigned(CitizenDrag citizen)
     {

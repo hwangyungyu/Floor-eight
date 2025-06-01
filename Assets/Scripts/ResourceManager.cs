@@ -136,4 +136,27 @@ public class ResourceManager : MonoBehaviour
         //myButton.onClick.Invoke();
         DropZoneManager.Instance.TestReset();
     }
+    public int GetResourceIndex(string resourceName) //Area 관련 인덱스 용
+    {
+        if (string.IsNullOrEmpty(resourceName))
+        {
+            Debug.LogWarning("자원 증감 요소가 비어있습니다.");
+            return -1;
+        }
+
+
+        switch (resourceName.ToLower())
+        {
+            case "food": return 0;
+            case "utilityitem": return 1;
+            case "medicine": return 2;
+            case "defense": return 3;
+            case "mental": return 4;
+            case "madness": return 5;
+            case "population": return 6;
+            default:
+                Debug.LogWarning($"알 수 없는 자원 이름: {resourceName}");
+                return -1;
+        }
+    }
 }

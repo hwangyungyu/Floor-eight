@@ -59,7 +59,9 @@ public class CardUI : MonoBehaviour
 
     public void SetCard(EventCard card) //카드 표시
     {
-        eventText.text = card.EventText;
+        string area = GameManager.Instance.eventCardManager.currentCardArea;
+        eventText.text = $"현재 카드 지역: {area ?? "없음"}\n";
+        eventText.text += card.EventText;
 
         CreateChoiceButton(card.ChoiceText1, 1);
         CreateChoiceButton(card.ChoiceText2, 2);
@@ -102,7 +104,7 @@ public class CardUI : MonoBehaviour
         }
     }
 
-    private void CreateChoiceButton(string choiceText, int choiceNumber)
+    private void CreateChoiceButton(string choiceText, int choiceNumber) //선택지 버튼을 설정합니다.
     {
         GameObject buttonObj = choiceButtons[choiceNumber - 1];
         Button button = buttonObj.GetComponent<Button>();
@@ -197,7 +199,11 @@ public class CardUI : MonoBehaviour
 
             // 텍스트 처리
             Text uiText = uiObj.GetComponentInChildren<Text>();
-            uiText.text = $"{resourceChanges[i].name}: {resourceChanges[i].value:+#;-#;0}";
+            int value = resourceChanges[i].value;
+            uiText.text = $"{(value > 0 ? "+" : "-")}{Mathf.Abs(value)}";
+
+            // 색상 처리
+            uiText.color = value >= 0 ? Color.green : Color.red;
 
             // 이미지 처리
             Image uiImage = null;
@@ -224,7 +230,7 @@ public class CardUI : MonoBehaviour
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>
         {
-            GameManager.Instance.executer.ChoiceSelected(choiceNumber);
+            GameManager.Instance.ChoiceSelected(choiceNumber);
             GameManager.Instance.ShowNextCard();
         });
     }

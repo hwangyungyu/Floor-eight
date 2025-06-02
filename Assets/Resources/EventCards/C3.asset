@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
-  m_Name: C2
+  m_Name: C3
   m_EditorClassIdentifier: 
-  EventID: C2
-  EventText: "\uC2DC\uBBFC\uC744 \uBC84\uB9AC\uC790"
+  EventID: C3
+  EventText: "\uD50C\uB798\uADF8 \uC628!"
   ItemTrigger: []
-  FlagTrigger: []
+  FlagTrigger:
+  - flagName: A
+    requiredValue: 0
   ChoiceEnabled1: 1
-  ChoiceEnabled2: 1
-  ChoiceEnabled3: 1
-  ChoiceText1: "1\uBA85 \uBC84\uB9AC\uAE30"
-  ChoiceText2: "2\uBA85 \uBC84\uB9AC\uAE30"
-  ChoiceText3: "3\uBA85 \uBC84\uB9AC\uAE30"
+  ChoiceEnabled2: 0
+  ChoiceEnabled3: 0
+  ChoiceText1: "A\uD50C\uB798\uADF8 \uC628!"
+  ChoiceText2: 
+  ChoiceText3: 
   ChoiceEffect1:
-  - ItemDecrease Population 1
-  ChoiceEffect2:
-  - ItemDecrease Population 2
-  ChoiceEffect3:
-  - ItemDecrease Population 3
+  - SetFlag A true
+  ChoiceEffect2: []
+  ChoiceEffect3: []

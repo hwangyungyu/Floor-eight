@@ -17,6 +17,8 @@ MonoBehaviour:
   events:
   - C
   - C2
+  - C3
+  - C4
   bonus: 
   penalty: 
   maxCapacity: 5

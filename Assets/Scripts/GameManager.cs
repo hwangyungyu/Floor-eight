@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour //임시적으로 작성한걸 합쳤�
 
     // 시간 보내고 초기화해주는 버튼
     public Button myButton;
+
+    public Dictionary<string, bool> flags = new Dictionary<string, bool>(); //플래그
     private void Awake()
     {
         if (Instance != null)
@@ -40,6 +42,31 @@ public class GameManager : MonoBehaviour //임시적으로 작성한걸 합쳤�
 
         
         eventCardManager.SetDay(1);
+    }
+    public void ChoiceSelected(int choiceNum) //선택지 실행
+    {
+        List<string> effects = null;
+
+        switch (choiceNum)
+        {
+            case 1:
+                effects = eventCardManager.CurrentEventCard.ChoiceEffect1;
+                break;
+            case 2:
+                effects = eventCardManager.CurrentEventCard.ChoiceEffect2;
+                break;
+            case 3:
+                effects = eventCardManager.CurrentEventCard.ChoiceEffect3;
+                break;
+            default:
+                Debug.LogError("잘못된 선택 번호입니다.");
+                return;
+        }
+
+        foreach (string effect in effects)
+        {
+            executer.ExecuteEffect(effect);
+        }
     }
 
     private void AreaConfirmed(int area) { 
@@ -65,7 +92,7 @@ public class GameManager : MonoBehaviour //임시적으로 작성한걸 합쳤�
 
         eventCardManager.ChangeDay(1); //eventCardManager의 것을 수정하게 바꿨습니다.
     }
-    public void ShowNextCard() //테스트 용이라 코드 구조가 끔찍하지만 졸려서 수정을 못하겠습니다.
+    public void ShowNextCard() //다음 카드 보여주기
     {
         bool success = eventCardManager.DrawEventCard();  // 다음 카드 뽑기
         EventCard card = eventCardManager.CurrentEventCard;
@@ -76,7 +103,7 @@ public class GameManager : MonoBehaviour //임시적으로 작성한걸 합쳤�
         if (success == false)
         {
             Debug.Log("더 이상 표시할 카드가 없습니다.");
-            NextDay();
+            NextDay(); //여기서 다음날로 넘어가는 중!
             return;
         }
 

@@ -19,6 +19,11 @@ MonoBehaviour:
     \uB208\uC774 \uB2EC\uB824 \uC788\uC5C8\uACE0, \uD600\uB3C4 \uC788\uC5C8\uB2E4.
     \uBB38\uC81C\uB294, \uB9D0\uC774 \uB418\uAC8C \uC720\uCC3D\uD558\uB2E4\uB294
     \uAC83\uC774\uB2E4."
+  ItemTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 1
+  ChoiceEnabled3: 1
   ChoiceText1: "\uADF8\uB0E5 \uC0B6\uC544\uC11C \uBA39\uB294\uB2E4."
   ChoiceText2: "\uC2E0\uC73C\uB85C \uBAA8\uC2E0\uB2E4."
   ChoiceText3: "\uB545\uC5D0 \uB2E4\uC2DC \uBB3B\uB294\uB2E4."

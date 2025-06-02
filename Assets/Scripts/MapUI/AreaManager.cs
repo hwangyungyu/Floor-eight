@@ -54,16 +54,16 @@ public class AreaManager : MonoBehaviour
             if (count == 0)
                 continue;
 
-            List<EventCard> selectedCards = area.GetRandomEventCards(count);
-            if (selectedCards == null || selectedCards.Count == 0)
+            List<EventCardInfo> selectedCardInfos = area.GetRandomEventCards(count);
+            if (selectedCardInfos == null || selectedCardInfos.Count == 0)
                 continue;
 
-            foreach (var selectedCard in selectedCards)
+            foreach (var selectedCardInfo in selectedCardInfos)
             {
-                if (selectedCard != null)
+                if (selectedCardInfo != null)
                 {
-                    GameManager.Instance.eventCardManager.AddEventCardWithShuffle(GameManager.Day, selectedCard);
-                    Debug.Log($"지역 {area.areaID}에서 {selectedCard.name} 카드가 {GameManager.Day}일차에 추가됨");
+                    GameManager.Instance.eventCardManager.AddEventCardWithShuffle(GameManager.Day, selectedCardInfo.Card, selectedCardInfo.Area);
+                    Debug.Log($"지역 {area.areaID}에서 {selectedCardInfo.Card.name} 카드가 {GameManager.Day}일차에 추가됨");
                 }
             }
         }

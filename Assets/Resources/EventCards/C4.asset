@@ -10,21 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
-  m_Name: C2
+  m_Name: C4
   m_EditorClassIdentifier: 
-  EventID: C2
-  EventText: "\uC2DC\uBBFC\uC744 \uBC84\uB9AC\uC790"
+  EventID: C4
+  EventText: "\uC2DD\uB7C9 \uD14C\uC2A4\uD2B8"
   ItemTrigger: []
-  FlagTrigger: []
+  FlagTrigger:
+  - flagName: A
+    requiredValue: 1
   ChoiceEnabled1: 1
   ChoiceEnabled2: 1
-  ChoiceEnabled3: 1
-  ChoiceText1: "1\uBA85 \uBC84\uB9AC\uAE30"
-  ChoiceText2: "2\uBA85 \uBC84\uB9AC\uAE30"
-  ChoiceText3: "3\uBA85 \uBC84\uB9AC\uAE30"
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uB2E4\uC591\uD558\uAC8C \uC99D\uAC10!"
+  ChoiceText2: "\uC2DD\uB7C9 \uBCF4\uB108\uC2A4! +1"
+  ChoiceText3: 
   ChoiceEffect1:
-  - ItemDecrease Population 1
+  - ItemIncrease food 2
+  - ItemDecrease food 2
+  - ItemIncrease mental 2
   ChoiceEffect2:
-  - ItemDecrease Population 2
+  - Bonus food 1
   ChoiceEffect3:
-  - ItemDecrease Population 3
+  - ItemDecrease food 2
+  - ItemIncrease food 2
+  - ItemIncrease mental 2

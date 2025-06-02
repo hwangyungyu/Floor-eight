@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EventID: C
   EventText: "\uC790\uC6D0\uC744 \uC5BB\uC790!"
+  ItemTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 1
+  ChoiceEnabled3: 1
   ChoiceText1: "\uC74C\uC2DD!"
   ChoiceText2: "\uC815\uC2E0\uB825!"
   ChoiceText3: "\uBC29\uC5B4!"

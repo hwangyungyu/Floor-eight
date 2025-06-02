@@ -42,13 +42,13 @@ public class EventCard : ScriptableObject
 [System.Serializable]
 public class ItemTrigger
 {
-    public string ItemName;
-    public int RequiredAmount;
+    public string itemName;
+    public int requiredAmount;
 }
 
 [System.Serializable]
 public class FlagTrigger
 {
-    public string FlagName;
-    public bool RequiredValue;
+    public string flagName;
+    public bool requiredValue;
 }

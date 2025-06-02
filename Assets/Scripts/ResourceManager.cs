@@ -159,4 +159,18 @@ public class ResourceManager : MonoBehaviour
                 return -1;
         }
     }
+    public int GetResourceByName(string resourceName) //자원 이름으로 자원 불러오기
+    {
+        return resourceName switch
+        {
+            "Food" => Food,
+            "UtilityItem" => UtilityItem,
+            "Medicine" => Medicine,
+            "Defense" => Defense,
+            "Mental" => Mental,
+            "Madness" => Madness,
+            "Population" => Population,
+            _ => 0 // 알 수 없는 이름은 0으로 처리
+        };
+    }
 }

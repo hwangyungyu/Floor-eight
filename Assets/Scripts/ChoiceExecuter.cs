@@ -100,13 +100,13 @@ public class ChoiceExecuter
         }
     }
 
-    public void AddEventCardToDeck(string eventID, int delayDays) //이벤트 카드를 덱에 추가하고 섞습니다.
+    public void AddEventCardToDeck(string eventID, int delayDays, string area) //이벤트 카드를 덱에 추가하고 섞습니다.
     {
         EventCard card = GameManager.Instance.eventCardManager.GetEventCardById(eventID);
         if (card != null)
         {
             int targetDay = GameManager.Day + delayDays;  //우선 현재 날짜를 기준으로 삼기 위해 GameManager에서 가져왔습니다.
-            eventCardManager.AddEventCardWithShuffle(targetDay, card);
+            eventCardManager.AddEventCardWithShuffle(targetDay, card, area);
             Debug.Log($"{eventID} → {targetDay}일차 덱에 추가됨");
         }
         else
@@ -115,14 +115,14 @@ public class ChoiceExecuter
         }
     }
 
-    public void AddNextEventCard(string eventID) //바로 다음 이벤트 카드로 해당 카드를 넣습니다.
+    public void AddNextEventCard(string eventID, string area) //바로 다음 이벤트 카드로 해당 카드를 넣습니다.
     {
         EventCard card = GameManager.Instance.eventCardManager.GetEventCardById(eventID);
         if (card != null)
         {
-            int day = GameManager.Day; //현재 이벤트 카드가 기준인 것 같아서 eventCardManager에서 날짜 정보를 가져옵니다.
+            int day = GameManager.Day;
             int insertIndex = eventCardManager.currentCardIndex + 1;
-            eventCardManager.InsertEventCardToDeck(day, card, insertIndex);
+            eventCardManager.InsertEventCardToDeck(day, card, insertIndex, area);
             Debug.Log($"{eventID} → {day}일차 {insertIndex}번 위치에 바로 다음 카드로 추가됨");
         }
         else
@@ -131,45 +131,16 @@ public class ChoiceExecuter
         }
     }
 
-    public void ChoiceSelected(int choiceNum) //선택지 실행
-    {
-        List<string> effects = null;
-
-        switch (choiceNum)
-        {
-            case 1:
-                effects = eventCardManager.CurrentEventCard.ChoiceEffect1;
-                break;
-            case 2:
-                effects = eventCardManager.CurrentEventCard.ChoiceEffect2;
-                break;
-            case 3:
-                effects = eventCardManager.CurrentEventCard.ChoiceEffect3;
-                break;
-            default:
-                Debug.LogError("잘못된 선택 번호입니다.");
-                return;
-        }
-
-        foreach (string effect in effects)
-        {
-            ExecuteEffect(effect);
-        }
-    }
-
-    private void ExecuteEffect(string effect) //선택지효과처리
+    public void ExecuteEffect(string effect) //선택지 효과 처리
     {
         string[] parts = effect.Split(' ');
-        if (parts.Length == 0)
-            return;
+        if (parts.Length == 0) return;
 
         string areaID = GameManager.Instance.eventCardManager.currentCardArea;
         Area area = null;
 
         if (!string.IsNullOrEmpty(areaID))
-        {
             AreaManager.Instance.areas.TryGetValue(areaID, out area);
-        }
 
         switch (parts[0])
         {
@@ -177,13 +148,13 @@ public class ChoiceExecuter
                 if (parts.Length >= 3)
                 {
                     string resourceName = parts[1].ToLower();
-                    int baseAmount = int.Parse(parts[2]);
-
-                    int resourceIndex = ResourceManager.Instance.GetResourceIndex(resourceName);
-                    int bonus = (area != null && resourceIndex >= 0) ? area.currentBonus[resourceIndex] : 0;
-
-                    int totalAmount = Math.Max(0, baseAmount + bonus);
-                    IncreaseResource(resourceName, totalAmount);
+                    if (int.TryParse(parts[2], out int baseAmount))
+                    {
+                        int resourceIndex = ResourceManager.Instance.GetResourceIndex(resourceName);
+                        int bonus = (area != null && resourceIndex >= 0) ? area.currentBonus[resourceIndex] : 0;
+                        int totalAmount = Math.Max(0, baseAmount + bonus);
+                        IncreaseResource(resourceName, totalAmount);
+                    }
                 }
                 break;
 
@@ -191,26 +162,84 @@ public class ChoiceExecuter
                 if (parts.Length >= 3)
                 {
                     string resourceName = parts[1].ToLower();
-                    int baseAmount = int.Parse(parts[2]);
+                    if (int.TryParse(parts[2], out int baseAmount))
+                    {
+                        int resourceIndex = ResourceManager.Instance.GetResourceIndex(resourceName);
+                        int penalty = (area != null && resourceIndex >= 0) ? area.currentPenalty[resourceIndex] : 0;
+                        int totalAmount = Math.Max(0, baseAmount + penalty);
+                        DecreaseResource(resourceName, totalAmount);
+                    }
+                }
+                break;
 
-                    int resourceIndex = ResourceManager.Instance.GetResourceIndex(resourceName);
-                    int penalty = (area != null && resourceIndex >= 0) ? area.currentPenalty[resourceIndex] : 0;
+            case "Bonus":
+                if (parts.Length >= 3)
+                {
+                    string resourceName = parts[1].ToLower();
+                    if (int.TryParse(parts[2], out int bonusValue))
+                    {
+                        Area targetArea = area;
+                        if (parts.Length >= 4)
+                        {
+                            string targetAreaID = parts[3];
+                            AreaManager.Instance.areas.TryGetValue(targetAreaID, out targetArea);
+                        }
+                        if (targetArea != null)
+                        {
+                            int resourceIndex = ResourceManager.Instance.GetResourceIndex(resourceName);
+                            if (resourceIndex >= 0)
+                            {
+                                targetArea.currentBonus[resourceIndex] += bonusValue;
+                            }
+                        }
+                    }
+                }
+                break;
 
-                    int totalAmount = Math.Max(0, baseAmount + penalty);
-                    DecreaseResource(resourceName, totalAmount);
+            case "Penalty":
+                if (parts.Length >= 3)
+                {
+                    string resourceName = parts[1].ToLower();
+                    if (int.TryParse(parts[2], out int penaltyValue))
+                    {
+                        Area targetArea = area;
+                        if (parts.Length >= 4)
+                        {
+                            string targetAreaID = parts[3];
+                            AreaManager.Instance.areas.TryGetValue(targetAreaID, out targetArea);
+                        }
+                        if (targetArea != null)
+                        {
+                            int resourceIndex = ResourceManager.Instance.GetResourceIndex(resourceName);
+                            if (resourceIndex >= 0)
+                            {
+                                targetArea.currentPenalty[resourceIndex] += penaltyValue;
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case "SetFlag":
+                if (parts.Length >= 3)
+                {
+                    string flagName = parts[1];
+                    bool flagValue = parts[2].ToLower() == "true";
+                    FlagManager.Instance.SetFlag(flagName, flagValue);
                 }
                 break;
 
             case "AddNextEventCard":
                 if (parts.Length >= 2)
-                    AddNextEventCard(parts[1]);
+                    AddNextEventCard(parts[1], (areaID ?? null));
                 break;
 
             case "AddEventCardToDeck":
-                if (parts.Length >= 3)
-                    AddEventCardToDeck(parts[1], int.Parse(parts[2]));
+                if (parts.Length >= 3 && int.TryParse(parts[2], out int count))
+                    AddEventCardToDeck(parts[1], count, (areaID ?? null));
                 break;
-
+            case "AdditionalMessage":
+                break;
             default:
                 Debug.LogWarning("알 수 없는 효과: " + effect);
                 break;

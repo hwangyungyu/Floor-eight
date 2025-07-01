@@ -33,6 +33,10 @@ public class FlagManager : MonoBehaviour
         }
         return false;
     }
+    public Dictionary<string, bool> GetAllFlags() //모든 플래그 반환
+    {
+        return new Dictionary<string, bool>(flags);
+    }
 
     // 모든 플래그를 초기화합니다.
     public void ClearAllFlags()

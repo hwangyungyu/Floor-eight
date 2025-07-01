@@ -9,7 +9,6 @@ public class CardUI : MonoBehaviour
     public Text eventText;
     public Transform choiceButtonContainer;
     public GameObject choiceButtonPrefab;
-
     public CanvasGroup canvasGroup; // UI 투명도 및 상호작용 제어
     public RectTransform cardRoot;  // 카드 전체를 포함하는 루트 Transform (애니메이션용)
     [SerializeField] private List<GameObject> choiceButtons;
@@ -28,6 +27,7 @@ public class CardUI : MonoBehaviour
     [SerializeField] private Sprite utilitySprite;
     [SerializeField] private Sprite defenseSprite;
     [SerializeField] private Sprite populationSprite;
+
 
     // 자원명 -> 스프라이트 매핑
     private Dictionary<string, Sprite> resourceIcons;

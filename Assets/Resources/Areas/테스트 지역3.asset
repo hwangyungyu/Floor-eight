@@ -19,6 +19,7 @@ MonoBehaviour:
   - C2
   - C3
   - C4
+  - C5
   bonus: 
   penalty: 
   maxCapacity: 5

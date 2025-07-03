@@ -17,15 +17,18 @@ MonoBehaviour:
   ItemTrigger: []
   FlagTrigger: []
   ChoiceEnabled1: 1
-  ChoiceEnabled2: 0
-  ChoiceEnabled3: 0
+  ChoiceEnabled2: 1
+  ChoiceEnabled3: 1
   ChoiceText1: "\uD50C\uB798\uADF8"
-  ChoiceText2: 
-  ChoiceText3: 
+  ChoiceText2: "\uBE68\uAC15"
+  ChoiceText3: "\uD30C\uB791"
   ChoiceEffect1:
   - "SetFlag \uCC4C\uB9B0\uC800\uC2A4 true"
   - "SetFlag \uBC84\uB2DD true"
   - "SetFlag \uB8E8\uC2DC\uB4DC true"
   - "SetFlag \uC624\uB514\uC6C0 true"
-  ChoiceEffect2: []
-  ChoiceEffect3: []
+  - "AdditionalMessage \uD2B8\uB9AC\uAC70_\uB2E4\uC218 green"
+  ChoiceEffect2:
+  - "AdditionalMessage \uD2B8\uB9AC\uAC70_\uB2E4\uC218 red"
+  ChoiceEffect3:
+  - "AdditionalMessage \uD2B8\uB9AC\uAC70_\uB2E4\uC218 blue"

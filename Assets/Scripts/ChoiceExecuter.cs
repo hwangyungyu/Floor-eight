@@ -239,6 +239,7 @@ public class ChoiceExecuter
                     AddEventCardToDeck(parts[1], count, (areaID ?? null));
                 break;
             case "AdditionalMessage":
+                //추가 메세지의 경우 실행 관련이 아니기 때문에 다른 곳에서 처리됩니다.
                 break;
             default:
                 Debug.LogWarning("알 수 없는 효과: " + effect);

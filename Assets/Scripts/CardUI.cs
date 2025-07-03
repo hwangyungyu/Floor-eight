@@ -108,8 +108,9 @@ public class CardUI : MonoBehaviour
     {
         GameObject buttonObj = choiceButtons[choiceNumber - 1];
         Button button = buttonObj.GetComponent<Button>();
-        Text buttonText = buttonObj.GetComponentInChildren<Text>();
-
+        Text buttonText = buttonObj.GetComponentsInChildren<Text>()[0];
+        Text additionalMessage = buttonObj.GetComponentsInChildren<Text>()[1];
+        additionalMessage.text = "";
         List<string> effects = null;
         EventCard currentCard = GameManager.Instance.eventCardManager.CurrentEventCard;
         string area = GameManager.Instance.eventCardManager.currentCardArea;
@@ -170,6 +171,23 @@ public class CardUI : MonoBehaviour
                             amount += areaData.currentBonus[index];
                         amount = Mathf.Max(0, amount);
                         resourceChanges.Add((resourceName, amount));
+                    }
+                }
+                else if (parts.Length >= 2 && parts[0] == "AdditionalMessage")
+                {
+                    
+                    if (additionalMessage != null)
+                    {
+                        additionalMessage.text = parts[1].Replace("_", " ");
+
+                        if (parts.Length >= 3 && ColorUtility.TryParseHtmlString(parts[2], out Color newColor))
+                        {
+                            additionalMessage.color = newColor;
+                        }
+                        else
+                        {
+                            additionalMessage.color = Color.black;
+                        }
                     }
                 }
             }

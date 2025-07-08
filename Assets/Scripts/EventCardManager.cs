@@ -17,9 +17,13 @@ public class EventCardManager //우선 MonoBehavior로 작성하라는 부분이
     public void LoadAllEventCards() //시작시 한번 호출되어 이벤트 카드 전체를 불러옵니다.
     {
         EventCard[] cards = Resources.LoadAll<EventCard>("EventCards");
+        // 카드를 외부 json형태로 받아오기 위함 (07/08일 추가)
+        var textLoader = new EventCardTextLoader();
 
         foreach (var card in cards)
         {
+            textLoader.ApplyTextToCard(card);  // JSON에서 텍스트 불러와 주입함 (07/08 추가)
+
             if (!eventCardMap.ContainsKey(card.EventID)) // EventID는 ScriptableObject의 이름
             {
                 eventCardMap.Add(card.EventID, card);

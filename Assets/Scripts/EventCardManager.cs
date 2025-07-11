@@ -130,17 +130,28 @@ public class EventCardManager //우선 MonoBehavior로 작성하라는 부분이
     {
         return day >= 0 && day < eventCardDeckList.Count;
     }
+
+    // --- Save/Load Methods ---
+    public List<EventCardDeck> GetDecksForSave()
+    {
+        return eventCardDeckList;
+    }
+
+    public void RestoreDecks(List<EventCardDeck> loadedDecks)
+    {
+        eventCardDeckList = loadedDecks;
+    }
 }
 
 public class EventCardDeck
 {
     private List<EventCardInfo> eventCardList = new List<EventCardInfo>();
 
-    public int EventCardCount => eventCardList.Count;  //카드 수량을 파악하기 위해 추가
+    public int EventCardCount => eventCardList.Count;
 
     public EventCardInfo GetEventCard(int index)
     {
-        if (index < 0 || index > eventCardList.Count)
+        if (index < 0 || index >= eventCardList.Count)
         {
             Debug.LogWarning("잘못된 인덱스 값입니다.");
             return null;
@@ -148,7 +159,6 @@ public class EventCardDeck
         return eventCardList[index];
     }
 
-    //덱 섞기
     public void ShuffleDeck()
     {
         for (int i = eventCardList.Count - 1; i > 0; i--)
@@ -158,13 +168,11 @@ public class EventCardDeck
         }
     }
 
-    //가장 마지막에 eventCard를 추가
     public void AddEventCard(EventCard eventCard, string area)
     {
         eventCardList.Add(new EventCardInfo(area, eventCard));
     }
 
-    //인덱스에 eventCard 삽입
     public void InsertEventCard(EventCard eventCard, int index, string area)
     {
         if (index < 0 || index > eventCardList.Count)
@@ -175,7 +183,6 @@ public class EventCardDeck
         eventCardList.Insert(index, new EventCardInfo(area, eventCard));
     }
 
-    // 지정된 인덱스의 이벤트 카드를 제거하고 반환
     public EventCardInfo RemoveEventCard(int index = -1)
     {
         if (eventCardList.Count == 0)
@@ -184,7 +191,6 @@ public class EventCardDeck
             return null;
         }
 
-        // 기본적으로 마지막 카드를 제거
         if (index < 0 || index >= eventCardList.Count)
         {
             index = eventCardList.Count - 1;
@@ -193,6 +199,17 @@ public class EventCardDeck
         EventCardInfo removedCard = eventCardList[index];
         eventCardList.RemoveAt(index);
         return removedCard;
+    }
+
+    // for Save/Load
+    public List<EventCardInfo> GetCardInfoList()
+    {
+        return eventCardList;
+    }
+
+    public void SetCardInfoList(List<EventCardInfo> list)
+    {
+        eventCardList = list;
     }
 }
 public class EventCardInfo

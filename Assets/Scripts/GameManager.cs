@@ -91,6 +91,9 @@ public class GameManager : MonoBehaviour //임시적으로 작성한걸 합쳤�
         DropZoneManager.Instance.TestReset();
 
         eventCardManager.ChangeDay(1); //eventCardManager의 것을 수정하게 바꿨습니다.
+
+        // --- 자동 저장 ---
+        SaveLoadManager.Instance.SaveGame();
     }
     public void ShowNextCard() //다음 카드 보여주기
     {

@@ -7,6 +7,7 @@ public class CardUI : MonoBehaviour
 {
     public static CardUI Instance;
     [Header("UI 요소")]
+    public GameObject cardUI;
     public Text eventText;
     public Transform choiceButtonContainer;
     public GameObject choiceButtonPrefab;
@@ -52,9 +53,8 @@ public class CardUI : MonoBehaviour
     }
     public void ReadyUI() //카드 준비, UI 투명화
     {
+        cardUI.transform.localScale = Vector3.one;
         canvasGroup.alpha = 0f;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
 
         if (cardRoot != null)
         {

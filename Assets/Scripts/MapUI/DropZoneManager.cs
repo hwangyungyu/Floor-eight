@@ -8,9 +8,6 @@ public class DropZoneManager : MonoBehaviour //아마 시민 생성과 제거만
 {
     public static DropZoneManager Instance;
 
-    public Button confirmButton;
-
-    public GameObject testPanel;
     public GameObject citizenPrefab;
     public Transform canvasTransform;
     private List<DropZone> dropZones = new List<DropZone>(); //드롭존 관리용 리스트
@@ -21,11 +18,6 @@ public class DropZoneManager : MonoBehaviour //아마 시민 생성과 제거만
         Instance = this;
     }
 
-    private void Start()
-    {
-        confirmButton.interactable = false; //확인버튼 상호작용금지
-    }
-
     public event Action OnTestReset;  // 테스트 이벤트 정의
 
     public void TestReset() // 디버그2 버튼 작동시 실행되는 테스트용 시민 배치 초기화 코드입니다. 여기서 이벤트를 시작합니다.
@@ -33,7 +25,7 @@ public class DropZoneManager : MonoBehaviour //아마 시민 생성과 제거만
         Debug.Log("DropZoneManager: TestReset triggered");
         OnTestReset?.Invoke(); // 이벤트 발생
         AdjustBundleZonesToMatchPopulation();
-        testPanel.SetActive(false);
+        AreaManager.Instance.UpdateTotal();
     }
 
     

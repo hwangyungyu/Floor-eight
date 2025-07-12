@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
 
     public ChoiceExecuter executer;
     public EventCardManager eventCardManager;
-    public Button myButton;
 
     public Dictionary<string, bool> flags = new Dictionary<string, bool>();
 
@@ -113,6 +112,9 @@ public class GameManager : MonoBehaviour
     {
         DropZoneManager.Instance.TestReset();
         eventCardManager.ChangeDay(1);
+        AreaManager.Instance.UpdateTotal();
+        AreaManager.Instance.EndDaySchedule();
+        
         SaveLoadManager.Instance.SaveGame();
     }
 
@@ -120,18 +122,20 @@ public class GameManager : MonoBehaviour
     {
         bool success = eventCardManager.DrawEventCard();
         EventCard card = CurrentEventCard;
-
-        if (CardUI.Instance != null)
-        {
-            CardUI.Instance.ReadyUI();
-        }
-
+        CardUI.Instance.cardUI.transform.localScale = Vector3.zero;
         if (!success)
         {
             Debug.Log("더 이상 표시할 카드가 없습니다.");
             NextDay();
             return;
         }
+
+        if (CardUI.Instance != null)
+        {
+            CardUI.Instance.ReadyUI();
+        }
+
+        
 
         if (CardUI.Instance != null)
         {

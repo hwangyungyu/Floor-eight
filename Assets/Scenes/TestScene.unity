@@ -4655,7 +4655,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 891450175}
   - {fileID: 389158392}
@@ -4764,6 +4764,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1145497605}
         m_TargetAssemblyTypeName: AreaManager, Assembly-CSharp
         m_MethodName: EndPopulationPlace
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 543668590}
+        m_TargetAssemblyTypeName: UIPopUp, Assembly-CSharp
+        m_MethodName: UIButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7318,6 +7330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   confirmButton: {fileID: 663817046}
+  mapUIButton: {fileID: 543668591}
   testPanel: {fileID: 186932311}
   totalText: {fileID: 1430117928}
 --- !u!1 &1164854790
@@ -7408,7 +7421,7 @@ MonoBehaviour:
   m_ReferenceResolution: {x: 1080, y: 2280}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0.5
-  m_PhysicalUnit: 3
+  m_PhysicalUnit: 2
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
@@ -12285,8 +12298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1ade69e9a93e5488880eb756a082b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  confirmButton: {fileID: 663817046}
-  testPanel: {fileID: 186932311}
   citizenPrefab: {fileID: 2000579495039969492, guid: 7fef82888f269084c939c3471002f3db, type: 3}
   canvasTransform: {fileID: 1570957897}
 --- !u!1 &1880087310
@@ -13630,6 +13641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e6e372b2470bcd4c8aace5c445a397b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardUI: {fileID: 663606293}
   eventText: {fileID: 891450176}
   choiceButtonContainer: {fileID: 389158392}
   choiceButtonPrefab: {fileID: 1332772722100178752, guid: 1cc0beaba9292a8479a507433755e235, type: 3}

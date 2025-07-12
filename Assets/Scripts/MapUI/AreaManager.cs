@@ -9,7 +9,7 @@ public class AreaManager : MonoBehaviour
     public Dictionary<string, Area> areas = new Dictionary<string, Area>();
 
     public Button confirmButton;
-
+    public Button mapUIButton;
     public GameObject testPanel;
     public Text totalText; //지도UI 기준 상단부에 위치한 전체 배치 수를 보여주는 텍스트
     public event Action OnPopulationPlacementComplete; //테스트용 이벤트
@@ -17,10 +17,6 @@ public class AreaManager : MonoBehaviour
     private void Awake() //각 지역에서 찾기 쉽게 우선 싱글톤으로 해놓았습니다.
     {
         Instance = this;
-    }
-    private void Start()
-    {
-
     }
     public void UpdateTotal() //전체 배치 숫자 업데이트 코드 및 최대치 배치 검사
     {
@@ -75,6 +71,11 @@ public class AreaManager : MonoBehaviour
         testPanel.SetActive(true);
     }
 
+    public void EndDaySchedule()
+    {
+        mapUIButton.onClick.Invoke();
+        testPanel.SetActive(false);
+    }
     public void RegisterArea(string id, Area area) // 각 드롭존(지역)을 이 클래스에서 한번에 관리하기 위해 딕셔너리에 추가합니다.
     {
         if (!areas.ContainsKey(id))

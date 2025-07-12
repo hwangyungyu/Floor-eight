@@ -1,13 +1,14 @@
-
-using UnityEngine;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
+using UnityEngine;
 
 public class SaveLoadManager : MonoBehaviour
 {
     public static SaveLoadManager Instance { get; private set; }
 
+    private const string EmptyDeckMarker = "EMPTY_DECK"; // 비어있는 덱을 표시할 특수 문자열
     private string saveFilePath;
 
     private void Awake()
@@ -18,6 +19,7 @@ public class SaveLoadManager : MonoBehaviour
             return;
         }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         saveFilePath = Path.Combine(Application.persistentDataPath, "gamedata.json");
     }
 
@@ -26,8 +28,6 @@ public class SaveLoadManager : MonoBehaviour
         GameData data = new GameData();
         var eventCardManager = GameManager.Instance.eventCardManager;
 
-        // --- Populate data from Managers ---
-        // ResourceManager
         data.food = ResourceManager.Instance.Food;
         data.utilityItem = ResourceManager.Instance.UtilityItem;
         data.medicine = ResourceManager.Instance.Medicine;
@@ -36,15 +36,13 @@ public class SaveLoadManager : MonoBehaviour
         data.madness = ResourceManager.Instance.Madness;
         data.population = ResourceManager.Instance.Population;
 
-        // FlagManager
-        data.flags = FlagManager.Instance.GetAllFlags();
+        var flags = FlagManager.Instance.GetAllFlags();
+        data.flagsRaw = string.Join(";", flags.Select(pair => $"{pair.Key}:{pair.Value}"));
 
-        // EventCardManager
         data.currentCardDay = eventCardManager.currentCardDay;
         data.currentCardIndex = eventCardManager.currentCardIndex;
         data.serializedCardDecks = SerializeDecks(eventCardManager.GetDecksForSave());
 
-        // --- Save to JSON ---
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
         Debug.Log("Game data saved to: " + saveFilePath);
@@ -54,13 +52,10 @@ public class SaveLoadManager : MonoBehaviour
     {
         if (File.Exists(saveFilePath))
         {
-            // --- Load from JSON ---
             string json = File.ReadAllText(saveFilePath);
             GameData data = JsonUtility.FromJson<GameData>(json);
             var eventCardManager = GameManager.Instance.eventCardManager;
 
-            // --- Apply data to Managers ---
-            // ResourceManager
             ResourceManager.Instance.Food = data.food;
             ResourceManager.Instance.UtilityItem = data.utilityItem;
             ResourceManager.Instance.Medicine = data.medicine;
@@ -69,26 +64,34 @@ public class SaveLoadManager : MonoBehaviour
             ResourceManager.Instance.Madness = data.madness;
             ResourceManager.Instance.Population = data.population;
 
-            // FlagManager
             FlagManager.Instance.ClearAllFlags();
-            if (data.flags != null)
+            if (!string.IsNullOrEmpty(data.flagsRaw))
             {
-                foreach (var flag in data.flags)
+                var entries = data.flagsRaw.Split(';');
+                foreach (var entry in entries)
                 {
-                    FlagManager.Instance.SetFlag(flag.Key, flag.Value);
+                    var parts = entry.Split(':');
+                    if (parts.Length == 2)
+                    {
+                        string key = parts[0];
+                        if (bool.TryParse(parts[1], out bool value))
+                        {
+                            FlagManager.Instance.SetFlag(key, value);
+                        }
+                    }
                 }
             }
 
-            // EventCardManager
             eventCardManager.currentCardDay = data.currentCardDay;
             eventCardManager.currentCardIndex = data.currentCardIndex;
             eventCardManager.RestoreDecks(DeserializeDecks(data.serializedCardDecks, eventCardManager));
 
-            Debug.Log("Game data loaded.");
+            Debug.Log("로딩 성공.");
+            DropZoneManager.Instance.TestReset();
         }
         else
         {
-            Debug.LogWarning("Save file not found!");
+            Debug.LogWarning("파일을 찾을 수 없습니다!");
         }
     }
 
@@ -97,6 +100,12 @@ public class SaveLoadManager : MonoBehaviour
         List<string> serializedDecks = new List<string>();
         foreach (var deck in decks)
         {
+            if (deck == null || deck.GetCardInfoList().Count == 0)
+            {
+                serializedDecks.Add(EmptyDeckMarker);
+                continue;
+            }
+
             StringBuilder sb = new StringBuilder();
             foreach (var cardInfo in deck.GetCardInfoList())
             {
@@ -105,7 +114,7 @@ public class SaveLoadManager : MonoBehaviour
                 sb.Append(cardInfo.Area ?? "");
                 sb.Append('|');
             }
-            if (sb.Length > 0) sb.Length--; // Remove last '|'
+            if (sb.Length > 0) sb.Length--; // 마지막 '|' 제거
             serializedDecks.Add(sb.ToString());
         }
         return serializedDecks;
@@ -116,12 +125,18 @@ public class SaveLoadManager : MonoBehaviour
         List<EventCardDeck> decks = new List<EventCardDeck>();
         foreach (var s_deck in serializedDecks)
         {
-            EventCardDeck deck = new EventCardDeck();
-            if (string.IsNullOrEmpty(s_deck)) continue;
+            if (s_deck == EmptyDeckMarker)
+            {
+                decks.Add(new EventCardDeck()); // 비어있는 덱 객체를 추가
+                continue;
+            }
 
+            EventCardDeck deck = new EventCardDeck();
             string[] cardInfos = s_deck.Split('|');
             foreach (var s_info in cardInfos)
             {
+                if (string.IsNullOrEmpty(s_info)) continue;
+
                 string[] parts = s_info.Split(';');
                 EventCard card = manager.GetEventCardById(parts[0]);
                 if (card != null)

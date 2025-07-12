@@ -120,6 +120,17 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
+    public void InitializeResources()
+    {
+        Food = 0;
+        UtilityItem = 0;
+        Medicine = 0;
+        Defense = 0;
+        Mental = 0;
+        Madness = 0;
+        Population = 0;
+    }
+
     // 실험용 
     public Button myButton;
 

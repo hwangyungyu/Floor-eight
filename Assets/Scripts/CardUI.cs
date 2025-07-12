@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour
 {
+    public static CardUI Instance;
     [Header("UI 요소")]
     public Text eventText;
     public Transform choiceButtonContainer;
@@ -32,6 +33,10 @@ public class CardUI : MonoBehaviour
     // 자원명 -> 스프라이트 매핑
     private Dictionary<string, Sprite> resourceIcons;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         resourceIcons = new Dictionary<string, Sprite>

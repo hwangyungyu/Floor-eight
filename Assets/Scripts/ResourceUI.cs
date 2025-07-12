@@ -30,13 +30,13 @@ public class ResourceUI : MonoBehaviour
         {
             resourceManager.OnResourceChanged += RefreshAmount;
 
-            prevFood = resourceManager.Food;
-            prevUtil = resourceManager.UtilityItem;
-            prevMedi = resourceManager.Medicine;
-            prevDef = resourceManager.Defense;
-            prevMen = resourceManager.Mental;
-            prevMad = resourceManager.Madness;
-            prevPop = resourceManager.Population;
+            prevFood = 0;
+            prevUtil = 0;
+            prevMedi = 0;
+            prevDef = 0;
+            prevMen = 0;
+            prevMad = 0;
+            prevPop = 0;
 
             RefreshAmount(); // 초기 출력
         }

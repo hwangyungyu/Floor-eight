@@ -5,7 +5,6 @@ using System.Collections.Generic;
 [Serializable]
 public class GameData
 {
-    // Resource Data
     public int food;
     public int utilityItem;
     public int medicine;
@@ -14,17 +13,14 @@ public class GameData
     public int madness;
     public int population;
 
-    // Flag Data
-    public Dictionary<string, bool> flags;
+    public string flagsRaw; //직렬화 문제로 문자열로 저장됩니다.
 
-    // EventCardManager Data
     public int currentCardDay;
     public int currentCardIndex;
-    public List<string> serializedCardDecks;
+    public List<string> serializedCardDecks; //직렬화 문제로 문자열로 저장됩니다.
 
     public GameData()
     {
-        // Default values
         food = 0;
         utilityItem = 0;
         medicine = 0;
@@ -32,7 +28,7 @@ public class GameData
         mental = 0;
         madness = 0;
         population = 0;
-        flags = new Dictionary<string, bool>();
+        flagsRaw = "";
 
         currentCardDay = 1;
         currentCardIndex = -1;

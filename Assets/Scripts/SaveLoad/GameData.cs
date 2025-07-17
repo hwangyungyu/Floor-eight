@@ -16,7 +16,7 @@ public class GameData
     public string flagsRaw; //직렬화 문제로 문자열로 저장됩니다.
 
     public int currentCardDay;
-    public int currentCardIndex;
+    public int currentCardIndex; //우선 자동 저장이라 날이 넘어갈때 저장되고 있어서 -1 값을 가지게 됩니다.
     public List<string> serializedCardDecks; //직렬화 문제로 문자열로 저장됩니다.
 
     public GameData()

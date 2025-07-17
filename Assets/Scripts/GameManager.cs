@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
         
         SaveLoadManager.Instance.SaveGame();
     }
-
+    
     public void ShowNextCard()
     {
         bool success = eventCardManager.DrawEventCard();

@@ -8,7 +8,6 @@ using System.Collections; // 코루틴 사용을 위해 추가
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
     public static int Day => Instance.eventCardManager.currentCardDay;
     private static EventCard CurrentEventCard => Instance.eventCardManager.CurrentEventCard;
 
@@ -29,6 +28,12 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void UIUpdate() //UI 요소를 변수에 맞게 갱신합니다.
+    {
+        DropZoneManager.Instance.AdjustBundleZonesToMatchPopulation();
+        AreaManager.Instance.UpdateTotal();
     }
 
     // 새 게임 시작 버튼에 연결할 함수
@@ -84,12 +89,12 @@ public class GameManager : MonoBehaviour
         
         if (AreaManager.Instance != null)
         {
-            AreaManager.Instance.OnPopulationPlacementComplete += StartEventCardSequence;
+            AreaManager.Instance.OnPopulationPlacementComplete += StartEventCardSequence; //시민 배치 완료 수신용 이벤트
         }
 
         eventCardManager.SetDay(1);
         ResourceManager.Instance.InitializeResources();
-        DropZoneManager.Instance.TestReset(); // 이제 안전하게 호출됩니다.
+        GameManager.Instance.UIUpdate();
     }
 
     public void ChoiceSelected(int choiceNum)
@@ -110,9 +115,8 @@ public class GameManager : MonoBehaviour
 
     public void NextDay()
     {
-        DropZoneManager.Instance.TestReset();
+        GameManager.Instance.UIUpdate();
         eventCardManager.ChangeDay(1);
-        AreaManager.Instance.UpdateTotal();
         AreaManager.Instance.EndDaySchedule();
         
         SaveLoadManager.Instance.SaveGame();
@@ -143,8 +147,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void StartEventCardSequence()
+    private void StartEventCardSequence() //시민 배치 완료 수신시 작동
     {
-        ShowNextCard();
+        ShowNextCard(); //다음 카드 송출, 정상작동시 첫번째 카드를 보여줘야 함
     }
 }

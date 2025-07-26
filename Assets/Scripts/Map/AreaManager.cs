@@ -10,9 +10,9 @@ public class AreaManager : MonoBehaviour
 
     public Button confirmButton;
     public Button mapUIButton;
-    public GameObject testPanel;
+    public GameObject testPanel; //클릭을 막는 반투명 판넬
     public Text totalText; //지도UI 기준 상단부에 위치한 전체 배치 수를 보여주는 텍스트
-    public event Action OnPopulationPlacementComplete; //테스트용 이벤트
+    public event Action OnPopulationPlacementComplete; //게임매니저로 배치 완료를 알리는 이벤트
 
     private void Awake() //각 지역에서 찾기 쉽게 우선 싱글톤으로 해놓았습니다.
     {
@@ -66,9 +66,9 @@ public class AreaManager : MonoBehaviour
 
         confirmButton.interactable = false;
 
-        OnPopulationPlacementComplete?.Invoke();
-
+        OnPopulationPlacementComplete?.Invoke(); //배치완료를 게임 매니저에게 이벤트로 전달
         testPanel.SetActive(true);
+        mapUIButton.onClick.Invoke(); //지도 자동 닫기
     }
 
     public void EndDaySchedule()

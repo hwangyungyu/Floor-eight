@@ -87,7 +87,7 @@ public class SaveLoadManager : MonoBehaviour
             eventCardManager.RestoreDecks(DeserializeDecks(data.serializedCardDecks, eventCardManager));
 
             Debug.Log("로딩 성공.");
-            DropZoneManager.Instance.TestReset();
+            GameManager.Instance.UIUpdate();
         }
         else
         {

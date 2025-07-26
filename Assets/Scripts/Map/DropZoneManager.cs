@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DropZoneManager : MonoBehaviour //아마 시민 생성과 제거만 관리하는 클래스로 바꾸고 이름을 바꿀거 같습니다.
+public class DropZoneManager : MonoBehaviour
 {
     public static DropZoneManager Instance;
 
@@ -18,18 +18,8 @@ public class DropZoneManager : MonoBehaviour //아마 시민 생성과 제거만
         Instance = this;
     }
 
-    public event Action OnTestReset;  // 테스트 이벤트 정의
-
-    public void TestReset() // 디버그2 버튼 작동시 실행되는 테스트용 시민 배치 초기화 코드입니다. 여기서 이벤트를 시작합니다.
-    {
-        Debug.Log("DropZoneManager: TestReset triggered");
-        OnTestReset?.Invoke(); // 이벤트 발생
-        AdjustBundleZonesToMatchPopulation();
-        AreaManager.Instance.UpdateTotal();
-    }
-
     
-    private void AdjustBundleZonesToMatchPopulation()
+    public void AdjustBundleZonesToMatchPopulation()
     {//이 함수를 호출하면 현재 등록된 드롭존의 시민들과 시민 자원 수를 비교해서 수를 서로 맞춥니다.
         int desiredPopulation = ResourceManager.Instance.Population; //맞춰야할 시민 수, 시민 자원 수
         int currentPopulation = 0;

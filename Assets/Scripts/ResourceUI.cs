@@ -46,13 +46,8 @@ public class ResourceUI : MonoBehaviour
         }
     }
 
-    private void OnDisable() //자원 변화 이벤트 구독 해제
-    {
-        if (resourceManager != null)
-            resourceManager.OnResourceChanged -= RefreshAmount;
-    }
 
-    public void RefreshAmount() //자원 UI 업데이트
+    private void RefreshAmount() //자원 UI 업데이트
     {
         AnimateText(amountFood, prevFood, resourceManager.Food, out prevFood);
         AnimateText(amountUtil, prevUtil, resourceManager.UtilityItem, out prevUtil);

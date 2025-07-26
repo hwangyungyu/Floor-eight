@@ -131,9 +131,6 @@ public class ResourceManager : MonoBehaviour
         Population = 0;
     }
 
-    // 실험용 
-    public Button myButton;
-
     public void TestResource() // 디버그1 버튼 작동시 동작하는 테스트용 자원 증가 코드입니다.
     {
         Population += 1;
@@ -143,9 +140,7 @@ public class ResourceManager : MonoBehaviour
         Mental += 1;
         Defense += 1;
 
-        // 귀찮아서 바로 반영하도록 test해놓음
-        //myButton.onClick.Invoke();
-        DropZoneManager.Instance.TestReset();
+        GameManager.Instance.UIUpdate();
     }
     public int GetResourceIndex(string resourceName) //Area 관련 인덱스 용
     {

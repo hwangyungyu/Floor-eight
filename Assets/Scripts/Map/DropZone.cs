@@ -24,8 +24,20 @@ public class DropZone : MonoBehaviour, IDropHandler
         DropZoneManager.Instance.RegisterDropZone(this); //시작할때 드롭존 매니저에 자신을 등록해놓습니다.
     }
 
+    public void ReturnAllCitizen() //모든 시민을 번들로 되돌립니다.
+    {
+        List<CitizenDrag> toRemove = new List<CitizenDrag> (citizens);
+        foreach(CitizenDrag citizen in toRemove)
+        {
+            citizen.ReturnToBundle();
+        }
+        toRemove.Clear();
+    }
+
     public void OnDrop(PointerEventData eventData) //여기서 현재 드래그 중인 시민의 드롭을 실행합니다.
     {
+        if (linkedArea.isEnabled == false) return;
+
         var dropped = eventData.pointerDrag; //드롭된 개체 판단
         if (dropped == null) return;
 

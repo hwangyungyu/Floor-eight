@@ -6,10 +6,11 @@ public class Area : MonoBehaviour
 {
     [Header("초기화에 사용할 지역 데이터")]
     public AreaData template;
-
+    [Header("연결된 드롭존")]
+    public DropZone linkedDropZone;
     [Header("런타임 상태")]
     public string areaID;
-    public bool isEnabled; //비활성화 미구현
+    public bool isEnabled;
     public List<string> availableEvents;
     public int maxCitizenCapacity;
     public int currentCitizenAmount = 0;
@@ -21,6 +22,7 @@ public class Area : MonoBehaviour
 
     [Header("UI관련")]
     public Text countText;
+    public Image image;
 
     private void Start()
     {
@@ -32,6 +34,18 @@ public class Area : MonoBehaviour
 
         InitializeFromTemplate(template);
         AreaManager.Instance.RegisterArea(areaID, this);
+        UpdateCountText();
+    }
+
+    public void AreaActive(bool tf) //지역 활성화 및 비활성화
+    {
+        isEnabled = tf;
+        countText.enabled = isEnabled;
+        image.enabled = isEnabled;
+        if (!isEnabled)
+        {
+            linkedDropZone.ReturnAllCitizen();
+        }
         UpdateCountText();
     }
 
@@ -50,6 +64,8 @@ public class Area : MonoBehaviour
             currentPenalty = new List<int>(data.penalty);
         else
             currentPenalty = new List<int> { 0, 0, 0, 0, 0, 0, 0};
+
+        AreaActive(isEnabled);
     }
     public void OnCitizenAssigned(CitizenDrag citizen) //시민 수량 증가
     {

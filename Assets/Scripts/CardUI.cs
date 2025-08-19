@@ -51,6 +51,16 @@ public class CardUI : MonoBehaviour
             { "population", populationSprite }
         };
     }
+
+    public void OnCardClick()
+    {
+        // 튜토리얼이 활성화된 상태이고, 2단계(카드 설명)일 때만 작동
+        if (TutorialManager.Instance != null && TutorialManager.Instance.IsTutorialActive && TutorialManager.Instance.TutorialStep == 2)
+        {
+            Debug.Log("튜토리얼: 카드가 클릭되었습니다. 다음 단계로 진행합니다.");
+            TutorialManager.Instance.GoToNextStep();
+        }
+    }
     public void ReadyUI() //카드 준비, UI 투명화
     {
         cardUI.transform.localScale = Vector3.one;
@@ -253,6 +263,7 @@ public class CardUI : MonoBehaviour
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>
         {
+            OnCardClick();
             GameManager.Instance.ChoiceSelected(choiceNumber);
             GameManager.Instance.ShowNextCard();
         });

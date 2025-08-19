@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
             AreaManager.Instance.OnPopulationPlacementComplete += StartEventCardSequence; //시민 배치 완료 수신용 이벤트
         }
 
-        eventCardManager.SetDay(1);
+        eventCardManager.SetDay(0);
         ResourceManager.Instance.InitializeResources();
         GameManager.Instance.UIUpdate();
     }
@@ -110,6 +110,12 @@ public class GameManager : MonoBehaviour
         foreach (string effect in effects)
         {
             executer.ExecuteEffect(effect);
+        }
+
+        // 튜토리얼 로직 추가
+        if (TutorialManager.Instance != null && TutorialManager.Instance.IsTutorialActive)
+        {
+            TutorialManager.Instance.OnTutorialAction(5);
         }
     }
 
@@ -129,6 +135,11 @@ public class GameManager : MonoBehaviour
         CardUI.Instance.cardUI.transform.localScale = Vector3.zero;
         if (!success)
         {
+            if(Day == 0) //튜토리얼 과정 코드
+            {
+                TutorialManager.Instance.OnTutorialAction(6);
+                ResourceManager.Instance.InitializeResources();
+            }
             Debug.Log("더 이상 표시할 카드가 없습니다.");
             NextDay();
             return;

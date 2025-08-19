@@ -36,7 +36,11 @@ public class DropZone : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData) //여기서 현재 드래그 중인 시민의 드롭을 실행합니다.
     {
-        if (linkedArea.isEnabled == false) return;
+        if (isBundle == false)
+        {
+            if (linkedArea.isEnabled == false) return;
+        }
+
 
         var dropped = eventData.pointerDrag; //드롭된 개체 판단
         if (dropped == null) return;

@@ -129,16 +129,17 @@ public class ResourceManager : MonoBehaviour
         Mental = 0;
         Madness = 0;
         Population = 0;
+        GameManager.Instance.UIUpdate();
     }
 
-    public void TestResource() // 디버그1 버튼 작동시 동작하는 테스트용 자원 증가 코드입니다.
+    public void AllResource(int amount) // 모든 자원 증가
     {
-        Population += 1;
-        Food += 1;
-        UtilityItem += 1;
-        Medicine += 1;
-        Mental += 1;
-        Defense += 1;
+        Population += amount;
+        Food += amount;
+        UtilityItem += amount;
+        Medicine += amount;
+        Mental += amount;
+        Defense += amount;
 
         GameManager.Instance.UIUpdate();
     }

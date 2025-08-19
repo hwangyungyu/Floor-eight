@@ -121,6 +121,12 @@ public class GameManager : MonoBehaviour
 
     public void NextDay()
     {
+        if (Day == 0) //튜토리얼 과정 코드
+        {
+            TutorialManager.Instance.OnTutorialAction(6);
+            ResourceManager.Instance.InitializeResources();
+            FlagManager.Instance.ClearAllFlags();
+        }
         GameManager.Instance.UIUpdate();
         eventCardManager.ChangeDay(1);
         AreaManager.Instance.EndDaySchedule();
@@ -135,11 +141,6 @@ public class GameManager : MonoBehaviour
         CardUI.Instance.cardUI.transform.localScale = Vector3.zero;
         if (!success)
         {
-            if(Day == 0) //튜토리얼 과정 코드
-            {
-                TutorialManager.Instance.OnTutorialAction(6);
-                ResourceManager.Instance.InitializeResources();
-            }
             Debug.Log("더 이상 표시할 카드가 없습니다.");
             NextDay();
             return;
@@ -148,12 +149,6 @@ public class GameManager : MonoBehaviour
         if (CardUI.Instance != null)
         {
             CardUI.Instance.ReadyUI();
-        }
-
-        
-
-        if (CardUI.Instance != null)
-        {
             CardUI.Instance.SetCard(card);
         }
     }

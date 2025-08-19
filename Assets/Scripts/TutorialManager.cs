@@ -35,9 +35,7 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         // 게임 시작 시 튜토리얼 패널은 비활성화
-        if (tutorialPanel != null)
-        {            tutorialPanel.SetActive(false);
-        }
+        if (tutorialPanel != null) tutorialPanel.SetActive(false);
 
         // GameManager가 초기화된 후 튜토리얼 시작 여부를 결정해야 하므로
         // 잠시 대기 후 확인
@@ -172,6 +170,13 @@ public class TutorialManager : MonoBehaviour
     {
         Debug.Log("튜토리얼을 종료합니다.");
         tutorialPanel.SetActive(false);
-        tutorialStep = 0;
+        tutorialStep = -1;
+    }
+
+    public void SkipTutorial()
+    {
+        CardUI.Instance.ReadyUI();
+        GameManager.Instance.NextDay();
+        EndTutorial();
     }
 }

@@ -52,15 +52,6 @@ public class CardUI : MonoBehaviour
         };
     }
 
-    public void OnCardClick()
-    {
-        // 튜토리얼이 활성화된 상태이고, 2단계(카드 설명)일 때만 작동
-        if (TutorialManager.Instance != null && TutorialManager.Instance.IsTutorialActive && TutorialManager.Instance.TutorialStep == 2)
-        {
-            Debug.Log("튜토리얼: 카드가 클릭되었습니다. 다음 단계로 진행합니다.");
-            TutorialManager.Instance.GoToNextStep();
-        }
-    }
     public void ReadyUI() //카드 준비, UI 투명화
     {
         cardUI.transform.localScale = Vector3.one;
@@ -128,11 +119,6 @@ public class CardUI : MonoBehaviour
         additionalMessage.text = "";
         List<string> effects = null;
         EventCard currentCard = GameManager.Instance.eventCardManager.CurrentEventCard;
-        string area = GameManager.Instance.eventCardManager.currentCardArea;
-        Area areaData = null;
-
-        if (!string.IsNullOrEmpty(area))
-            AreaManager.Instance.areas.TryGetValue(area, out areaData);
 
         switch (choiceNumber)
         {
@@ -152,57 +138,51 @@ public class CardUI : MonoBehaviour
 
         if (!buttonObj.activeSelf) return;
 
-        bool isInteractable = true;
+        bool isInteractable = IsChoiceAffordable(effects);
         List<(string name, int value)> resourceChanges = new List<(string, int)>();
 
         if (effects != null)
         {
+            string area = GameManager.Instance.eventCardManager.currentCardArea;
+            Area areaData = null;
+            if (!string.IsNullOrEmpty(area))
+                AreaManager.Instance.areas.TryGetValue(area, out areaData);
+
             foreach (string effect in effects)
             {
                 string[] parts = effect.Split(' ');
+                string effectType = parts[0];
 
-                if (parts.Length >= 3 && (parts[0] == "ItemDecrease" || parts[0] == "ItemIncrease"))
+                if (parts.Length >= 3 && (effectType == "ItemDecrease" || effectType == "ItemIncrease"))
                 {
                     string resourceName = parts[1].ToLower();
-                    if (!int.TryParse(parts[2], out int baseAmount))
-                        continue;
+                    if (!int.TryParse(parts[2], out int baseAmount)) continue;
 
                     int amount = baseAmount;
                     int index = ResourceManager.Instance.GetResourceIndex(resourceName);
 
-                    if (parts[0] == "ItemDecrease")
+                    if (effectType == "ItemDecrease")
                     {
                         if (areaData?.currentPenalty != null && index >= 0 && index < areaData.currentPenalty.Count)
                             amount += areaData.currentPenalty[index];
-                        amount = Mathf.Max(0, amount);
-
-                        if (!GameManager.Instance.executer.CanDecreaseResource(resourceName, amount))
-                            isInteractable = false;
-                        resourceChanges.Add((resourceName, -amount));
+                        resourceChanges.Add((resourceName, -Mathf.Max(0, amount)));
                     }
-                    else if (parts[0] == "ItemIncrease")
+                    else // ItemIncrease
                     {
                         if (areaData?.currentBonus != null && index >= 0 && index < areaData.currentBonus.Count)
                             amount += areaData.currentBonus[index];
-                        amount = Mathf.Max(0, amount);
-                        resourceChanges.Add((resourceName, amount));
+                        resourceChanges.Add((resourceName, Mathf.Max(0, amount)));
                     }
                 }
-                else if (parts.Length >= 2 && parts[0] == "AdditionalMessage")
+                else if (parts.Length >= 2 && effectType == "AdditionalMessage")
                 {
-                    
                     if (additionalMessage != null)
                     {
                         additionalMessage.text = parts[1].Replace("_", " ");
-
                         if (parts.Length >= 3 && ColorUtility.TryParseHtmlString(parts[2], out Color newColor))
-                        {
                             additionalMessage.color = newColor;
-                        }
                         else
-                        {
                             additionalMessage.color = Color.black;
-                        }
                     }
                 }
             }
@@ -230,20 +210,16 @@ public class CardUI : MonoBehaviour
             GameObject uiObj = uiList[uiIndex];
             uiObj.SetActive(true);
 
-            // 텍스트 처리
             Text uiText = uiObj.GetComponentInChildren<Text>();
             int value = resourceChanges[i].value;
-            uiText.text = $"{(value > 0 ? "+" : "-")}{Mathf.Abs(value)}";
-
-            // 색상 처리
+            uiText.text = $"{(value >= 0 ? "+" : "")}{value}";
             uiText.color = value >= 0 ? Color.green : Color.red;
 
-            // 이미지 처리
             Image uiImage = null;
-            Image[] images = uiObj.GetComponentsInChildren<Image>(true); // 비활성화도 포함
+            Image[] images = uiObj.GetComponentsInChildren<Image>(true);
             foreach (Image img in images)
             {
-                if (img.gameObject != uiObj) // 자기 자신 제외
+                if (img.gameObject != uiObj)
                 {
                     uiImage = img;
                     break;
@@ -256,16 +232,61 @@ public class CardUI : MonoBehaviour
             }
             else if (uiImage != null)
             {
-                uiImage.enabled = false; // 아이콘 없으면 비활성화
+                uiImage.enabled = false;
             }
         }
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>
         {
-            OnCardClick();
             GameManager.Instance.ChoiceSelected(choiceNumber);
             GameManager.Instance.ShowNextCard();
         });
+    }
+
+    private bool IsChoiceAffordable(List<string> effects)
+    {
+        if (effects == null) return true;
+
+        string areaID = GameManager.Instance.eventCardManager.currentCardArea;
+        Area areaData = null;
+        if (!string.IsNullOrEmpty(areaID))
+        {
+            AreaManager.Instance.areas.TryGetValue(areaID, out areaData);
+        }
+
+        foreach (string effect in effects)
+        {
+            string[] parts = effect.Split(' ');
+            if (parts.Length < 3) continue;
+
+            string effectType = parts[0];
+            string resourceName = parts[1];
+            if (!int.TryParse(parts[2], out int requiredAmount)) continue;
+
+            if (effectType == "ItemDecrease")
+            {
+                int index = ResourceManager.Instance.GetResourceIndex(resourceName.ToLower());
+                if (areaData?.currentPenalty != null && index >= 0 && index < areaData.currentPenalty.Count)
+                {
+                    requiredAmount += areaData.currentPenalty[index];
+                }
+                requiredAmount = Mathf.Max(0, requiredAmount);
+
+                if (ResourceManager.Instance.GetResourceByName(resourceName) < requiredAmount)
+                {
+                    return false;
+                }
+            }
+            else if (effectType == "DecreaseSpecial")
+            {
+                if (ResourceManager.Instance.GetResourceByName(resourceName) < requiredAmount)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

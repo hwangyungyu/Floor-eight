@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     public void UIUpdate() //UI 요소를 변수에 맞게 갱신합니다.
     {
+        ResourceUI.Instance.RefreshAmount();
         DropZoneManager.Instance.AdjustBundleZonesToMatchPopulation();
         AreaManager.Instance.UpdateTotal();
     }

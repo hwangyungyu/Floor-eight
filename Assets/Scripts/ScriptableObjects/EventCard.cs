@@ -14,6 +14,9 @@ public class EventCard : ScriptableObject
     [Header("자원 트리거 (자원 이름, 최소 수량)")]
     public List<ItemTrigger> ItemTrigger;
 
+    [Header("특수 자원 트리거 (자원 이름, 최소 수량)")]
+    public List<SpecialResourceTrigger> SpecialResourceTrigger;
+
     [Header("플래그 트리거 (플래그 이름, bool 값)")]
     public List<FlagTrigger> FlagTrigger;
 
@@ -51,4 +54,11 @@ public class FlagTrigger
 {
     public string flagName;
     public bool requiredValue;
+}
+
+[System.Serializable]
+public class SpecialResourceTrigger
+{
+    public string resourceName;
+    public int requiredAmount;
 }

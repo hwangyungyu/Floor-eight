@@ -35,6 +35,7 @@ public class SaveLoadManager : MonoBehaviour
         data.mental = ResourceManager.Instance.Mental;
         data.madness = ResourceManager.Instance.Madness;
         data.population = ResourceManager.Instance.Population;
+        data.specialResources = ResourceManager.Instance.specialResources;
 
         var flags = FlagManager.Instance.GetAllFlags();
         data.flagsRaw = string.Join(";", flags.Select(pair => $"{pair.Key}:{pair.Value}"));
@@ -63,6 +64,7 @@ public class SaveLoadManager : MonoBehaviour
             ResourceManager.Instance.Mental = data.mental;
             ResourceManager.Instance.Madness = data.madness;
             ResourceManager.Instance.Population = data.population;
+            ResourceManager.Instance.specialResources = data.specialResources;
 
             FlagManager.Instance.ClearAllFlags();
             if (!string.IsNullOrEmpty(data.flagsRaw))

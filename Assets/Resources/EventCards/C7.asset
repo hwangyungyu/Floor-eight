@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: C7
+  m_EditorClassIdentifier: 
+  EventID: C7
+  EventText: "\uD2B9\uC218\uC790\uC6D0 \uD14C\uC2A4\uD2B8 2"
+  ItemTrigger: []
+  SpecialResourceTrigger:
+  - resourceName: "\uAE08\uD654"
+    requiredAmount: 2
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 1
+  ChoiceEnabled3: 1
+  ChoiceText1: "\uAE08\uD654 1\uAC1C \uBC84\uB9AC\uAE30"
+  ChoiceText2: "\uAE08\uD654 2\uAC1C \uBC84\uB9AC\uAE30"
+  ChoiceText3: "\uAE08\uD654 5\uAC1C \uBC84\uB9AC\uAE30"
+  ChoiceEffect1:
+  - "DecreaseSpecial \uAE08\uD654 1"
+  ChoiceEffect2:
+  - "DecreaseSpecial \uAE08\uD654 2"
+  ChoiceEffect3:
+  - "DecreaseSpecial \uAE08\uD654 5"

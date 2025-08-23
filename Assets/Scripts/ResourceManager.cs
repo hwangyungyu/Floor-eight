@@ -1,6 +1,14 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+
+[System.Serializable]
+public class SpecialResource
+{
+    public string name;
+    public int amount;
+}
 
 public class ResourceManager : MonoBehaviour
 {
@@ -13,6 +21,8 @@ public class ResourceManager : MonoBehaviour
     private int mental;
     private int madness;
     private int population;
+    
+    public List<SpecialResource> specialResources = new List<SpecialResource>();
 
     public event Action OnResourceChanged;
 
@@ -129,6 +139,7 @@ public class ResourceManager : MonoBehaviour
         Mental = 0;
         Madness = 0;
         Population = 0;
+        specialResources.Clear();
         GameManager.Instance.UIUpdate();
     }
 
@@ -143,6 +154,34 @@ public class ResourceManager : MonoBehaviour
 
         GameManager.Instance.UIUpdate();
     }
+    
+    public SpecialResource GetSpecialResource(string resourceName)
+    {
+        return specialResources.FirstOrDefault(r => r.name.Equals(resourceName, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public void AddSpecialResource(string resourceName, int value)
+    {
+        SpecialResource resource = GetSpecialResource(resourceName);
+        if (resource != null)
+        {
+            resource.amount = Mathf.Max(0, resource.amount + value);
+        }
+        else
+        {
+            if (value > 0)
+            {
+                specialResources.Add(new SpecialResource { name = resourceName, amount = value });
+            }
+        }
+        OnResourceChanged?.Invoke();
+    }
+
+    public void AddTestResource(string name)
+    {
+        AddSpecialResource(name, 1);
+    }
+
     public int GetResourceIndex(string resourceName) //Area 관련 인덱스 용
     {
         if (string.IsNullOrEmpty(resourceName))
@@ -168,16 +207,16 @@ public class ResourceManager : MonoBehaviour
     }
     public int GetResourceByName(string resourceName) //자원 이름으로 자원 불러오기
     {
-        return resourceName switch
+        return resourceName.ToLower() switch
         {
-            "Food" => Food,
-            "UtilityItem" => UtilityItem,
-            "Medicine" => Medicine,
-            "Defense" => Defense,
-            "Mental" => Mental,
-            "Madness" => Madness,
-            "Population" => Population,
-            _ => 0 // 알 수 없는 이름은 0으로 처리
+            "food" => Food,
+            "utilityitem" => UtilityItem,
+            "medicine" => Medicine,
+            "defense" => Defense,
+            "mental" => Mental,
+            "madness" => Madness,
+            "population" => Population,
+            _ => GetSpecialResource(resourceName)?.amount ?? 0
         };
     }
 }

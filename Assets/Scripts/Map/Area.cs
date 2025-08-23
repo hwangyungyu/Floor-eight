@@ -154,6 +154,16 @@ public class Area : MonoBehaviour
             }
         }
 
+        //특수 자원 조건 검사
+        foreach (SpecialResourceTrigger trigger in card.SpecialResourceTrigger)
+        {
+            int current = resourceManager.GetResourceByName(trigger.resourceName);
+            if (current < trigger.requiredAmount)
+            {
+                return false;
+            }
+        }
+
         // 플래그 조건 검사
         foreach (FlagTrigger trigger in card.FlagTrigger)
         {

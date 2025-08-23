@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class ResourceUI : MonoBehaviour
 {
+    public static ResourceUI Instance;
+
+    [Header("Basic Resources")]
     [SerializeField] private Text amountFood;
     [SerializeField] private Text amountUtil;
     [SerializeField] private Text amountMedi;
@@ -12,7 +15,12 @@ public class ResourceUI : MonoBehaviour
     [SerializeField] private Text amountMad;
     [SerializeField] private Text amountPopulation;
 
-    private Color increaseColor = Color.green; //1
+    [Header("Special Resources")]
+    [SerializeField] private GameObject specialResourceItemPrefab; // UI 프리팹 (Text 2개 포함: 이름, 수량)
+    [SerializeField] private Transform specialResourceContainer; // 프리팹이 생성될 부모 컨테이너
+
+    [Header("Animation Settings")]
+    private Color increaseColor = Color.green;
     private Color decreaseColor = Color.red; 
     private Color defaultColor = Color.black;
 
@@ -22,6 +30,11 @@ public class ResourceUI : MonoBehaviour
     private ResourceManager resourceManager;
 
     private int prevFood, prevUtil, prevMedi, prevDef, prevMen, prevMad, prevPop;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -47,7 +60,7 @@ public class ResourceUI : MonoBehaviour
     }
 
 
-    private void RefreshAmount() //자원 UI 업데이트
+    public void RefreshAmount() //자원 UI 업데이트
     {
         AnimateText(amountFood, prevFood, resourceManager.Food, out prevFood);
         AnimateText(amountUtil, prevUtil, resourceManager.UtilityItem, out prevUtil);
@@ -56,6 +69,40 @@ public class ResourceUI : MonoBehaviour
         AnimateText(amountMen, prevMen, resourceManager.Mental, out prevMen);
         AnimateText(amountMad, prevMad, resourceManager.Madness, out prevMad);
         AnimateText(amountPopulation, prevPop, resourceManager.Population, out prevPop);
+        
+        RefreshSpecialResourceUI();
+    }
+
+    private void RefreshSpecialResourceUI()
+    {
+        if (specialResourceItemPrefab == null || specialResourceContainer == null)
+        {
+            return; // Do nothing if prefab or container is not set
+        }
+
+        // Clear existing special resource items
+        foreach (Transform child in specialResourceContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        if (resourceManager.specialResources == null) return;
+        
+        // Create new items for each special resource
+        foreach (var resource in resourceManager.specialResources)
+        {
+            GameObject itemGO = Instantiate(specialResourceItemPrefab, specialResourceContainer);
+            Text[] texts = itemGO.GetComponentsInChildren<Text>();
+            if (texts.Length >= 2)
+            {
+                texts[0].text = resource.name;    // First Text for name
+                texts[1].text = resource.amount.ToString(); // Second Text for amount
+            }
+            else
+            {
+                Debug.LogWarning("Special Resource Prefab에는 이름과 수량을 표시할 Text 컴포넌트가 2개 이상 필요합니다.");
+            }
+        }
     }
 
     private void AnimateText(Text text, int previous, int current, out int updated) //텍스트 연출 시작

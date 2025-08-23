@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +11,7 @@ public class GameData
     public int mental;
     public int madness;
     public int population;
+    public List<SpecialResource> specialResources;
 
     public string flagsRaw; //직렬화 문제로 문자열로 저장됩니다.
 
@@ -28,6 +28,7 @@ public class GameData
         mental = 0;
         madness = 0;
         population = 0;
+        specialResources = new List<SpecialResource>();
         flagsRaw = "";
 
         currentCardDay = 1;

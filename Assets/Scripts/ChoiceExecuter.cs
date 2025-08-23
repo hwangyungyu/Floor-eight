@@ -241,6 +241,26 @@ public class ChoiceExecuter
             case "AdditionalMessage":
                 //추가 메세지의 경우 실행 관련이 아니기 때문에 다른 곳에서 처리됩니다.
                 break;
+            case "IncreaseSpecial":
+                if (parts.Length >= 3)
+                {
+                    string resourceName = parts[1];
+                    if (int.TryParse(parts[2], out int amount))
+                    {
+                        ResourceManager.Instance.AddSpecialResource(resourceName, amount);
+                    }
+                }
+                break;
+            case "DecreaseSpecial":
+                if (parts.Length >= 3)
+                {
+                    string resourceName = parts[1];
+                    if (int.TryParse(parts[2], out int amount))
+                    {
+                        ResourceManager.Instance.AddSpecialResource(resourceName, -amount);
+                    }
+                }
+                break;
             default:
                 Debug.LogWarning("알 수 없는 효과: " + effect);
                 break;

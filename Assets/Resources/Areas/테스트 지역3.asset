@@ -15,11 +15,13 @@ MonoBehaviour:
   areaID: "\uD14C\uC2A4\uD2B8 \uC9C0\uC5ED3"
   enabled: 1
   events:
-  - C
-  - C2
-  - C3
-  - C4
-  - C5
+  - 
+  - 
+  - 
+  - 
+  - 
+  - C6
+  - C7
   bonus: 
   penalty: 
   maxCapacity: 5

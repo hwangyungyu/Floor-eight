@@ -9,7 +9,7 @@ public class SettingsUIController : MonoBehaviour
     // 뒤로가기 버튼 눌렀을 때
     public void OnSettingButtonClicked()
     {
-        settingsPanel.SetActive(true);
+        settingsPanel.SetActive(!settingsPanel.activeSelf);
     }
 
     // 뒤로가기 버튼 눌렀을 때

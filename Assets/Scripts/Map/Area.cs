@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Area : MonoBehaviour
 {
+    [Header("관리 지역 여부")]
+    public bool isManage = false;
     [Header("초기화에 사용할 지역 데이터")]
     public AreaData template;
     [Header("연결된 드롭존")]
@@ -44,7 +46,7 @@ public class Area : MonoBehaviour
         image.enabled = isEnabled;
         if (!isEnabled)
         {
-            linkedDropZone.ReturnAllCitizen();
+            if(linkedDropZone != null) linkedDropZone.ReturnAllCitizen();
         }
         UpdateCountText();
     }

@@ -45,7 +45,14 @@ public class AreaManager : MonoBehaviour
         foreach (var areaPair in areas)
         {
             Area area = areaPair.Value;
+
+            if(area.isManage) //관리 구역이면 스킵
+            {
+                continue;
+            }
+
             int count = area.currentCitizenAmount;
+
 
             if (count == 0)
                 continue;
@@ -69,6 +76,32 @@ public class AreaManager : MonoBehaviour
         OnPopulationPlacementComplete?.Invoke(); //배치완료를 게임 매니저에게 이벤트로 전달
         testPanel.SetActive(true);
         mapUIButton.onClick.Invoke(); //지도 자동 닫기
+    }
+
+    public void AddManageCard() //관리카드 추가
+    {
+        foreach (var areaPair in areas)
+        {
+            Area area = areaPair.Value;
+
+            if (!area.isManage) //관리 구역이 아니면 스킵
+            {
+                continue;
+            }
+
+            List<EventCardInfo> selectedCardInfos = area.GetRandomEventCards(1); //우선 한장만
+            if (selectedCardInfos == null || selectedCardInfos.Count == 0)
+                continue;
+
+            foreach (var selectedCardInfo in selectedCardInfos)
+            {
+                if (selectedCardInfo != null)
+                {
+                    GameManager.Instance.eventCardManager.AddEventCardWithoutShuffle(GameManager.Day, selectedCardInfo.Card, selectedCardInfo.Area);
+                    Debug.Log($"지역 {area.areaID}에서 {selectedCardInfo.Card.name} 카드가 {GameManager.Day}일차에 추가됨");
+                }
+            }
+        }
     }
 
     public void EndDaySchedule()

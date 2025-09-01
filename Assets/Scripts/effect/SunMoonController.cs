@@ -17,7 +17,7 @@ public class SunMoonController : MonoBehaviour
     private bool isDay = true;
 
     // ▶ 낮/밤 배경 색상 정의
-    private Color dayColor = new Color(1f, 0.8f, 0.6f);         // 연한 주황색 (낮 배경)
+    private Color dayColor = new Color(1f, 0.8f, 0.6f, 0.7f);         // 연한 주황색 (낮 배경)
     private Color nightColor = new Color(0f, 0f, 0f, 0.7f);     // 불투명한 검정색 (밤 배경)
 
     private void Awake()

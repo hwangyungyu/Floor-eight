@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public static int Day => Instance.eventCardManager.currentCardDay;
     private static EventCard CurrentEventCard => Instance.eventCardManager.CurrentEventCard;
 
+    private bool todayManage = false;
+
     public ChoiceExecuter executer;
     public EventCardManager eventCardManager;
 
@@ -128,6 +130,7 @@ public class GameManager : MonoBehaviour
             ResourceManager.Instance.InitializeResources();
             FlagManager.Instance.ClearAllFlags();
         }
+        todayManage = false;
         GameManager.Instance.UIUpdate();
         eventCardManager.ChangeDay(1);
         AreaManager.Instance.EndDaySchedule();
@@ -142,7 +145,16 @@ public class GameManager : MonoBehaviour
         CardUI.Instance.cardUI.transform.localScale = Vector3.zero;
         if (!success)
         {
+            if (todayManage == false)
+            {
+                AreaManager.Instance.AddManageCard();
+                todayManage = true;
+                EffectManager.instance.SunMoonChange();
+                ShowNextCard();
+                return;
+            }
             Debug.Log("더 이상 표시할 카드가 없습니다.");
+            EffectManager.instance.SunMoonChange();
             NextDay();
             return;
         }

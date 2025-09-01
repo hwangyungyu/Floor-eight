@@ -115,6 +115,13 @@ public class EventCardManager //우선 MonoBehavior로 작성하라는 부분이
             eventCardDeckList[day].ShuffleDeck();
         }
     }
+    public void AddEventCardWithoutShuffle(int day, EventCard eventCard, string area = null)
+    {
+        if (IsValidDay(day))
+        {
+            eventCardDeckList[day].AddEventCard(eventCard, area);
+        }
+    }
 
     // 특정 날짜(day)의 카드 덱에서 지정된 위치(index)의 이벤트 카드를 제거
     public void RemoveEventCard(int day, int index)

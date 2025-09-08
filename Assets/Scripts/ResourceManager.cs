@@ -162,6 +162,7 @@ public class ResourceManager : MonoBehaviour
 
     public void AddSpecialResource(string resourceName, int value)
     {
+        resourceName = resourceName.Replace("_", " ");
         SpecialResource resource = GetSpecialResource(resourceName);
         if (resource != null)
         {
@@ -171,6 +172,7 @@ public class ResourceManager : MonoBehaviour
         {
             if (value > 0)
             {
+                
                 specialResources.Add(new SpecialResource { name = resourceName, amount = value });
             }
         }
@@ -216,7 +218,7 @@ public class ResourceManager : MonoBehaviour
             "mental" => Mental,
             "madness" => Madness,
             "population" => Population,
-            _ => GetSpecialResource(resourceName)?.amount ?? 0
+            _ => GetSpecialResource(resourceName.Replace("_", " "))?.amount ?? 0
         };
     }
 }

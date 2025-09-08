@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uC0DD\uC874\uC790\uD6C4\uC18D\uC774\uBCA4\uD2B8_3"
+  m_EditorClassIdentifier: 
+  EventID: "\uC0DD\uC874\uC790\uD6C4\uC18D\uC774\uBCA4\uD2B8_3"
+  EventText: "\uB9C8\uCE68 \uB2F9\uC2E0\uC758 \uBC30\uB0AD\uC5D0 \uBD95\uB300\uAC00
+    \uB4E4\uC5B4\uC788\uC9C0 \uC54A\uC558\uB098\uC694? \uC774\uAC74 \uAE30\uD68C\uC785\uB2C8\uB2E4!
+    \uC8C4\uCC45\uAC10\uC744 \uD574\uC18C\uD560 \uAE30\uD68C!\r\n\r\n\uB2F9\uC2E0\uC740
+    \uAE30\uB2E4\uB838\uB2E4\uB294 \uB4EF \uAC00\uBC29\uC5D0\uC11C \uBD95\uB300\uB97C
+    \uAEBC\uB0B4 \uBA4B\uC9C0\uAC8C \uB0A8\uC790\uC758 \uC55E\uC5D0 \uB0B4\uB824\uB193\uC558\uC2B5\uB2C8\uB2E4.
+    \uC774\uB7F0 \uC0C1\uD669\uC744 \uC704\uD574 \uC900\uBE44\uD574\uB480\uB2E4\uB294
+    \uB4EF, \uB9C8\uCE58 \uB2F9\uC2E0\uB9CC\uC744 \uC704\uD574 \uAC00\uC838\uC654\uB2E4\uB294
+    \uB4EF!\r\n\r\n\uBA38\uB9AC\uC5D0 \uBD95\uB300\uB97C \uAC10\uC740 \uADF8\uB294
+    \uAC10\uC0AC\uD558\uB2E4\uBA70 \uC5F0\uC2E0 \uC778\uC0AC\uD558\uB354\uB2C8, \uB2F9\uC2E0\uC5D0\uAC8C
+    \uBA3C\uC800 \uB5A0\uB098\uB3C4 \uB41C\uB2E4 \uC190\uC9D3\uD569\uB2C8\uB2E4.
+    \uD558\uC9C0\uB9CC, \uC774\uB7F0 \uC5B4\uB450\uC6B4 \uACF3\uC5D0 \uD63C\uC790
+    \uC788\uB2E4\uAC04 \uB610 \uB204\uAD6C \uBC1C\uC5D0 \uCC44\uC77C\uC9C0 \uBAA8\uB974\uC796\uC544\uC694!
+    \uB2F9\uC2E0\uC740 \uADF9\uAD6C \uC0AC\uC591\uD558\uB294 \uADF8\uB97C \uBC1D\uC740
+    \uACF3\uAE4C\uC9C0 \uB04C\uC5B4\uB0B4\uACE0\uC120, \uB2E4\uC2DC \uC0C8\uB85C\uC6B4
+    \uACF3\uC744 \uCC3E\uC544 \uAE38\uC744 \uB5A0\uB0A9\uB2C8\uB2E4."
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 0
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uC644\uB8CC"
+  ChoiceText2: 
+  ChoiceText3: 
+  ChoiceEffect1: []
+  ChoiceEffect2: []
+  ChoiceEffect3: []

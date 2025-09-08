@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uC0DD\uC874\uC790_\uD754\uC801"
+  m_EditorClassIdentifier: 
+  EventID: "\uC0DD\uC874\uC790_\uD754\uC801"
+  EventText: "\uC218\uB9CE\uC740 \uB3CC\uB369\uC774\uAC00 \uC313\uC5EC \uC788\uB294
+    \uC0B0 \uC911\uD131. \uB3D9\uC11C\uB0A8\uBD81 \uC5B4\uB51C \uB3CC\uC544\uBD10\uB3C4
+    \uB3CC\uACFC \uB098\uBB34\uBC16\uC5D0 \uBCF4\uC774\uC9C0 \uC54A\uB294 \uC8FC\uBCC0
+    \uD48D\uACBD\uC5D0, \uC774\uB807\uAC8C\uAE4C\uC9C0 \uC790\uC5F0\uC801\uC77C \uD544\uC694\uAC00
+    \uC788\uB098 \uD55C\uD0C4\uD558\uACE0 \uC2F6\uC5B4\uC9C8 \uC9C0\uACBD\uC785\uB2C8\uB2E4.\r\n\r\n\uC774
+    \uBC14\uC704\uD2C8\uC744 \uC870\uC0AC\uD55C\uB2E4\uACE0 \uBB34\uC5B8\uAC00 \uB098\uC624\uB294
+    \uAC8C \uC788\uC744\uAE4C\uC694? \uAE30\uAECF\uD574\uC57C \uB098\uBB47\uAC00\uC9C0
+    \uBA87 \uAC1C\uB098 \uB098\uC62C \uD150\uB370, \uAD1C\uD788 \uC190\uB9CC \uB2E4\uCE58\uB294
+    \uAC70 \uC544\uB2D0\uAE4C\uC694? ... \uB2F9\uC2E0\uC740 \uC774 \uC7A5\uC18C\uB97C
+    \uC870\uC0AC\uD560 \uAC00\uCE58\uAC00 \uC788\uC744\uC9C0 \uC9C4\uC9C0\uD558\uAC8C
+    \uACE0\uBBFC\uD569\uB2C8\uB2E4."
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 1
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uC5B4\uCC28\uD53C \uB2E4\uB978 \uACF3\uC5D0 \uAC00\uB3C4 \uD48D\uACBD\uC740
+    \uB531\uD788 \uB2E4\uB974\uC9C0 \uC54A\uC744 \uAC83\uC774\uB2E4! \uADF8\uB0E5
+    \uC774\uACF3\uC744 \uC870\uC0AC\uD55C\uB2E4."
+  ChoiceText2: "\uC0AC\uB78C\uC758 \uD754\uC801\uC774 \uC870\uAE08\uC774\uB77C\uB3C4
+    \uB0A8\uC544 \uC788\uB294 \uACF3\uC744 \uCC3E\uC790... \uC870\uC0AC\uD558\uC9C0
+    \uC54A\uACE0 \uB5A0\uB09C\uB2E4."
+  ChoiceText3: 
+  ChoiceEffect1:
+  - "AddNextEventCard \uC0DD\uC874\uC790_\uD754\uC801_1"
+  ChoiceEffect2:
+  - "AddNextEventCard \uC0DD\uC874\uC790_\uD754\uC801_2"
+  ChoiceEffect3: []

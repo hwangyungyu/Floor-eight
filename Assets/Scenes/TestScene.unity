@@ -4805,7 +4805,7 @@ GameObject:
   - component: {fileID: 642020599}
   - component: {fileID: 642020600}
   m_Layer: 5
-  m_Name: "\uAD6C\uC5ED (1)"
+  m_Name: "\uACF5\uC6D0"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4899,7 +4899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isManage: 0
-  template: {fileID: 11400000, guid: 3f5b6ff4ca929584298ff7cf40fd0c4a, type: 2}
+  template: {fileID: 11400000, guid: d1599cd0300e24d4c988f759e884f1c5, type: 2}
   linkedDropZone: {fileID: 642020596}
   areaID: 
   isEnabled: 0
@@ -9595,7 +9595,7 @@ GameObject:
   - component: {fileID: 1232144874}
   - component: {fileID: 1232144875}
   m_Layer: 5
-  m_Name: "\uAD6C\uC5ED (2)"
+  m_Name: "\uBC31\uD654\uC810"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9659,7 +9659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isManage: 0
-  template: {fileID: 11400000, guid: 66b89a9972222d0428fd1e96e2fcec6e, type: 2}
+  template: {fileID: 11400000, guid: aac16dd29049eb94bb3ab745e2e35491, type: 2}
   linkedDropZone: {fileID: 1232144870}
   areaID: 
   isEnabled: 0
@@ -15064,7 +15064,7 @@ GameObject:
   - component: {fileID: 1886090024}
   - component: {fileID: 1886090026}
   m_Layer: 5
-  m_Name: "\uAD6C\uC5ED"
+  m_Name: "\uC218\uB825\uBC1C\uC804\uC18C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15128,7 +15128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isManage: 0
-  template: {fileID: 11400000, guid: 772496f06f96e424bb0160e2bba3e2cd, type: 2}
+  template: {fileID: 11400000, guid: fb77ca2daefd01947b4937035be6e226, type: 2}
   linkedDropZone: {fileID: 1886090023}
   areaID: 
   isEnabled: 0
@@ -16525,13 +16525,13 @@ MonoBehaviour:
   - {fileID: 309217247}
   - {fileID: 395484786}
   - {fileID: 1312312591}
-  foodSprite: {fileID: 4101822261897403927, guid: ba702761345e1ff49b6a4e721d535de0, type: 3}
-  medicineSprite: {fileID: 3503025925663728566, guid: 1c572106ff53f0049bf01d2a4aa2893d, type: 3}
-  mentalSprite: {fileID: 353647680612599479, guid: 632293f4f9bf13d4e8247c81904368bf, type: 3}
+  foodSprite: {fileID: -1045181238759104467, guid: 3cebeb9fbffc37a47ab59cd3ff386fff, type: 3}
+  medicineSprite: {fileID: 4895226371795390672, guid: f0778659e187159439d25d81cc771552, type: 3}
+  mentalSprite: {fileID: -3395856866206217572, guid: cf5791131e0b5dc40b17e5e0404ee665, type: 3}
   madnessSprite: {fileID: -4922566716372655722, guid: e1b6025f1c91da64da6110df9cfde768, type: 3}
-  utilitySprite: {fileID: -7871416130025694682, guid: be4440de8c580a9499f3c35e0a087ec4, type: 3}
-  defenseSprite: {fileID: -7573278270360981722, guid: 4c9ab3e76c8df88418882ddb712b9fda, type: 3}
-  populationSprite: {fileID: 4500861606513904212, guid: 654acc0582eddb5469e29cf196c6e7f9, type: 3}
+  utilitySprite: {fileID: 7468853865235363849, guid: cf78281e33dfe364d87c721bfdd32038, type: 3}
+  defenseSprite: {fileID: -4868476205444432284, guid: f47b956895576224682589c7a15ba507, type: 3}
+  populationSprite: {fileID: 7079939810118749161, guid: ab8b216afb19a8a4b91a046f3e78de86, type: 3}
 --- !u!114 &2123142087
 MonoBehaviour:
   m_ObjectHideFlags: 0

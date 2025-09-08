@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uBCBD\uBA74"
+  m_EditorClassIdentifier: 
+  EventID: "\uBCBD\uBA74"
+  EventText: "\uD070\uC77C\uC785\uB2C8\uB2E4! \uBCBD \uC911 \uD558\uB098\uC5D0 \uAE08\uC774
+    \uAC00\uB354\uB2C8 \uC870\uAE08\uC529 \uAE08\uC774 \uCEE4\uC838\uAC00\uACE0 \uC788\uC2B5\uB2C8\uB2E4!
+    \uBE68\uB9AC \uC870\uCE58\uB97C \uCDE8\uD558\uC9C0 \uC54A\uC73C\uBA74 \uBB38\uC81C\uAC00
+    \uC0DD\uAE38 \uAC83 \uAC19\uC2B5\uB2C8\uB2E4."
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 1
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uBB50\uB77C\uB3C4 \uB367\uB300\uC11C \uB9C9\uC544\uBCF8\uB2E4"
+  ChoiceText2: "\uADF8\uB9AC \uD070 \uBB38\uC81C\uB294 \uC0DD\uAE30\uC9C0 \uC54A\uACA0\uC9C0"
+  ChoiceText3: 
+  ChoiceEffect1:
+  - ItemDecrease utilityitem 1
+  - "AddNextEventCard \uBCBD\uBA74_1"
+  ChoiceEffect2:
+  - ItemDecrease defense 1
+  - "AddNextEventCard \uBCBD\uBA74_2"
+  ChoiceEffect3: []

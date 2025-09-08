@@ -165,13 +165,15 @@ public class CardUI : MonoBehaviour
                     {
                         if (areaData?.currentPenalty != null && index >= 0 && index < areaData.currentPenalty.Count)
                             amount += areaData.currentPenalty[index];
-                        resourceChanges.Add((resourceName, -Mathf.Max(0, amount)));
+                        if(resourceName != "madness")
+                            resourceChanges.Add((resourceName, -Mathf.Max(0, amount)));
                     }
                     else // ItemIncrease
                     {
                         if (areaData?.currentBonus != null && index >= 0 && index < areaData.currentBonus.Count)
                             amount += areaData.currentBonus[index];
-                        resourceChanges.Add((resourceName, Mathf.Max(0, amount)));
+                        if (resourceName != "madness")
+                            resourceChanges.Add((resourceName, Mathf.Max(0, amount)));
                     }
                 }
                 else if (parts.Length >= 2 && effectType == "AdditionalMessage")

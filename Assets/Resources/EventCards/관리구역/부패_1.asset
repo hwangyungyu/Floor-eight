@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uBD80\uD328_1"
+  m_EditorClassIdentifier: 
+  EventID: "\uBD80\uD328_1"
+  EventText: "\uB2F9\uC2E0\uACFC \uADF8\uB8F9\uC6D0\uB4E4\uC740 \uC791\uC740 \uBAA8\uB2E5\uBD88\uC744
+    \uB9CC\uB4E4\uACE0 \uADF8 \uC704\uC5D0 \uCC44\uBC18\uC744 \uC5B9\uC5B4 \uAC04\uC774
+    \uD6C8\uC7AC\uAE30\uB97C \uB9CC\uB4DC\uB294 \uB370 \uC131\uACF5\uD588\uC2B5\uB2C8\uB2E4!\n\uC774\uAC78\uB85C
+    \uC880 \uB354 \uC624\uB798 \uC74C\uC2DD\uC744 \uBCF4\uAD00\uD560 \uC218 \uC788\uC744
+    \uAC83 \uAC19\uAD70\uC694."
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 0
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uC644\uB8CC"
+  ChoiceText2: 
+  ChoiceText3: 
+  ChoiceEffect1: []
+  ChoiceEffect2: []
+  ChoiceEffect3: []

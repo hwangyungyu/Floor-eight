@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uACC4\uB2E8\uC0DD\uC874\uC790\uBC1C\uACAC"
+  m_EditorClassIdentifier: 
+  EventID: "\uACC4\uB2E8\uC0DD\uC874\uC790\uBC1C\uACAC"
+  EventText: "\uB2F9\uC2E0\uC740 \uACC4\uB2E8\uC73C\uB85C \uD5A5\uD588\uC2B5\uB2C8\uB2E4.
+    \uACC4\uB2E8\uC2E4\uC740, \uC804\uB4F1\uC774 \uC190\uC0C1\uB41C \uAC74\uC9C0
+    \uBD88\uC774 \uB4E4\uC5B4\uC624\uC9C0 \uC54A\uC544 \uC5B4\uB450\uCEF4\uCEF4\uD558\uB124\uC694.
+    \uC790\uCE6B\uD558\uBA74 \uB118\uC5B4\uC9C0\uACA0\uC5B4\uC694!\r\n\uBC1C\uB05D\uC744
+    \uC870\uC2EC\uD558\uBA70 \uACC4\uB2E8\uC744 \uD55C \uB2E8\uC529 \uB0B4\uB824\uAC00\uB358
+    \uB2F9\uC2E0\uC740, \uADF8\uB300\uB85C \uC55E\uC73C\uB85C \uACE0\uAFB8\uB77C\uC9D1\uB2C8\uB2E4.
+    \uC544\uB2C8, \uBD84\uBA85 \uC774 \uC544\uB798 \uACC4\uB2E8\uC774 \uC788\uC5C8\uC5B4\uC57C
+    \uD588\uB294\uB370?!\r\n\r\n... \uB300\uB2E8\uD55C \uC18C\uB9AC\uB97C \uB0B4\uBA70
+    \uBC14\uB2E5\uACFC \uD654\uB824\uD558\uAC8C \uD3EC\uC639\uD55C \uB2F9\uC2E0\uC740,
+    \uACE7\uC7A5 \uACE0\uAC1C\uB97C \uB4E4\uC5B4 \uBC1C\uBC11\uC744 \uD655\uC778\uD569\uB2C8\uB2E4!
+    \uBC1C\uBC11\uC5D0 \uBE68\uB798\uCC98\uB7FC \uB110\uB824 \uC788\uB358 \uAC83\uC740,
+    ...... \uC0AC\uB78C?\r\n"
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 1
+  ChoiceEnabled3: 1
+  ChoiceText1: "\uC544\uB2C8, \uC0AC\uB78C\uC774 \uC65C \uC5EC\uAE30 \uC788\uC9C0?
+    \uB2F9\uC7A5 \uC790\uB9AC\uB97C \uB5A0\uB09C\uB2E4."
+  ChoiceText2: "\uC774\uAC8C \uC6EC \uB5A1\uC778\uAC00! \uC8FC\uBA38\uB2C8\uB97C
+    \uB4A4\uC9C4\uB2E4."
+  ChoiceText3: "\uD639\uC2DC \uC0B4\uC544\uC788\uC744 \uC218\uB3C4 \uC788\uB2E4!
+    \uC0DD\uC0AC\uB97C \uD655\uC778\uD574 \uBCF4\uC790. "
+  ChoiceEffect1:
+  - "AddNextEventCard \uACC4\uB2E8\uC0DD\uC874\uC790\uBC1C\uACAC_1"
+  ChoiceEffect2:
+  - "AddNextEventCard \uACC4\uB2E8\uC0DD\uC874\uC790\uBC1C\uACAC_2"
+  ChoiceEffect3:
+  - "AddNextEventCard \uACC4\uB2E8\uC0DD\uC874\uC790\uBC1C\uACAC_3"

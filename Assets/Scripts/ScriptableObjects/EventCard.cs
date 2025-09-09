@@ -35,11 +35,25 @@ public class EventCard : ScriptableObject
     public string ChoiceText3;
 
     [Header("1번 선택지 효과")]
+    [Range(0, 1)]
+    public float ChoiceProbability1 = 1f;
     public List<string> ChoiceEffect1;
+    [Header("1번 선택지 실패 효과")]
+    public List<string> ChoiceEffect1_Fail;
+
     [Header("2번 선택지 효과")]
+    [Range(0, 1)]
+    public float ChoiceProbability2 = 1f;
     public List<string> ChoiceEffect2;
+    [Header("2번 선택지 실패 효과")]
+    public List<string> ChoiceEffect2_Fail;
+
     [Header("3번 선택지 효과")]
+    [Range(0, 1)]
+    public float ChoiceProbability3 = 1f;
     public List<string> ChoiceEffect3;
+    [Header("3번 선택지 실패 효과")]
+    public List<string> ChoiceEffect3_Fail;
 }
 
 [System.Serializable]

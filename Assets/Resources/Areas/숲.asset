@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c53e5890a68857418eb818987e6d888, type: 3}
-  m_Name: "\uC544\uD30C\uD2B8"
+  m_Name: "\uC232"
   m_EditorClassIdentifier: 
-  areaID: "\uC544\uD30C\uD2B8"
-  enabled: 0
-  events: []
+  areaID: "\uC232"
+  enabled: 1
+  events:
+  - "\uBB3C\uB9C8\uC744"
+  - "\uBC84\uB824\uC9C4\uB300\uD53C\uC18C"
+  - "\uC2DD\uBB3C1"
+  - "\uC2DD\uBB3C2"
   bonus: 
   penalty: 
   maxCapacity: 3

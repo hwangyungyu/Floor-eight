@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uBC84\uB824\uC9C4\uB300\uD53C\uC18C_1-1"
+  m_EditorClassIdentifier: 
+  EventID: "\uBC84\uB824\uC9C4\uB300\uD53C\uC18C_1-1"
+  EventText: "\uC219\uC18C \uB0B4\uBD80\uB294 \uB09C\uC7A1\uD558\uAC8C \uC5B4\uC9C0\uB7FD\uD600\uC838
+    \uC788\uC2B5\uB2C8\uB2E4!  \r\n\uB2E4\uB4E4 \uC815\uB9AC\uC815\uB3C8\uC774\uB780
+    \uAC78 \uBAA8\uB974\uB294 \uAC78\uAE4C\uC694? \uCE94\uB4E4\uC740 \uC544\uBB34\uB807\uAC8C\uB098
+    \uBC14\uB2E5\uC5D0 \uBC84\uB824\uC838 \uC788\uACE0, \uC720\uB9AC\uBCD1\uB4E4\uC740
+    \uBA40\uCA61\uD55C \uAC83 \uD558\uB098 \uC5C6\uC774 \uC804\uBD80 \uC720\uB9AC
+    \uC870\uAC01\uC73C\uB85C \uBCC0\uBAA8\uD574 \uBC14\uB2E5\uC5D0 \uD769\uBFCC\uB824\uC838
+    \uC788\uAD70\uC694!\r\n\r\n\uADF8\uB7EC\uB098 \uB2F9\uC2E0\uC758 \uB208\uC5D4
+    \uADF8 \uC5B4\uC9C0\uB7EC\uC6B4 \uAD11\uACBD\uC740 \uB2E8 \uD558\uB098\uB3C4
+    \uC7A1\uD788\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4. \uBD89\uC740 \uB77D\uCE74\uB85C
+    \uC4F4 \uBB38\uC7A5 \uD558\uB098\uAC00 \uBCBD\uBA74 \uC804\uCCB4\uB97C \uCC44\uC6B0\uACE0
+    \uC788\uC5C8\uC73C\uB2C8\uAE4C\uC694.\r\n\r\n\"\uB2F9\uC7A5\uC774\uACF3\uC5D0\uC11C\uB098\uAC00\"\r\n\r\n\uBD88\uAE38\uD55C
+    \uC608\uAC10\uC774 \uB4E0 \uB2F9\uC2E0\uC740 \uACE7\uBC14\uB85C \uB300\uD53C\uC18C
+    \uBC14\uAE65\uC73C\uB85C \uB3C4\uB9DD\uCCE4\uC2B5\uB2C8\uB2E4. "
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 0
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uC644\uB8CC"
+  ChoiceText2: 
+  ChoiceText3: 
+  ChoiceProbability1: 1
+  ChoiceEffect1: []
+  ChoiceEffect1_Fail: []
+  ChoiceProbability2: 1
+  ChoiceEffect2: []
+  ChoiceEffect2_Fail: []
+  ChoiceProbability3: 1
+  ChoiceEffect3: []
+  ChoiceEffect3_Fail: []

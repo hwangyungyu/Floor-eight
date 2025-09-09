@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uBB34\uB108\uC9C4\uB9E4\uD45C\uC18C"
+  m_EditorClassIdentifier: 
+  EventID: "\uBB34\uB108\uC9C4\uB9E4\uD45C\uC18C"
+  EventText: "\uC0B0\uB4F1\uC131\uC774\uC758 \uBB34\uB98E \uB05D\uAE4C\uC9C0 \uBB3C\uC774
+    \uCC28\uC624\uB978 \uC774\uD6C4 \uB354 \uC774 \uC0C1 \uC785\uC7A5\uAD8C\uC744
+    \uB0B4\uACE0 \uACF5\uC6D0\uC73C\uB85C \uB4E4\uC5B4\uAC00\uB294 \uC0AC\uB78C\uC740
+    \uC5C6\uC5B4\uC84C\uB2E4. \uADF8\uB7EC\uB098 \uB9E4\uD45C\uC18C \uB9CC\uD07C\uC740
+    \uADF8 \uC0AC\uC2E4\uC744 \uBC1B\uC544\uB4E4\uC774\uC9C0 \uBABB\uD588\uB294\uC9C0
+    \uC5EC\uC804\uD788 \uADF8 \uC790\uB9AC\uB97C \uC9C0\uD0A4\uACE0 \uC788\uB2E4.\r\n\uB9E4\uD45C\uC18C
+    \uB0B4\uBD80\uB85C \uB4E4\uC5B4\uAC00\uAE30 \uC704\uD574 \uBB38\uACE0\uB9AC\uB97C
+    \uBD99\uC7A1\uC790 \uC5B4\uB450\uC6B4 \uB0B4\uBD80\uC5D0\uC11C \uBB34\uC5B8\uAC00
+    \uC7A0\uC2DC \uAFC8\uD2C0\uAC70\uB9AC\uB2E4\uAC00 \uBE5B\uC774 \uB2FF\uC9C0 \uC54A\uB294
+    \uC5B4\uB460 \uC18D\uC73C\uB85C \uC228\uC5B4\uB4E4\uC5B4\uAC00\uB294 \uAC83\uC774
+    \uBCF4\uC600\uB2E4."
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 1
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uADF8\uB798\uB3C4 \uC5F4\uACE0\uB4E4\uC5B4\uAC04\uB2E4 "
+  ChoiceText2: "\uB2F9\uC7A5 \uB3C4\uB9DD\uCE5C\uB2E4"
+  ChoiceText3: 
+  ChoiceProbability1: 0.5
+  ChoiceEffect1:
+  - "IncreaseSpecial \uBC29\uACF5\uD638_\uC785\uC7A5\uAD8C 1"
+  - "AdditionalMessage \uB79C\uB364"
+  - "AddNextEventCard \uBB34\uB108\uC9C4\uB9E4\uD45C\uC18C_1-1"
+  ChoiceEffect1_Fail:
+  - "AddNextEventCard \uBB34\uB108\uC9C4\uB9E4\uD45C\uC18C_1-2"
+  ChoiceProbability2: 1
+  ChoiceEffect2:
+  - ItemIncrease utilityitem 1
+  - "AddNextEventCard \uC791\uC740\uACC4\uACE1_1-2-2-2"
+  ChoiceEffect2_Fail: []
+  ChoiceProbability3: 1
+  ChoiceEffect3: []
+  ChoiceEffect3_Fail: []

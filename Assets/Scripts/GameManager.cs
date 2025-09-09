@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
-using System.Collections; // 코루틴 사용을 위해 추가
+using System.Collections;
+using System; // 코루틴 사용을 위해 추가
 
 public class GameManager : MonoBehaviour
 {
@@ -103,16 +103,44 @@ public class GameManager : MonoBehaviour
     public void ChoiceSelected(int choiceNum)
     {
         List<string> effects = null;
+        float probability = 1f;
+        List<string> effects_fail = null;
+
         switch (choiceNum)
         {
-            case 1: effects = CurrentEventCard.ChoiceEffect1; break;
-            case 2: effects = CurrentEventCard.ChoiceEffect2; break;
-            case 3: effects = CurrentEventCard.ChoiceEffect3; break;
-            default: Debug.LogError("잘못된 선택 번호입니다."); return;
+            case 1: 
+                effects = CurrentEventCard.ChoiceEffect1;
+                probability = CurrentEventCard.ChoiceProbability1;
+                effects_fail = CurrentEventCard.ChoiceEffect1_Fail;
+                break;
+            case 2: 
+                effects = CurrentEventCard.ChoiceEffect2;
+                probability = CurrentEventCard.ChoiceProbability2;
+                effects_fail = CurrentEventCard.ChoiceEffect2_Fail;
+                break;
+            case 3: 
+                effects = CurrentEventCard.ChoiceEffect3;
+                probability = CurrentEventCard.ChoiceProbability3;
+                effects_fail = CurrentEventCard.ChoiceEffect3_Fail;
+                break;
+            default: 
+                Debug.LogError("잘못된 선택 번호입니다."); 
+                return;
         }
-        foreach (string effect in effects)
+
+        if (UnityEngine.Random.Range(0f, 1f) <= probability)
         {
-            executer.ExecuteEffect(effect);
+            foreach (string effect in effects)
+            {
+                executer.ExecuteEffect(effect);
+            }
+        }
+        else
+        {
+            foreach (string effect in effects_fail)
+            {
+                executer.ExecuteEffect(effect);
+            }
         }
 
         // 튜토리얼 로직 추가

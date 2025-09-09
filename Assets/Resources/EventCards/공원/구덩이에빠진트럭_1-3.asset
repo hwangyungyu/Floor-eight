@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uAD6C\uB369\uC774\uC5D0\uBE60\uC9C4\uD2B8\uB7ED_1-3"
+  m_EditorClassIdentifier: 
+  EventID: "\uAD6C\uB369\uC774\uC5D0\uBE60\uC9C4\uD2B8\uB7ED_1-3"
+  EventText: "\uD2B8\uB7ED \uB0B4\uBD80\uC5D0 \uC9C4\uC785\uD558\uC790\uB9C8\uC790
+    \uCEE4\uB2E4\uB780 \uAD49\uC74C\uC774 \uB4E4\uB824 \uC635\uB2C8\uB2E4! \uB2F9\uC2E0\uC740
+    \uBB54\uAC00 \uC798\uBABB \uB428\uC744 \uB290\uB07C\uACE0 \uAE09\uD788 \uBE60\uC838
+    \uB098\uC624\uB824 \uD588\uC73C\uB098 \uD2B8\uB7ED\uACFC \uD568\uAED8 \uCD94\uB77D\uD558\uC600\uC2B5\uB2C8\uB2E4.\r\n\uFF08\uC9E7\uC740
+    \uBE44\uBA85\uC18C\uB9AC\uC640 \uD568\uAED8 \uD1B5\uC2E0\uC740 \uC885\uB8CC\uB428\uFF09 "
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 0
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uC644\uB8CC"
+  ChoiceText2: 
+  ChoiceText3: 
+  ChoiceProbability1: 1
+  ChoiceEffect1: []
+  ChoiceEffect1_Fail: []
+  ChoiceProbability2: 1
+  ChoiceEffect2: []
+  ChoiceEffect2_Fail: []
+  ChoiceProbability3: 1
+  ChoiceEffect3: []
+  ChoiceEffect3_Fail: []

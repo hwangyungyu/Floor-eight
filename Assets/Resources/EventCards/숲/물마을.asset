@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uBB3C\uB9C8\uC744"
+  m_EditorClassIdentifier: 
+  EventID: "\uBB3C\uB9C8\uC744"
+  EventText: "\uC774 \uC0B0\uC5B4\uADC0\uC5D0\uB294 \uACFC\uAC70 \uC791\uC740 \uB9C8\uC744\uC774
+    \uC788\uC5C8\uC2B5\uB2C8\uB2E4. \uB9C8\uC744 \uC8FC\uBBFC\uB4E4\uC740 \uC2DC\uAC04\uC774
+    \uB0A0 \uB54C\uB9C8\uB2E4 \uB9C8\uC744 \uADFC\uCC98\uC5D0 \uAF43\uC744 \uC2EC\uC5C8\uB294\uB370,
+    \uADF8 \uB355\uBD84\uC5D0 \uBD04\uCCA0\uB9CC \uB418\uBA74 \uC544\uB984\uB2E4\uC6B4
+    \uAF43\uBC2D\uC744 \uBCFC \uC218 \uC788\uC5C8\uC8E0.\r\n\r\n\uB2F9\uC2E0\uB3C4
+    \uADF8 \uAF43\uBC2D\uC744 \uBCF4\uAE30 \uC704\uD574 \uBD04\uC774 \uB418\uBA74
+    \uC790\uC8FC \uB9C8\uC744\uB85C \uC0B0\uCC45\uC744 \uAC14\uB358 \uAE30\uC5B5\uC774
+    \uB0A9\uB2C8\uB2E4.\r\n\uADF8\uB7EC\uB098 \uC774\uC81C \uB9C8\uC744\uC758 \uC874\uC7AC\uB97C
+    \uC54C\uC544\uBCFC \uC218 \uC788\uB294 \uD754\uC801\uC774\uB77C\uACE0\uB294 \uBB3C
+    \uC704\uB85C \uB5A0\uB2E4\uB2C8\uB294 \uC794\uD574\uB4E4\uACFC \uD574\uC548\uAC00\uC5D0
+    \uBC00\uB824\uC628 \uB9C8\uC744 \uC0AC\uB78C\uB4E4\uC758 \uC2DC\uC2E0 \uBFD0\uC785\uB2C8\uB2E4."
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 0
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uC2DC\uC2E0\uC5D0\uAC8C \uB2E4\uAC00\uAC04\uB2E4."
+  ChoiceText2: 
+  ChoiceText3: 
+  ChoiceProbability1: 1
+  ChoiceEffect1:
+  - "AddNextEventCard \uBB3C\uB9C8\uC744_1"
+  ChoiceEffect1_Fail: []
+  ChoiceProbability2: 1
+  ChoiceEffect2: []
+  ChoiceEffect2_Fail: []
+  ChoiceProbability3: 1
+  ChoiceEffect3: []
+  ChoiceEffect3_Fail: []

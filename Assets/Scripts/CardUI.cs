@@ -117,125 +117,82 @@ public class CardUI : MonoBehaviour
         Text buttonText = buttonObj.GetComponentsInChildren<Text>()[0];
         Text additionalMessage = buttonObj.GetComponentsInChildren<Text>()[1];
         additionalMessage.text = "";
-        List<string> effects = null;
+
         EventCard currentCard = GameManager.Instance.eventCardManager.CurrentEventCard;
+        List<string> effects = null;
+        List<string> fail_effects = null;
+        float probability = 1f;
 
         switch (choiceNumber)
         {
             case 1:
                 effects = currentCard.ChoiceEffect1;
+                fail_effects = currentCard.ChoiceEffect1_Fail;
+                probability = currentCard.ChoiceProbability1;
                 buttonObj.SetActive(currentCard.ChoiceEnabled1);
                 break;
             case 2:
                 effects = currentCard.ChoiceEffect2;
+                fail_effects = currentCard.ChoiceEffect2_Fail;
+                probability = currentCard.ChoiceProbability2;
                 buttonObj.SetActive(currentCard.ChoiceEnabled2);
                 break;
             case 3:
                 effects = currentCard.ChoiceEffect3;
+                fail_effects = currentCard.ChoiceEffect3_Fail;
+                probability = currentCard.ChoiceProbability3;
                 buttonObj.SetActive(currentCard.ChoiceEnabled3);
                 break;
         }
 
         if (!buttonObj.activeSelf) return;
 
-        bool isInteractable = IsChoiceAffordable(effects);
-        List<(string name, int value)> resourceChanges = new List<(string, int)>();
+        bool isInteractable = IsChoiceAffordable(effects) && IsChoiceAffordable(fail_effects);
+        button.interactable = isInteractable;
 
-        if (effects != null)
+        var successChanges = GetResourceChanges(effects);
+        var failChanges = GetResourceChanges(fail_effects);
+        ParseAdditionalMessage(effects, additionalMessage);
+
+        if (buttonText != null) buttonText.text = choiceText;
+
+        List<GameObject> uiList = GetUiListForChoice(choiceNumber);
+        if (uiList == null) return;
+
+        foreach (var ui in uiList) ui.SetActive(false);
+
+        var allChanges = new List<(string name, int value, bool success, float pro)>();
+        if (probability > 0)
         {
-            string area = GameManager.Instance.eventCardManager.currentCardArea;
-            Area areaData = null;
-            if (!string.IsNullOrEmpty(area))
-                AreaManager.Instance.areas.TryGetValue(area, out areaData);
-
-            foreach (string effect in effects)
+            foreach (var c in successChanges)
             {
-                string[] parts = effect.Split(' ');
-                string effectType = parts[0];
-
-                if (parts.Length >= 3 && (effectType == "ItemDecrease" || effectType == "ItemIncrease"))
-                {
-                    string resourceName = parts[1].ToLower();
-                    if (!int.TryParse(parts[2], out int baseAmount)) continue;
-
-                    int amount = baseAmount;
-                    int index = ResourceManager.Instance.GetResourceIndex(resourceName);
-
-                    if (effectType == "ItemDecrease")
-                    {
-                        if (areaData?.currentPenalty != null && index >= 0 && index < areaData.currentPenalty.Count)
-                            amount += areaData.currentPenalty[index];
-                        if(resourceName != "madness")
-                            resourceChanges.Add((resourceName, -Mathf.Max(0, amount)));
-                    }
-                    else // ItemIncrease
-                    {
-                        if (areaData?.currentBonus != null && index >= 0 && index < areaData.currentBonus.Count)
-                            amount += areaData.currentBonus[index];
-                        if (resourceName != "madness")
-                            resourceChanges.Add((resourceName, Mathf.Max(0, amount)));
-                    }
-                }
-                else if (parts.Length >= 2 && effectType == "AdditionalMessage")
-                {
-                    if (additionalMessage != null)
-                    {
-                        additionalMessage.text = parts[1].Replace("_", " ");
-                        if (parts.Length >= 3 && ColorUtility.TryParseHtmlString(parts[2], out Color newColor))
-                            additionalMessage.color = newColor;
-                        else
-                            additionalMessage.color = Color.black;
-                    }
-                }
+                allChanges.Add((c.name, c.value, true, probability));
+            }
+        }
+        if (probability < 1)
+        {
+            foreach (var c in failChanges)
+            {
+                allChanges.Add((c.name, c.value, false, 1 - probability));
             }
         }
 
-        button.interactable = isInteractable;
-        if (buttonText != null) buttonText.text = choiceText;
+        int totalChanges = allChanges.Count;
 
-        List<GameObject> uiList = choiceNumber switch
+        if (totalChanges == 1)
         {
-            1 => buttonUI1,
-            2 => buttonUI2,
-            3 => buttonUI3,
-            _ => null
-        };
-
-        for (int i = 0; i < uiList.Count; i++)
-            uiList[i].SetActive(false); // 초기화
-
-        for (int i = 0; i < resourceChanges.Count && i < 4; i++)
+            PopulateSingleResourceUI(uiList[0], (allChanges[0].name, allChanges[0].value), allChanges[0].success, allChanges[0].pro);
+        }
+        else if (totalChanges == 2)
         {
-            int uiIndex = (resourceChanges.Count == 3 && i == 1) ? 2 : i;
-            if (resourceChanges.Count == 3 && i == 2) uiIndex = 3;
-
-            GameObject uiObj = uiList[uiIndex];
-            uiObj.SetActive(true);
-
-            Text uiText = uiObj.GetComponentInChildren<Text>();
-            int value = resourceChanges[i].value;
-            uiText.text = $"{(value >= 0 ? "+" : "")}{value}";
-            uiText.color = value >= 0 ? Color.green : Color.red;
-
-            Image uiImage = null;
-            Image[] images = uiObj.GetComponentsInChildren<Image>(true);
-            foreach (Image img in images)
-            {
-                if (img.gameObject != uiObj)
-                {
-                    uiImage = img;
-                    break;
-                }
-            }
-            if (uiImage != null && resourceIcons.TryGetValue(resourceChanges[i].name.ToLower(), out Sprite icon))
-            {
-                uiImage.sprite = icon;
-                uiImage.enabled = true;
-            }
-            else if (uiImage != null)
-            {
-                uiImage.enabled = false;
-            }
+            PopulateSingleResourceUI(uiList[0], (allChanges[0].name, allChanges[0].value), allChanges[0].success, allChanges[0].pro);
+            PopulateSingleResourceUI(uiList[1], (allChanges[1].name, allChanges[1].value), allChanges[1].success, allChanges[1].pro);
+        }
+        else if (totalChanges >= 3)
+        {
+            PopulateSingleResourceUI(uiList[0], (allChanges[0].name, allChanges[0].value), allChanges[0].success, allChanges[0].pro);
+            PopulateSingleResourceUI(uiList[2], (allChanges[1].name, allChanges[1].value), allChanges[1].success, allChanges[1].pro);
+            PopulateSingleResourceUI(uiList[3], (allChanges[2].name, allChanges[2].value), allChanges[2].success, allChanges[2].pro);
         }
 
         button.onClick.RemoveAllListeners();
@@ -290,5 +247,118 @@ public class CardUI : MonoBehaviour
         }
 
         return true;
+    }
+
+    private List<GameObject> GetUiListForChoice(int choiceNumber)
+    {
+        switch (choiceNumber)
+        {
+            case 1: return buttonUI1;
+            case 2: return buttonUI2;
+            case 3: return buttonUI3;
+            default: return null;
+        }
+    }
+
+    private List<(string name, int value)> GetResourceChanges(List<string> effects)
+    {
+        var resourceChanges = new List<(string name, int value)>();
+        if (effects == null) return resourceChanges;
+
+        string area = GameManager.Instance.eventCardManager.currentCardArea;
+        Area areaData = null;
+        if (!string.IsNullOrEmpty(area))
+            AreaManager.Instance.areas.TryGetValue(area, out areaData);
+
+        foreach (string effect in effects)
+        {
+            string[] parts = effect.Split(' ');
+            string effectType = parts[0];
+
+            if (parts.Length >= 3 && (effectType == "ItemDecrease" || effectType == "ItemIncrease"))
+            {
+                string resourceName = parts[1].ToLower();
+                if (!int.TryParse(parts[2], out int baseAmount)) continue;
+
+                int amount = baseAmount;
+                int index = ResourceManager.Instance.GetResourceIndex(resourceName);
+
+                if (effectType == "ItemDecrease")
+                {
+                    if (areaData?.currentPenalty != null && index >= 0 && index < areaData.currentPenalty.Count)
+                        amount += areaData.currentPenalty[index];
+                    if (resourceName != "madness")
+                        resourceChanges.Add((resourceName, -Mathf.Max(0, amount)));
+                }
+                else // ItemIncrease
+                {
+                    if (areaData?.currentBonus != null && index >= 0 && index < areaData.currentBonus.Count)
+                        amount += areaData.currentBonus[index];
+                    if (resourceName != "madness")
+                        resourceChanges.Add((resourceName, Mathf.Max(0, amount)));
+                }
+            }
+        }
+        return resourceChanges;
+    }
+
+    private void ParseAdditionalMessage(List<string> effects, Text additionalMessage)
+    {
+        if (effects == null || additionalMessage == null) return;
+
+        foreach (string effect in effects)
+        {
+            string[] parts = effect.Split(' ');
+            if (parts.Length >= 2 && parts[0] == "AdditionalMessage")
+            {
+                additionalMessage.text = parts[1].Replace("_", " ");
+                if (parts.Length >= 3 && ColorUtility.TryParseHtmlString(parts[2], out Color newColor))
+                    additionalMessage.color = newColor;
+                else
+                    additionalMessage.color = Color.black;
+                return;
+            }
+        }
+    }
+
+    private void PopulateSingleResourceUI(GameObject uiObj, (string name, int value) change, bool success, float pro)
+    {
+        uiObj.SetActive(true);
+
+        Text uiText = uiObj.GetComponentInChildren<Text>();
+        int value = change.value;
+        uiText.text = $"{(value >= 0 ? "+" : "")}{value}";
+        uiText.color = value >= 0 ? Color.green : Color.red;
+
+        Image uiImage = null;
+        Image[] images = uiObj.GetComponentsInChildren<Image>(true);
+        foreach (Image img in images)
+        {
+            img.color = Color.white;
+            if (img.gameObject != uiObj)
+            {
+                uiImage = img;
+            }
+            else
+            {
+                if (pro != 1)
+                {
+                    if (success)
+                        img.color = Color.yellow;
+                    else
+                        img.color = Color.blue;
+                }
+            }
+        }
+
+        if (uiImage != null && resourceIcons.TryGetValue(change.name.ToLower(), out Sprite icon))
+        {
+            uiImage.sprite = icon;
+            uiImage.enabled = true;
+        }
+        else if (uiImage != null)
+        {
+            uiImage.enabled = false;
+        }
     }
 }

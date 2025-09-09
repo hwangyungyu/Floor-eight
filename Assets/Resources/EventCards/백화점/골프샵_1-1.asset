@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uACE8\uD504\uC0F5_1-1"
+  m_EditorClassIdentifier: 
+  EventID: "\uACE8\uD504\uC0F5_1-1"
+  EventText: "... \uC0AC\uC2E4 \uACE8\uD504\uB294 \uCE58\uB294 \uBC95\uB3C4 \uBAA8\uB974\uACE0
+    \uCCD0\uBCF8 \uC801\uB3C4 \uC5C6\uC9C0\uB9CC, \uB2F9\uC2E0\uC740 \uC65C\uC778\uC9C0
+    \uADFC\uAC70 \uC5C6\uB294 \uC790\uC2E0\uAC10\uC5D0 \uCC28\uC624\uB985\uB2C8\uB2E4.
+    \uC5D0\uC774, \uBCF4\uB294 \uC0AC\uB78C\uB3C4 \uC5C6\uB294\uB370 \uBB50 \uC5B4\uB54C\uC694!
+    \uC77C\uB2E8 \uD574\uBCF4\uB294 \uAC70\uC8E0!\r\n\r\n\uB2F9\uC2E0\uC740 TV\uC5D0\uC11C
+    \uBCF8 \uACE8\uD504 \uC790\uC138\uB97C \uC5C9\uAC70\uC8FC\uCDA4 \uB530\uB77C\uD569\uB2C8\uB2E4.
+    \uC5B4\uC0C9\uD558\uC9C0\uB9CC, \uD55C \uBC88\uB3C4 \uC548 \uCCD0\uBCF8 \uC0AC\uB78C
+    \uCE58\uACE0\uB294 \uB098\uC058\uC9C0 \uC54A\uC740 \uAC83 \uAC19\uC544\uC694...
+    \uC544\uB9C8\uB3C4. \uB2F9\uC2E0\uC740 \uC790\uC138\uB97C \uC900\uBE44\uD558\uACE0,
+    \uBA4B\uC9C0\uAC8C \uACF5\uC744 \uB0A0\uB9BD\uB2C8\uB2E4!\r\n\r\n\uACF5\uC740
+    TV\uC5D0\uC11C \uBCF4\uB358 \uADF8 \uC7A5\uBA74\uACFC \uAC19\uC774, \uBC14\uB2E5\uBA74\uC744
+    \uD0C0\uACE0 \uC2A4\uB974\uB975...... \uD640\uC5D0 \uC548\uCC29\uD569\uB2C8\uB2E4.
+    \uD574\uB0C8\uC5B4\uC694! \uC644\uBCBD\uD55C \uC131\uACF5! \uB2F9\uC2E0\uC740
+    \uB9E4\uC6B0 \uACE0\uC591\uB418\uC5B4, \uACE8\uD504\uCC44\uB97C \uD5C8\uACF5\uC5D0
+    \uBA87 \uCC28\uB840 \uB354 \uD718\uB458\uB7EC \uBD05\uB2C8\uB2E4."
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger: []
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 0
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uC644\uB8CC"
+  ChoiceText2: 
+  ChoiceText3: 
+  ChoiceProbability1: 1
+  ChoiceEffect1: []
+  ChoiceEffect1_Fail: []
+  ChoiceProbability2: 1
+  ChoiceEffect2: []
+  ChoiceEffect2_Fail: []
+  ChoiceProbability3: 1
+  ChoiceEffect3: []
+  ChoiceEffect3_Fail: []

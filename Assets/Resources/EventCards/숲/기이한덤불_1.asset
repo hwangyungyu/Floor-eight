@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f36caa90b84742adc18b5d731fd4e, type: 3}
+  m_Name: "\uAE30\uC774\uD55C\uB364\uBD88_1"
+  m_EditorClassIdentifier: 
+  EventID: "\uAE30\uC774\uD55C\uB364\uBD88_1"
+  EventText: "\uB2F9\uC2E0\uC740 \uC232\uC18D\uC5D0\uC11C \uAE30\uC774\uD55C \uD615\uD0DC\uC758
+    \uB364\uBD88\uC744 \uBC1C\uACAC\uD588\uC2B5\uB2C8\uB2E4. \uC774 \uB3C5\uD2B9\uD55C
+    \uC2DD\uBB3C\uC740 \uBCF8\uB798 \uACE0\uD5A5\uC778 \uD759\uC5D0\uC11C \uBC97\uC5B4\uB098
+    \uAC70\uB300\uD55C \uACE0\uBAA9\uC758 \uC904\uAE30\uC5D0 \uBFCC\uB9AC\uB97C \uB0B4\uB824
+    90\uB3C4\uB85C \uAEBE\uC778 \uCC44 \uC790\uB77C\uB098\uACE0 \uC788\uC2B5\uB2C8\uB2E4.\r\n\uB364\uBD88\uB4E4\uC758
+    \uB610 \uB2E4\uB978 \uD1A0\uC591\uC774 \uB418\uC5B4\uC900 \uACE0\uBAA9\uC740
+    \uC790\uC2E0\uC758 \uD53C\uBD80\uC5D0 \uB9C8\uCE58 \uBC40 \uAC19\uC740 \uBFCC\uB9AC\uB4E4\uC774
+    \uD30C\uACE0\uB4E4\uC5C8\uC74C\uC5D0\uB3C4 \uC2DC\uB4E0 \uAE30\uC0C9 \uC5C6\uC774
+    \uAFCB\uAFCB\uC774 \uBC84\uD168\uB0B4\uACE0 \uC788\uC2B5\uB2C8\uB2E4. \uB180\uB77C\uC6B4
+    \uC778\uB0B4\uC2EC\uC774\uB124\uC694."
+  ItemTrigger: []
+  SpecialResourceTrigger: []
+  FlagTrigger:
+  - flagName: "\uB3C5\uC788\uB294\uB364\uBD88"
+    requiredValue: 0
+  - flagName: "\uBA40\uCA61\uD55C\uB364\uBD88"
+    requiredValue: 1
+  ChoiceEnabled1: 1
+  ChoiceEnabled2: 1
+  ChoiceEnabled3: 0
+  ChoiceText1: "\uB364\uBD88\uC5D0 \uC790\uB77C\uB09C \uC5F4\uB9E4\uB97C \uB534\uB2E4. "
+  ChoiceText2: "\uACE0\uBAA9 \uC704\uB85C \uC62C\uB77C\uAC04\uB2E4."
+  ChoiceText3: 
+  ChoiceProbability1: 1
+  ChoiceEffect1:
+  - ItemIncrease food 1
+  - "AddNextEventCard \uAE30\uC774\uD55C\uB364\uBD88_1-3"
+  ChoiceEffect1_Fail: []
+  ChoiceProbability2: 0.5
+  ChoiceEffect2:
+  - ItemIncrease mental 1
+  - ItemIncrease utilityitem 1
+  - "AddNextEventCard \uAE30\uC774\uD55C\uB364\uBD88_2-1"
+  ChoiceEffect2_Fail:
+  - ItemIncrease utilityitem 1
+  - "AddNextEventCard \uAE30\uC774\uD55C\uB364\uBD88_2-2"
+  ChoiceProbability3: 1
+  ChoiceEffect3: []
+  ChoiceEffect3_Fail: []
